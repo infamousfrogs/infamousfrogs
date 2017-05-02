@@ -18,11 +18,8 @@ class App extends React.Component {
       fruits: fruits,
       dairy: dairy
 
-    }
-
-    
+    }    
   }
-
 
   render() {
     return(
