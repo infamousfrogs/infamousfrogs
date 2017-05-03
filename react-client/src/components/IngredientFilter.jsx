@@ -2,66 +2,27 @@ import React from 'react';
 
 //user clicks on ingredient category (i.e. proteins), checks ingredients they want to serach for
 
-const IngredientFilter = (props) => (
 
-  <div>
+const IngredientFilter = (props) => {
+const arrayOfIngredients = [];
+var label = Object.keys(props.ingredients)[0]
+for (var key in props.ingredients[label]) {
+  arrayOfIngredients.push(key)
+}
 
-    <div>
-      <h1>Proteins</h1>
-      <ul>
-        <li> Chicken</li>
-        <li> Fish </li>
-        <li> Beef </li>
-        <li> Pork </li>
-      </ul>
-    </div>
-
-    <div>
-      <h1>Grains</h1>
-      <ul>
-        <li> Pasta </li>
-        <li> Rice </li>
-        <li> Quinoa </li>
-        <li> Something Else? </li>
-      </ul>
-    </div>
-
-    <div>
-      <h1>Vegetables</h1>
-      <ul>
-        <li> Potatoes </li>
-        <li> Broccoli </li>
-        <li> Carrots </li>
-        <li> Tomatoes </li>
-      </ul>
-    </div>
-
-    <div>
-      <h1>Fruits</h1>
-      <ul>
-        <li> Banana </li>
-        <li> Strawberries </li>
-        <li> Orange </li>
-        <li> Apple </li>
-      </ul>
-
-    </div>
-
-    <div>
-      <h1>Dairy</h1>
-      <ul>
-        <li> Milk </li>
-        <li> Yogurt </li>
-        <li> Cheese </li>
-        <li> Something Else? </li>
-      </ul>
-
-    </div>
-
-
-  </div>
-  
-  );
+return(
+<div>
+  <h3>{label}</h3>
+   <form>
+   <input type="checkbox" value="ingredient2"/> {arrayOfIngredients[0]}<br/> 
+    <input type="checkbox" value="ingredient2"/> {arrayOfIngredients[1]}<br/> 
+    <input type="checkbox" value="ingredient3"/> {arrayOfIngredients[2]}<br/> 
+    <input type="checkbox" value="ingredient4"/> {arrayOfIngredients[3]}<br/> 
+    <input type="checkbox" value="ingredient5"/> {arrayOfIngredients[4]}<br/> 
+  </form>
+</div>
+  )
+};
 
 
 export default IngredientFilter;

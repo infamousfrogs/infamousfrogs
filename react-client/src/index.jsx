@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import IngredientChoices from '/.components/IngredientChoices.jsx'
-import IngredientFilter from './components/IngredientFitler.jsx';
+import IngredientFilter from './components/IngredientFilter.jsx';
 import RecipeView from './components/RecipeView.jsx'
 
 
@@ -13,12 +12,52 @@ class App extends React.Component {
 
     this.state = {
       recipes: [],
-      proteins: {},
-      grains: {},
-      vegetables: {},
-      fruits: {},
-      dairy: {}
+      
+      list: [
 
+      {proteins: {
+        chicken: false, 
+        beef: false, 
+        salmon: false,
+        pork: false,
+        shrimp: false
+        }
+      },
+      
+      {grains: {
+        oats: false,
+        rice: false, 
+        pasta: false, 
+        quinoa: false,
+        barley: false
+      }
+
+      },
+      {vegetables: {
+        carrots: false, 
+        potatoes: false, 
+        broccoli: false,  
+        tomatoes: false,
+        spinach: false
+      }
+      },
+      {fruits: {
+         bananas: false, 
+          strawberries: false, 
+          orange: false, 
+          apple: false,
+          mangoes: false
+        }
+      },
+      {dairy: {
+         milk: false, 
+        yogurt: false, 
+        cheese: false,
+        butter: false,
+        eggs: false
+      }
+      }
+    ]
     };
   }
 
@@ -49,10 +88,15 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.list[0])
     return (
       <div>
         <h1>Pick Your Ingredients</h1>
-        <IngredientFilter />
+        <IngredientFilter  ingredients={this.state.list[0]}/>
+        <IngredientFilter  ingredients={this.state.list[1]}/>
+        <IngredientFilter  ingredients={this.state.list[2]}/>
+        <IngredientFilter  ingredients={this.state.list[3]}/>
+        <IngredientFilter  ingredients={this.state.list[4]}/>
         <RecipeView recipes={this.state.recipes} />
       </div>
     );
