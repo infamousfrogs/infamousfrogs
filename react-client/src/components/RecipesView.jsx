@@ -10,8 +10,6 @@ const RecipesView = (props) => (
     <RecipeItem className="recipeItem" recipe={recipe} key={recipe.id} /> 
 
     )}
-
-
   </div>
 
 )

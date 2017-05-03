@@ -9,13 +9,8 @@ const RecipeItem = (props) => (
    used IngredientCount: {props.recipe.usedIngredientCount} <br></br>
      missed IngredientCount: {props.recipe.missedIngredientCount} <br></br>
      likes: {props.recipe.likes} 
-
-
     </div>
   </div>)
 
 export default RecipeItem
 
-{/*
-  id, title, image, imageType, usedIngredientCount, missedIngredientCount, likes
-*/}
