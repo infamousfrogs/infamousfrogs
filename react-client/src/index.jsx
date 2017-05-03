@@ -6,29 +6,56 @@ import IngredientFilter from './components/IngredientFitler.jsx';
 import RecipeView from './components/RecipeView.jsx'
 
 
+
 class App extends React.Component {
-  contructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = {
+      recipes: [],
+      proteins: {},
+      grains: {},
+      vegetables: {},
+      fruits: {},
+      dairy: {}
 
-      proteins: proteins,
-      grains: grains,
-      vegetables: vegetables,
-      fruits: fruits,
-      dairy: dairy
+    };
+  }
 
-    }    
+//changes the state of an ingredient to be checked or unchecked
+  handleChange() {
+    console.log("change status of ingredient to true/checkmarked")
+  }
+
+//sends all the checked ingredients to be searched
+  handleSubmit() {
+    this.setState({});
+  }
+
+  fetchRecipes() {
+    var context = this;
+    $.ajax({
+      type: 'GET',
+      url: '/entry',
+      contentType: 'application/json'
+     })
+    .done((data) => {
+     console.log('success', data);
+     context.setState({recipes: data});
+   })
+    .fail((err) => {
+     console.log('There was an error!', err);
+    })
   }
 
   render() {
-    return(
-
-      <h1>App Name Here</h1>
-      <IngredientFilter />
-
-
-      )
+    return (
+      <div>
+        <h1>Pick Your Ingredients</h1>
+        <IngredientFilter />
+        <RecipeView recipes={this.state.recipes} />
+      </div>
+    );
   }
 }
 

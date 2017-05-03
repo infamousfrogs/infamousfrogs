@@ -16,8 +16,7 @@ const grains = {
 const vegetables = {
 	carrots: false, 
 	potatoes: false, 
-	broccoli: false, 
-	spinach: false, 
+	broccoli: false,  
 	tomatoes: false
 }
 
