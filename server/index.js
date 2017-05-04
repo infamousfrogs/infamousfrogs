@@ -36,7 +36,6 @@ var summary = {}
 
 request(recipeRetrievalOptions, function(error, response, body) {
   response = JSON.parse(response.body);
-  console.log(response)
 
   for (var i = 0; i < response.length; i++) {
     var newResponse = response[i]
