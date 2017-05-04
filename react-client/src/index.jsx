@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import IngredientFilter from './components/IngredientFilter.jsx';
-import RecipeView from './components/RecipeView.jsx'
+import RecipesView from './components/RecipesView.jsx'
 
 
 
@@ -76,14 +76,16 @@ class App extends React.Component {
 
 //sends all the checked ingredients to be searched
   handleSubmit() {
+    var self = this
     $.ajax({
       type: 'POST',
       url: '/entry',
       contentType: 'application/json',
       data: JSON.stringify(this.state.finalIngredients),
       dataType: 'text',
-      success: function(data) {
-        console.log(JSON.parse(data))
+      success: (data) => {
+        this.setState({recipeList: JSON.parse(data)})
+        console.log(data)
       }
      })
    }
@@ -99,6 +101,7 @@ class App extends React.Component {
         <IngredientFilter  handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
         <IngredientFilter  handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
         <IngredientFilter  handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
+        <RecipesView recipeList = {this.state.recipeList} />
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
