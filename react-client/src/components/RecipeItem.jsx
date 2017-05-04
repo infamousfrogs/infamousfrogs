@@ -2,15 +2,14 @@ import React from 'react';
 
 const RecipeItem = (props) => (
   <div>
-    {console.log(props.recipe)}
     <div className="Recipe" >
-     title: {props.recipe.title}<br></br>
-     <img className="RecipeImage" src ={props.recipe.image}/><br></br>
-   {/* '' remove quotes from image src to disply*/}
-   used IngredientCount: {props.recipe.usedIngredientCount} <br></br>
-     missed IngredientCount: {props.recipe.missedIngredientCount} <br></br>
-     likes: {props.recipe.likes}
+      title: {props.recipe.title}<br/>
+      <img className="RecipeImage" src ={props.recipe.image}/><br/>
+      used IngredientCount: {props.recipe.usedIngredientCount}<br/>
+      missed IngredientCount: {props.recipe.missedIngredientCount}<br/>
+      likes: {props.recipe.likes}
     </div>
-  </div>)
+  </div>
+);
 
-export default RecipeItem
+export default RecipeItem;
