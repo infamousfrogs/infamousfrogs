@@ -4,58 +4,51 @@ var request = require('request');
 
 var app = express();
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
-app.use(express.static(__dirname + '/../react-client/src'))
-
+app.use(express.static(__dirname + '/../react-client/src'));
 
 app.post('/entry', function(req, res) {
-ingreds = req.body.toString()
+  var ingreds = req.body.toString();
 
+  //setting up params for request to Spoonacular API
+  var recipeRetrievalOptions = {
+    url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?',
+    method: 'GET',
+    headers: {
+      'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
+      'Accept': 'application/json'
+    },
+    qs: {
+      ingredients: ingreds,
+      number: 10
+    }
+  };
 
-//setting up params for request to Spoonacular API
-var recipeRetrievalOptions = {
-  url : 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?',
-  method: 'GET',
-  headers: {
-    'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
-    'Accept': 'application/json'
- },
-  qs: {
-    ingredients: ingreds,
-    number: 10
-  }
-}
+  //sending request to Spoonacular
+  var finalResponseObj = {};
+  var summary = {};
 
-//preparing obj to ultimately send back to client
+  request(recipeRetrievalOptions, function(error, response, body) {
+    response = JSON.parse(response.body);
 
-//sending request to Spoonacular
-var finalResponseObj = {}
-var summary = {}
+    for (var i = 0; i < response.length; i++) {
+      var newResponse = response[i];
 
-request(recipeRetrievalOptions, function(error, response, body) {
-  response = JSON.parse(response.body);
-
-  for (var i = 0; i < response.length; i++) {
-    var newResponse = response[i]
-
-    //setting up object that will be stored inside of finalResponse for each recipe
-    var responseObj = {}
-    responseObj["id"] = newResponse.id
-    responseObj["title"] = newResponse.title
-    responseObj["image"] = newResponse.image
-    responseObj["usedIngredientCount"] = newResponse.usedIngredientCount
-    responseObj["missedIngredientCount"] = newResponse.missedIngredientCount
-    finalResponseObj[i] = responseObj
-
-  }
-  res.send(finalResponseObj)
- })
-})
-
-
+      //setting up object that will be stored inside of finalResponse for each recipe
+      var responseObj = {};
+      responseObj['id'] = newResponse.id;
+      responseObj['title'] = newResponse.title;
+      responseObj['image'] = newResponse.image;
+      responseObj['usedIngredientCount'] = newResponse.usedIngredientCount;
+      responseObj['missedIngredientCount'] = newResponse.missedIngredientCount;
+      finalResponseObj[i] = responseObj;
+    }
+    res.send(finalResponseObj);
+  });
+});
 
 app.listen(3000, function() {
-  console.log("listening on port 3000")
-})
+  console.log('listening on port 3000');
+});
