@@ -6,11 +6,16 @@ var app = express();
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../react-client/src'))
 
 
+app.post('/entry', function(req, res) {
+ingreds = req.body.toString()
 
-app.get('/entry', function(req, res) {
-var options = {
+
+//setting up params for request to Spoonacular API
+var recipeRetrievalOptions = {
   url : 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?',
   method: 'GET',
   headers: {
@@ -18,13 +23,40 @@ var options = {
     'Accept': 'application/json'
  },
   qs: {
-    ingredients: "apples",
+    ingredients: ingreds,
     number: 10
   }
 }
 
-request(options, function(error, response, body) {
-  console.log(JSON.parse(response.body))
+//preparing obj to ultimately send back to client
 
+//sending request to Spoonacular
+var finalResponseObj = {}
+var summary = {}
+
+request(recipeRetrievalOptions, function(error, response, body) {
+  response = JSON.parse(response.body);
+  console.log(response)
+
+  for (var i = 0; i < response.length; i++) {
+    var newResponse = response[i]
+
+    //setting up object that will be stored inside of finalResponse for each recipe
+    var responseObj = {}
+    responseObj["id"] = newResponse.id
+    responseObj["title"] = newResponse.title
+    responseObj["image"] = newResponse.image
+    responseObj["usedIngredientCount"] = newResponse.usedIngredientCount
+    responseObj["missedIngredientCount"] = newResponse.missedIngredientCount
+    finalResponseObj[i] = responseObj
+
+  }
+  res.send(finalResponseObj)
+ })
 })
+
+
+
+app.listen(3000, function() {
+  console.log("listening on port 3000")
 })
