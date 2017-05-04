@@ -43,10 +43,10 @@ class IngredientFilter extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>{this.state.label}</h3>
+      <div className="col-md-2">
+        <h5>{this.state.label}</h5>
          <form>
-         <input onChange = {this.changeOnFirst} type="checkbox" value="ingredient1"/> {this.state.arrayOfIngredients[0]}<br/>
+          <input onChange = {this.changeOnFirst} type="checkbox" value="ingredient1"/> {this.state.arrayOfIngredients[0]}<br/>
           <input onChange = {this.changeOnSecond} type="checkbox" value="ingredient2"/> {this.state.arrayOfIngredients[1]}<br/>
           <input onChange = {this.changeOnThird} type="checkbox" value="ingredient3"/> {this.state.arrayOfIngredients[2]}<br/>
           <input onChange = {this.changeOnFourth} type="checkbox" value="ingredient4"/> {this.state.arrayOfIngredients[3]}<br/>
