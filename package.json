@@ -11,8 +11,8 @@
   "author": "Vincent",
   "license": "ISC",
   "devDependencies": {
+    "mocha": "^3.3.0",
     "chai": "^3.5.0",
-    "mocha": "^3.3.0"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
@@ -41,6 +41,6 @@
     "request": "^2.81.0",
     "sequelize": "^3.30.4",
     "request": "^2.81.0",
-    "nodemon": "1.11.0",
+    "nodemon": "1.11.0"
   }
 }
