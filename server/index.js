@@ -1,6 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
+var authenticate = require('./authentication.js')
+var Sequelize = require('sequelize');
+
 
 var app = express();
 
@@ -8,6 +11,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(express.static(__dirname + '/../react-client/src'));
+
+
+app.post('/register', function(req, res) {
+  var req = {
+    body: {
+      user: req.body.username,
+      password: req.body.password
+    }
+  }
+  authenticate.createUser(req, res)
+})
+
+app.post('/login', function(req, res) {
+  console.log(req.body)
+  var req = {
+    body: {
+      user: req.body.username,
+      password: req.body.password
+    }
+  }
+  authenticate.checkIfUserExists(req, res)
+
+})
 
 app.post('/entry', function(req, res) {
   var ingreds = req.body.toString();
