@@ -6,7 +6,7 @@ var Sequelize = require('sequelize');
 var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-
+var PORT = process.env.PORT || 3000;
 
 var app = express();
 app.use(flash());
@@ -85,6 +85,8 @@ app.post('/entry', function(req, res) {
   });
 });
 
-app.listen(3000, function() {
-  console.log('listening on port 3000');
+
+app.listen(PORT , function() {
+  console.log(`listening on port ${PORT}`)
 });
+
