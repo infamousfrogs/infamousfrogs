@@ -86,7 +86,7 @@ app.post('/entry', function(req, res) {
 });
 
 
-app.listen(PORT || 3000 , function() {
-  console.log(`istening on port ${PORT}`)
+app.listen(PORT , function() {
+  console.log(`listening on port ${PORT}`)
 });
 
