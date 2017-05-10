@@ -2,9 +2,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var Sequelize = require('sequelize');
+var flash = require('express-flash');
 
 var sequelize = new Sequelize('postgres://localhost:5432/test');
-
 sequelize
   .authenticate()
   .then(function(err) {
@@ -33,14 +33,15 @@ var createUser = (req, res) => {
         username: req.body.user,
         password: req.body.password
       });
-      res.send('REGISTERED');
+    return true;
+    // res.render('./views/login.html', {error: 'Username doesnt exist'})
+  } else {
+      return false;
       // res.render('./views/login.html', {error: 'Username doesnt exist'})
-    } else {
-      res.send('YOUR USERNAME ALREADY EXISTS');
+    }
 
       // req.session.user = user;
       // res.redirect('/')
-    }
   });
 };
 
@@ -50,12 +51,13 @@ var checkIfUserExists = (req, res) => {
       res.send('User does not exist!');
     } else {
       if (req.body.password == user.password) {
-        res.send('SUCCESS');
-      } else {
-        res.send("INCORRECT PASSWORD");
+        res.redirect('/')
       }
+      else {
+        res.send('INCORRECT PASSWORD')
     }
-  });
+  };
+})
 };
 
 
