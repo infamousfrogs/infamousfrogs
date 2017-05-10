@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+
 
 const Nav = (props) => (
   <nav className="navbar navbar-default">
@@ -8,8 +10,8 @@ const Nav = (props) => (
       </div>
       <p className="navbar-text navbar-center">Welcome 'Enter Username'!</p>
       <div className="btn-group pull-right">
-        <button className="btn navbar-btn btn-success">Sign Up</button>
-        <button className="btn navbar-btn btn-success">Log In</button>
+        <Link className="btn navbar-btn btn-success" role="button" to="/signup">Sign Up</Link>
+        <Link className="btn navbar-btn btn-success" role="button" to="/login">Log In</Link>
       </div>
     </div>
   </nav>
