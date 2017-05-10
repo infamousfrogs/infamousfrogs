@@ -1,12 +1,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var authenticate = require('./authentication.js')
+var authenticate = require('./authentication.js');
 var Sequelize = require('sequelize');
+var flash = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
 
 var app = express();
-
+app.use(flash());
+app.use(session({secret: 'keyboard cat'}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -14,17 +18,23 @@ app.use(express.static(__dirname + '/../react-client/src'));
 
 
 app.post('/register', function(req, res) {
+  req.flash('info', 'Flash is back!');
+  res.redirect('/');
   var req = {
     body: {
       user: req.body.username,
       password: req.body.password
     }
   }
-  authenticate.createUser(req, res)
+  if (authenticate.createUser(req, res)) {
+    res.redirect('/');
+  }
+  else {
+    // req.flash('info', 'Flash is back!');
+  }
 })
 
 app.post('/login', function(req, res) {
-  console.log(req.body)
   var req = {
     body: {
       user: req.body.username,
