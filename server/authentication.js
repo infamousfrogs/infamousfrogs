@@ -8,11 +8,11 @@ var sequelize = new Sequelize('postgres://localhost:5432/test');
 sequelize
   .authenticate()
   .then(function(err) {
-    console.log("Connection is successful")
+    console.log('Connection is successful');
   })
   .catch(function(err) {
-    console.log("Unable to connect to database")
-  })
+    console.log('Unable to connect to database');
+  });
 
 var User = sequelize.define('users', {
   username: {
@@ -23,14 +23,13 @@ var User = sequelize.define('users', {
   }
 });
 
-sequelize.sync()
-
+sequelize.sync();
 
 
 var createUser = (req, res) => {
   User.findOne({where: {username: req.body.user}}).then(function(user) {
-  if (!user) {
-    User.create({
+    if (!user) {
+      User.create({
         username: req.body.user,
         password: req.body.password
       });
@@ -38,29 +37,29 @@ var createUser = (req, res) => {
     // res.render('./views/login.html', {error: 'Username doesnt exist'})
   } else {
       return false;
+      // res.render('./views/login.html', {error: 'Username doesnt exist'})
+    }
 
       // req.session.user = user;
       // res.redirect('/')
-  }
-})
-}
+  });
+};
 
 var checkIfUserExists = (req, res) => {
   User.findOne({where: {username: req.body.user}}).then(function(user) {
-    if(!user) {
-      res.send("User does not exist!")
-    }
-    else {
+    if (!user) {
+      res.send('User does not exist!');
+    } else {
       if (req.body.password == user.password) {
         res.redirect('/')
       }
       else {
-        res.send("INCORRECT PASSWORD")
-      }
+        res.send('INCORRECT PASSWORD')
     }
-  })
-}
+  };
+})
+};
 
 
-module.exports.checkIfUserExists = checkIfUserExists
-module.exports.createUser = createUser
+module.exports.checkIfUserExists = checkIfUserExists;
+module.exports.createUser = createUser;

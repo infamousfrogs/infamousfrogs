@@ -7,8 +7,6 @@ import RecipesView from './../components/RecipesView.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 
-
-
 class homePage extends React.Component {
   constructor(props) {
     super(props);
@@ -112,4 +110,4 @@ class homePage extends React.Component {
   }
 }
 
-export default homePage
+export default homePage;

@@ -35,15 +35,15 @@ app.post('/register', function(req, res) {
 })
 
 app.post('/login', function(req, res) {
+
   var req = {
     body: {
       user: req.body.username,
       password: req.body.password
     }
-  }
-  authenticate.checkIfUserExists(req, res)
-
-})
+  };
+  authenticate.checkIfUserExists(req, res);
+});
 
 app.post('/entry', function(req, res) {
   var ingreds = req.body.toString();
