@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var authenticate = require('./authentication.js')
+var authenticate = require('./authentication.js');
 var Sequelize = require('sequelize');
 
 
@@ -19,21 +19,20 @@ app.post('/register', function(req, res) {
       user: req.body.username,
       password: req.body.password
     }
-  }
-  authenticate.createUser(req, res)
-})
+  };
+  authenticate.createUser(req, res);
+});
 
 app.post('/login', function(req, res) {
-  console.log(req.body)
+  console.log(req.body);
   var req = {
     body: {
       user: req.body.username,
       password: req.body.password
     }
-  }
-  authenticate.checkIfUserExists(req, res)
-
-})
+  };
+  authenticate.checkIfUserExists(req, res);
+});
 
 app.post('/entry', function(req, res) {
   var ingreds = req.body.toString();
