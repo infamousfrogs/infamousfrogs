@@ -1,6 +1,8 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {GridList, GridTile} from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Popover from 'material-ui/Popover';
 
 const styles = {
@@ -65,6 +67,8 @@ class RecipesView extends React.Component {
               <GridTile 
                 key={recipe.id}
                 title={recipe.title}
+                subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
+                actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               >
                 <img
                   src={recipe.image}
