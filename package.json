@@ -6,7 +6,8 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run heroku-postbuild\"",
     "server": "nodemon server/index.js",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
+    "react-dev": "webpack -d --watch"
   },
   "author": "Vincent",
   "license": "ISC",

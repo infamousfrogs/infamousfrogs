@@ -48,13 +48,13 @@ var createUser = (req, res) => {
 var checkIfUserExists = (req, res) => {
   User.findOne({where: {username: req.body.user}}).then(function(user) {
     if (!user) {
-      res.send('User does not exist!');
+      res.send({"userdoesnotexist": "userdoesnotexist"});
     } else {
       if (req.body.password == user.password) {
-        res.redirect('/')
-      }
+        res.send(user);
+       }
       else {
-        res.send('INCORRECT PASSWORD')
+        res.send({"incorrectpassword": "incorrectpassword"})
     }
   };
 })

@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 class homePage extends React.Component {
   constructor(props) {
+    console.log(props)
     super(props);
 
     this.state = {
