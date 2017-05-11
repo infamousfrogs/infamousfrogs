@@ -4,7 +4,7 @@ var request = require('request');
 var Sequelize = require('sequelize');
 var flash = require('express-flash');
 
-var databaseUrl = PROCESS.ENV.DATABASE_URL || 'postgres://localhost:5432/test';
+var databaseUrl = process.env.DATABASE_URL || 'postgres://localhost:5432/test';
 var sequelize = new Sequelize(databaseUrl);
 
 sequelize
@@ -100,7 +100,7 @@ var checkIfUserExists = (req, res) => {
     }
   });
 
-  
+
 };
 
 
