@@ -83,6 +83,10 @@ app.post('/favorite', function(req, res) {
   database.createRecipe(req, res);
 });
 
+app.delete('/favorite', function(req, res) {
+  database.removeRecipe(req, res);
+});
+
 app.get('/favorite', function(req, res) {
   database.retrieveFavorites(req, res);
 });

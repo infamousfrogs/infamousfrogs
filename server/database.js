@@ -61,6 +61,17 @@ var createRecipe = (req, res) => {
   res.send();
 };
 
+var removeRecipe = (req, res) => {
+  Recipe.destroy({
+    where: {
+      username: req.body.username,
+      recipeId: req.bdy.recipeId
+    }
+  });
+
+  res.send();
+};
+
 var retrieveFavorites = (req, res) => {
   Recipe.findAll({where: {username: req.body.username}})
     .then(function(recipes) {
@@ -86,7 +97,6 @@ var createUser = (req, res) => {
   });
 };
 
-
 var checkIfUserExists = (req, res) => {
   User.findOne({where: {username: req.body.user}}).then(function(user) {
     if (!user) {
@@ -99,12 +109,11 @@ var checkIfUserExists = (req, res) => {
       }
     }
   });
-
-
 };
 
 
 module.exports.checkIfUserExists = checkIfUserExists;
 module.exports.createUser = createUser;
 module.exports.createRecipe = createRecipe;
+module.exports.removeRecipe = removeRecipe;
 module.exports.retrieveFavorites = retrieveFavorites;
