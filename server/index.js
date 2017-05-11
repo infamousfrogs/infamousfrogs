@@ -18,20 +18,14 @@ app.use(express.static(__dirname + '/../react-client/src'));
 
 
 app.post('/register', function(req, res) {
-  req.flash('info', 'Flash is back!');
-  res.redirect('/');
+
   var req = {
     body: {
       user: req.body.username,
       password: req.body.password
     }
   }
-  if (authenticate.createUser(req, res)) {
-    res.redirect('/');
-  }
-  else {
-    // req.flash('info', 'Flash is back!');
-  }
+ authenticate.createUser(req, res)
 })
 
 app.post('/login', function(req, res) {
@@ -89,4 +83,3 @@ app.post('/entry', function(req, res) {
 app.listen(PORT , function() {
   console.log(`listening on port ${PORT}`)
 });
-

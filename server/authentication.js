@@ -32,18 +32,19 @@ var createUser = (req, res) => {
       User.create({
         username: req.body.user,
         password: req.body.password
-      });
-    return true;
-    // res.render('./views/login.html', {error: 'Username doesnt exist'})
-  } else {
-      return false;
+      }).then(function() {
+        User.findOne({where: {username: req.body.user}}).then(function(user) {
+          res.send(user)
+        })
+      })
+    } else {
+      res.send({"useralreadyexists": "useralreadyexists"})
       // res.render('./views/login.html', {error: 'Username doesnt exist'})
     }
 
-      // req.session.user = user;
-      // res.redirect('/')
-  });
+})
 };
+
 
 var checkIfUserExists = (req, res) => {
   User.findOne({where: {username: req.body.user}}).then(function(user) {
