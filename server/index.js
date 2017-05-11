@@ -16,6 +16,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(express.static(__dirname + '/../react-client/src'));
 
+app.get('/summary', function(req, res) {
+  var id = req.body.id
+
+  var recipeSummaryOptions = {
+    url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/4632/summary`,
+    method: 'GET',
+    headers: {
+      'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
+      'Accept': 'application/json'
+    }
+  }
+
+  request(recipeSummaryOptions, function(error, response, body) {
+    if (error) {
+      throw err;
+    }
+    else {
+      body = JSON.parse(body);
+      res.send(body.summary)
+    }
+
+  });
+});
+
 
 app.post('/register', function(req, res) {
 
