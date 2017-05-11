@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 class homePage extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.children)
 
     this.state = {
       finalIngredients: [],
@@ -65,6 +66,7 @@ class homePage extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
 
   }
 
@@ -76,6 +78,10 @@ class homePage extends React.Component {
       var index = this.state.finalIngredients.indexOf(ingredient);
       this.state.finalIngredients.splice(index, 1);
     }
+  }
+
+  handleLogin(user) {
+    this.setState({user})
   }
 
 //sends all the checked ingredients to be searched
@@ -94,9 +100,12 @@ class homePage extends React.Component {
   }
 
   render() {
+    if (this.state.user) {
+      console.log(this.state.user);
+    }
     return (
       <div>
-        <Nav/>
+        <Nav handleLogin = {this.handleLogin}/>
         <h4>Pick Your Ingredients</h4>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
