@@ -92,7 +92,7 @@ var checkIfUserExists = (req, res) => {
     if (!user) {
       res.send({'userdoesnotexist': 'userdoesnotexist'});
     } else {
-      if (req.body.password == user.password) {
+      if (req.body.password === user.password) {
         res.send(user);
       } else {
         res.send({'incorrectpassword': 'incorrectpassword'});
