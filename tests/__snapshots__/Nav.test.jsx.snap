@@ -1,0 +1,262 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Nav component should render as expected 1`] = `
+<nav
+  className="navbar navbar-default"
+>
+  <div
+    className="container-fluid"
+  >
+    <div
+      className="navbar-header"
+    >
+      <h3>
+         Recipe-O-Maker 
+      </h3>
+    </div>
+    <p
+      className="navbar-text navbar-center"
+    >
+       
+      Sign in to customise your favorites!
+       
+    </p>
+    <div
+      className="btn-group pull-right"
+    >
+      <button
+        className="btn navbar-btn btn-success"
+        onClick={[Function]}
+        role="button"
+      >
+         Sign Up 
+      </button>
+      <button
+        className="btn navbar-btn btn-success"
+        onClick={[Function]}
+        role="button"
+      >
+         Log In 
+      </button>
+    </div>
+    <Modal
+      ariaHideApp={true}
+      closeTimeoutMS={0}
+      contentLabel="Modal"
+      isOpen={false}
+      onAfterOpen={[Function]}
+      onRequestClose={[Function]}
+      parentSelector={[Function]}
+      portalClassName="ReactModalPortal"
+      shouldCloseOnOverlayClick={true}
+      style={
+        Object {
+          "content": Object {
+            "bottom": "auto",
+            "left": "50%",
+            "marginRight": "-50%",
+            "right": "auto",
+            "top": "50%",
+            "transform": "translate(-50%, -50%)",
+          },
+        }
+      }
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="span12"
+          >
+            <div
+              className="form-horizontal"
+            >
+              <fieldset>
+                <div
+                  id="legend"
+                >
+                  <legend
+                    className=""
+                  >
+                    Login
+                  </legend>
+                </div>
+                <div
+                  className="control-group"
+                >
+                  <label
+                    className="control-label"
+                    htmlFor="username"
+                  >
+                    Username
+                  </label>
+                  <div
+                    className="controls"
+                  >
+                    <input
+                      className="input-xlarge"
+                      id="username"
+                      name="username"
+                      onChange={[Function]}
+                      placeholder=""
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div
+                  className="control-group"
+                >
+                  <label
+                    className="control-label"
+                    htmlFor="password"
+                  >
+                    Password
+                  </label>
+                  <div
+                    className="controls"
+                  >
+                    <input
+                      className="input-xlarge"
+                      id="password"
+                      name="password"
+                      onChange={[Function]}
+                      placeholder=""
+                      type="password"
+                    />
+                  </div>
+                </div>
+                <div
+                  className="control-group"
+                >
+                  <div
+                    className="controls"
+                  >
+                    <button
+                      className="btn btn-success"
+                      onClick={[Function]}
+                    >
+                      Login
+                    </button>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Modal>
+    <Modal
+      ariaHideApp={true}
+      closeTimeoutMS={0}
+      contentLabel="Modal"
+      isOpen={false}
+      onAfterOpen={[Function]}
+      onRequestClose={[Function]}
+      parentSelector={[Function]}
+      portalClassName="ReactModalPortal"
+      shouldCloseOnOverlayClick={true}
+      style={
+        Object {
+          "content": Object {
+            "bottom": "auto",
+            "left": "50%",
+            "marginRight": "-50%",
+            "right": "auto",
+            "top": "50%",
+            "transform": "translate(-50%, -50%)",
+          },
+        }
+      }
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="span12"
+          >
+            <div
+              className="form-horizontal"
+            >
+              <fieldset>
+                <div
+                  id="legend"
+                >
+                  <legend
+                    className=""
+                  >
+                    Sign Up
+                  </legend>
+                </div>
+                <div
+                  className="control-group"
+                >
+                  <label
+                    className="control-label"
+                    htmlFor="username"
+                  >
+                    Username
+                  </label>
+                  <div
+                    className="controls"
+                  >
+                    <input
+                      className="input-xlarge"
+                      id="username"
+                      name="username"
+                      onChange={[Function]}
+                      placeholder=""
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div
+                  className="control-group"
+                >
+                  <label
+                    className="control-label"
+                    htmlFor="password"
+                  >
+                    Password
+                  </label>
+                  <div
+                    className="controls"
+                  >
+                    <input
+                      className="input-xlarge"
+                      id="password"
+                      name="password"
+                      onChange={[Function]}
+                      placeholder=""
+                      type="password"
+                    />
+                  </div>
+                </div>
+                <div
+                  className="control-group"
+                >
+                  <div
+                    className="controls"
+                  >
+                    <button
+                      className="btn btn-success"
+                      onClick={[Function]}
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Modal>
+  </div>
+</nav>
+`;
