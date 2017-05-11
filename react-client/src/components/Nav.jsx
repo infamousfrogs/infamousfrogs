@@ -4,13 +4,13 @@ import Modal from 'react-modal';
 import $ from 'jquery';
 
 const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
   }
 };
 
@@ -39,7 +39,7 @@ class Nav extends React.Component {
   }
 
   openModal2() {
-    this.setState({modalIsOpen2: true})
+    this.setState({modalIsOpen2: true});
   }
 
   afterOpenModal() {
@@ -48,17 +48,17 @@ class Nav extends React.Component {
 
   closeModal() {
     this.setState({modalIsOpen: false});
-    this.setState({modalIsOpen2: false})
+    this.setState({modalIsOpen2: false});
   }
 
   passwordChange(e) {
     e.preventDefault();
-    this.setState({password: e.target.value})
+    this.setState({password: e.target.value});
   }
 
   userChange(e) {
     e.preventDefault();
-    this.setState({username: e.target.value})
+    this.setState({username: e.target.value});
   }
 
   formSubmit(e) {
@@ -66,7 +66,7 @@ class Nav extends React.Component {
     var obj = {
       username: this.state.username,
       password: this.state.password
-    }
+    };
     var self = this;
     $.ajax({
       type: 'POST',
@@ -77,15 +77,13 @@ class Nav extends React.Component {
       success: (data) => {
         data = JSON.parse(data);
         if (data.id) {
-          self.props.handleLogin(data)
-          self.setState({user: data})
-          self.closeModal()
-        }
-        else if (data.userdoesnotexist) {
-          alert("User does not exist! Try again!")
-        }
-        else if (data.incorrectpassword) {
-          alert("Password is Incorrect! Try again!")
+          self.props.handleLogin(data);
+          self.setState({user: data});
+          self.closeModal();
+        } else if (data.userdoesnotexist) {
+          alert('User does not exist! Try again!');
+        } else if (data.incorrectpassword) {
+          alert('Password is Incorrect! Try again!');
         }
       }
     });
@@ -97,7 +95,7 @@ class Nav extends React.Component {
     var obj = {
       username: this.state.username,
       password: this.state.password
-    }
+    };
     var self = this;
     $.ajax({
       type: 'POST',
@@ -108,125 +106,122 @@ class Nav extends React.Component {
       success: (data) => {
         data = JSON.parse(data);
         if (data.id) {
-          self.props.handleLogin(data)
-          self.setState({user: data})
-          self.closeModal()
-        }
-        else if (data.useralreadyexists) {
-          alert("User already exists! Try another username!")
+          self.props.handleLogin(data);
+          self.setState({user: data});
+          self.closeModal();
+        } else if (data.useralreadyexists) {
+          alert('User already exists! Try another username!');
         }
       }
     });
-
   }
 
-render() {
-  let userMessage;
-  let formType
-  if (this.state.user) {
-    userMessage =(
-      `Welcome ${this.state.user.username}!`
-    )
-  }
-  else {
-    userMessage = (
-      "Sign in to customise your favorites!"
-    )
-  }
+  render() {
+    let userMessage;
+    let formType;
+    if (this.state.user) {
+      userMessage = (
+        `Welcome ${this.state.user.username}!`
+      );
+    } else {
+      userMessage = (
+        'Sign in to customise your favorites!'
+      );
+    }
 
-  return(
-  <nav className="navbar navbar-default">
-    <div className="container-fluid">
-      <div className="navbar-header">
-        <h3> Recipe-O-Maker </h3>
-      </div>
-      <p className="navbar-text navbar-center"> {userMessage} </p>
-      <div className="btn-group pull-right">
-        <button onClick = {this.openModal2} className="btn navbar-btn btn-success" role="button"> Sign Up </button>
-        <button onClick = {this.openModal} className="btn navbar-btn btn-success" role="button"> Log In </button>
-      </div>
-      <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Modal"
-        >
-
-        <div className="container">
-            <div className="row">
-            <div className="span12">
-              <div className="form-horizontal">
-                <fieldset>
-                  <div id="legend">
-                    <legend className="">Login</legend>
-                  </div>
-                  <div className="control-group">
-                    <label className="control-label"  htmlFor="username">Username</label>
-                    <div className="controls">
-                      <input onChange = {this.userChange} type="text" id="username" name="username" placeholder="" className="input-xlarge" />
-                    </div>
-                  </div>
-                  <div className="control-group">
-                    <label className="control-label" htmlFor="password">Password</label>
-                    <div className="controls">
-                      <input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />
-                    </div>
-                  </div>
-                  <div className="control-group">
-                    <div className="controls">
-                      <button onClick = {this.formSubmit} className="btn btn-success">Login</button>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
+    return (
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <h3> Recipe-O-Maker </h3>
           </div>
-        </div>
-        </Modal>
-        <Modal
-            isOpen={this.state.modalIsOpen2}
-            onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            style={customStyles}
-            contentLabel="Modal"
-          >
+          <p className="navbar-text navbar-center"> {userMessage} </p>
+          <div className="btn-group pull-right">
+            <button onClick = {this.openModal2} className="btn navbar-btn btn-success" role="button"> Sign Up </button>
+            <button onClick = {this.openModal} className="btn navbar-btn btn-success" role="button"> Log In </button>
+          </div>
+          <Modal
+              isOpen={this.state.modalIsOpen}
+              onAfterOpen={this.afterOpenModal}
+              onRequestClose={this.closeModal}
+              style={customStyles}
+              contentLabel="Modal"
+            >
 
-          <div className="container">
-              <div className="row">
-              <div className="span12">
-                <div className="form-horizontal">
-                  <fieldset>
-                    <div id="legend">
-                      <legend className="">Sign Up</legend>
-                    </div>
-                    <div className="control-group">
-                      <label className="control-label"  htmlFor="username">Username</label>
-                      <div className="controls">
-                        <input onChange = {this.userChange} type="text" id="username" name="username" placeholder="" className="input-xlarge" />
+            <div className="container">
+                <div className="row">
+                <div className="span12">
+                  <div className="form-horizontal">
+                    <fieldset>
+                      <div id="legend">
+                        <legend className="">Login</legend>
                       </div>
-                    </div>
-                    <div className="control-group">
-                      <label className="control-label" htmlFor="password">Password</label>
-                      <div className="controls">
-                        <input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />
+                      <div className="control-group">
+                        <label className="control-label" htmlFor="username">Username</label>
+                        <div className="controls">
+                          <input onChange = {this.userChange} type="text" id="username" name="username" placeholder="" className="input-xlarge" />
+                        </div>
                       </div>
-                    </div>
-                    <div className="control-group">
-                      <div className="controls">
-                        <button onClick = {this.formSubmit2} className="btn btn-success">Sign Up</button>
+                      <div className="control-group">
+                        <label className="control-label" htmlFor="password">Password</label>
+                        <div className="controls">
+                          <input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />
+                        </div>
                       </div>
-                    </div>
-                  </fieldset>
+                      <div className="control-group">
+                        <div className="controls">
+                          <button onClick = {this.formSubmit} className="btn btn-success">Login</button>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          </Modal>
-    </div>
-  </nav>
-)
+            </Modal>
+            <Modal
+                isOpen={this.state.modalIsOpen2}
+                onAfterOpen={this.afterOpenModal}
+                onRequestClose={this.closeModal}
+                style={customStyles}
+                contentLabel="Modal"
+              >
+
+              <div className="container">
+                  <div className="row">
+                  <div className="span12">
+                    <div className="form-horizontal">
+                      <fieldset>
+                        <div id="legend">
+                          <legend className="">Sign Up</legend>
+                        </div>
+                        <div className="control-group">
+                          <label className="control-label" htmlFor="username">Username</label>
+                          <div className="controls">
+                            <input onChange = {this.userChange} type="text" id="username" name="username" placeholder="" className="input-xlarge" />
+                          </div>
+                        </div>
+                        <div className="control-group">
+                          <label className="control-label" htmlFor="password">Password</label>
+                          <div className="controls">
+                            <input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />
+                          </div>
+                        </div>
+                        <div className="control-group">
+                          <div className="controls">
+                            <button onClick = {this.formSubmit2} className="btn btn-success">Sign Up</button>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </Modal>
+        </div>
+      </nav>
+    );
+  }
 }
-};
 
 export default Nav;
