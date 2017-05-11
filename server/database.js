@@ -76,31 +76,29 @@ var createUser = (req, res) => {
         password: req.body.password
       }).then(function() {
         User.findOne({where: {username: req.body.user}}).then(function(user) {
-          res.send(user)
-        })
-      })
+          res.send(user);
+        });
+      });
     } else {
-      res.send({"useralreadyexists": "useralreadyexists"})
+      res.send({'useralreadyexists': 'useralreadyexists'});
       // res.render('./views/login.html', {error: 'Username doesnt exist'})
     }
-
-})
+  });
 };
 
 
 var checkIfUserExists = (req, res) => {
   User.findOne({where: {username: req.body.user}}).then(function(user) {
     if (!user) {
-      res.send({"userdoesnotexist": "userdoesnotexist"});
+      res.send({'userdoesnotexist': 'userdoesnotexist'});
     } else {
       if (req.body.password == user.password) {
         res.send(user);
-       }
-      else {
-        res.send({"incorrectpassword": "incorrectpassword"})
+      } else {
+        res.send({'incorrectpassword': 'incorrectpassword'});
+      }
     }
-  };
-})
+  });
 };
 
 
