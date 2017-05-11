@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var authenticate = require('./authentication.js');
+var database = require('./database.js');
 var Sequelize = require('sequelize');
 var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
@@ -10,7 +10,7 @@ var PORT = process.env.PORT || 3000;
 
 var app = express();
 app.use(flash());
-app.use(session({secret: 'keyboard cat'}))
+app.use(session({secret: 'keyboard cat'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -24,9 +24,9 @@ app.post('/register', function(req, res) {
       user: req.body.username,
       password: req.body.password
     }
-  }
- authenticate.createUser(req, res)
-})
+  };
+  database.createUser(req, res);
+});
 
 app.post('/login', function(req, res) {
 
@@ -36,7 +36,7 @@ app.post('/login', function(req, res) {
       password: req.body.password
     }
   };
-  authenticate.checkIfUserExists(req, res);
+  database.checkIfUserExists(req, res);
 });
 
 app.post('/entry', function(req, res) {
@@ -79,7 +79,15 @@ app.post('/entry', function(req, res) {
   });
 });
 
+app.post('/favorite', function(req, res) {
+  database.createRecipe(req, res);
+});
 
-app.listen(PORT , function() {
-  console.log(`listening on port ${PORT}`)
+app.get('/favorite', function(req, res) {
+  database.retrieveFavorites(req, res);
+});
+
+
+app.listen(PORT, function() {
+  console.log(`listening on port ${PORT}`);
 });
