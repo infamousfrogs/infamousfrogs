@@ -23,13 +23,8 @@ class RecipesView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipeList: [],
       open: false
     };
-
-    Object.keys(this.props.recipeList).map((key, index) => {
-      this.state.recipeList.push(this.props.recipeList[key]);
-    });
 
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
@@ -63,7 +58,7 @@ class RecipesView extends React.Component {
            cellHeight={240}
            style={styles.gridList}
           >
-            {this.state.recipeList.map((recipe) =>
+            {Object.values(this.props.recipeList).map((recipe) =>
               <GridTile 
                 key={recipe.id}
                 title={recipe.title}

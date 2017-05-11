@@ -10,7 +10,6 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 class homePage extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.children)
 
     this.state = {
       finalIngredients: [],
@@ -81,7 +80,7 @@ class homePage extends React.Component {
   }
 
   handleLogin(user) {
-    this.setState({user})
+    this.setState({user});
   }
 
 //sends all the checked ingredients to be searched
