@@ -66,6 +66,7 @@ class homePage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleFavToggle = this.handleFavToggle.bind(this);
 
   }
 
@@ -133,7 +134,12 @@ class homePage extends React.Component {
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
-        <RecipesView recipeList = {this.state.recipeList}/>
+        <RecipesView recipeList = {this.state.recipeList} handleFavToggle={this.handleFavToggle}/>
+        {this.state.user ?
+          <RecipesFaves recipeList = {this.state.recipeList} handleFavToggle={this.handleFavToggle}/>
+          :
+          "Select Your Favs!!"
+        }
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
