@@ -98,6 +98,30 @@ class homePage extends React.Component {
     });
   }
 
+  handleFavToggle(recipe) {
+    var recipeId = recipe.id;
+    if (this.state.recipeId) {
+      this.setState({recipeId: false});
+      favRecipe(recipe);
+    } else {
+      this.setState({recipeId: true});
+    }
+
+    let favRecipe = (recipe) => {
+      if (!this.state.user) {
+        alert('please login');
+      } else {
+        if (this.state.recipeId) {
+
+          // send to db and client favs
+          } else {
+          // remove from db and client favs
+
+          }
+      }
+    };
+  }
+
   render() {
     if (this.state.user) {
       console.log(this.state.user);
