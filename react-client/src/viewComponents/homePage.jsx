@@ -200,7 +200,7 @@ class homePage extends React.Component {
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
         <RecipesView recipeList = {this.state.recipeList} handleFavesToggle={this.handleFavesToggle}/>
-        {this.state.user && <RecipesFaves recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
+        {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
