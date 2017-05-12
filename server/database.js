@@ -26,11 +26,14 @@ var User = sequelize.define('users', {
 });
 
 var Recipe = sequelize.define('recipes', {
+  id: {
+    type: Sequelize.INTEGER
+  },
   username: {
     type: Sequelize.STRING
   },
-  recipeId: {
-    type: Sequelize.INTEGER
+  usernameRecipeId: {
+    type: Sequelize.STRING, primaryKey: true
   },
   title: {
     type: Sequelize.STRING
@@ -50,8 +53,9 @@ sequelize.sync();
 
 var createRecipe = (req, res) => {
   Recipe.create({
+    id: req.body.recipeId,
     username: req.body.username,
-    recipeId: req.body.recipeId,
+    usernameRecipeId: req.body.username + req.body.recipeId,
     title: req.body.title,
     image: req.body.image,
     usedIngredientCount: req.body.usedIngredientCount,
@@ -65,7 +69,7 @@ var removeRecipe = (req, res) => {
   Recipe.destroy({
     where: {
       username: req.body.username,
-      recipeId: req.body.recipeId
+      id: req.body.recipeId
     }
   });
 
@@ -75,6 +79,7 @@ var removeRecipe = (req, res) => {
 var retrieveFavorites = (req, res) => {
   Recipe.findAll({where: {username: req.body.username}})
     .then(function(recipes) {
+      console.log(recipes)
       res.send(recipes);
     });
 };
