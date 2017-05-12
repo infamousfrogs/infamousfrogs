@@ -4,6 +4,7 @@ import $ from 'jquery';
 import Nav from './../components/Nav.jsx';
 import IngredientFilter from './../components/IngredientFilter.jsx';
 import RecipesView from './../components/RecipesView.jsx';
+import RecipesFavs from './../components/RecipesFavs.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 
@@ -13,7 +14,7 @@ class homePage extends React.Component {
 
     this.state = {
       finalIngredients: [],
-
+      
       list: [
         {proteins: {
           chicken: false,
@@ -66,9 +67,12 @@ class homePage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleFavToggle = this.handleFavToggle.bind(this);
 
   }
-
+  
+    // check user login 
+      // pull recipe from data base
 //changes the state of an ingredient to be checked or unchecked
   handleChange(ingredient) {
     if (this.state.finalIngredients.indexOf(ingredient) === -1) {
@@ -98,12 +102,37 @@ class homePage extends React.Component {
     });
   }
 
-  render() {
-    if (this.state.user) {
-      console.log(this.state.user);
+  handleFavToggle(recipe) {
+    var recipeId = recipe.id;
+    if (this.state.recipeId) {
+      this.setState({recipeId: false});
+      favRecipe(recipe);
+    } else {
+      this.setState({recipeId: true});
     }
+
+    let favRecipe = (recipe) => {
+      if (!this.state.user) {
+        alert('please login');
+      } else {
+        if (this.state.recipeId) {
+
+          // send to db and client favs
+          } else {
+          // remove from db and client favs
+
+          }
+      }
+    };
+
+
+  }
+
+  render() {
+    
     return (
       <div>
+        >>{this.state.favoriteToggle.toString()}
         <Nav handleLogin = {this.handleLogin}/>
         <h4>Pick Your Ingredients</h4>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
@@ -111,7 +140,11 @@ class homePage extends React.Component {
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
-        <RecipesView recipeList = {this.state.recipeList}/>
+        <RecipesView recipeList = {this.state.recipeList} 
+          handleToggle = {this.handleFavToggle}/>
+        {this.state.user ? 
+        <RecipesFavs recipeList = {this.state.recipeList} handleToggle = {this.handleFavToggle}/>
+        : 'Select Your Favorites!!'}
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
