@@ -268,9 +268,6 @@ class homePage extends React.Component {
         },
         error: (error) => console.log('fetchRecipeById error', error)
       });
-
-    }
-
   }
 
   render() {
