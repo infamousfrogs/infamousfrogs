@@ -47,6 +47,7 @@
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "react-modal": "^1.7.7",
+    "react-render-html": "^0.1.6",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "request": "^2.81.0",

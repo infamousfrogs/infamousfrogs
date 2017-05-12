@@ -4,6 +4,8 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Popover from 'material-ui/Popover';
+import $ from 'jquery';
+import renderHTML from 'react-render-html';
 
 const styles = {
   root: {
@@ -24,14 +26,25 @@ class RecipesView extends React.Component {
     super(props);
     this.state = {
       open: false
+
     };
 
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
-  handleTouchTap(event, title) {
+  handleTouchTap(event, title, id) {
     event.preventDefault();
+    $.ajax({
+      type: 'GET',
+      url: '/summary',
+      contentType: 'application/json',
+      data: JSON.stringify(id),
+      dataType: 'text',
+      success: (data) => {
+        this.setState({srcId: data})
+      }
+    })
     this.setState ({
       open: true,
       anchorEl: event.currentTarget,
@@ -45,8 +58,11 @@ class RecipesView extends React.Component {
       open: false
     });
   }
-  
+
   render() {
+    if (this.state.srcId) {
+      var description = renderHTML(this.state.srcId)
+    }
     return (
       <MuiThemeProvider>
         <div
@@ -59,16 +75,16 @@ class RecipesView extends React.Component {
            style={styles.gridList}
           >
             {Object.values(this.props.recipeList).map((recipe) =>
-              <GridTile 
+              <GridTile
                 key={recipe.id}
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
                 actionIcon={<IconButton
-                  onClick={event => this.props.handleFavToggle(recipe)}><StarBorder color="white" /></IconButton>}
-              >
+                  onClick={event => this.props.handleFavesToggle(recipe)}><StarBorder color="white" /></IconButton>}
+                             >
                 <img
                   src={recipe.image}
-                  onClick={event => this.handleToggle(event, recipe.title)}
+                  onClick={event => this.handleTouchTap(event, recipe.title, recipe.id)}
                 />
               </GridTile>
             )}
@@ -80,13 +96,13 @@ class RecipesView extends React.Component {
             targetOrigin={{horizontal: 'middle', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
           >
-            <div>
+            <div className="col-md-4">
               <img
                 src={this.state.srcUrl}
                 height={400}
               />
               <h4>{this.state.srcTitle}</h4>
-              <p> Insert Description Here </p>
+              {description}
             </div>
           </Popover>
         </div>

@@ -18,6 +18,7 @@ app.use(express.static(__dirname + '/../react-client/src'));
 
 app.get('/summary', function(req, res) {
   var id = req.body.id
+  console.log(id)
 
   var recipeSummaryOptions = {
     url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/4632/summary`,
