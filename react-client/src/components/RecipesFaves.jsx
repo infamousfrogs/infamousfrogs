@@ -2,7 +2,7 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import Star from 'material-ui/svg-icons/toggle/star';
 import Popover from 'material-ui/Popover';
 import $ from 'jquery';
 import renderHTML from 'react-render-html';
@@ -79,7 +79,7 @@ class RecipesFaves extends React.Component {
                 key={recipe.id}
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
-                actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><StarBorder color="white" /></IconButton>}
+                actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="white" /></IconButton>}
               >
                 <img
                   src={recipe.image}
