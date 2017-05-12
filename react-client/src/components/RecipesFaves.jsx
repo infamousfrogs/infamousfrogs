@@ -74,7 +74,7 @@ class RecipesFaves extends React.Component {
            cellHeight={240}
            style={styles.gridList}
           >
-            {([]).concat(this.props.testArr).map((recipe) =>
+            {Object.values(this.props.favoriteList).map((recipe) =>
               <GridTile
                 key={recipe.id}
                 title={recipe.title}
