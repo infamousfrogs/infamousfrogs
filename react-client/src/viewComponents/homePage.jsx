@@ -85,6 +85,33 @@ class homePage extends React.Component {
 
   handleLogin(user) {
     this.setState({user});
+    console.log(user.username)
+    var userObj = {
+      username: user.username
+    }
+    var self = this
+    $.ajax({
+      type: 'POST',
+      url: '/favoriteGet',
+      contentType: 'application/json',
+      data: JSON.stringify(userObj),
+      dataType: 'text',
+      success: (data) => {
+        data = JSON.parse(data);
+        var obj = {}
+        for (var i = 0; i < data.length; i++) {
+          obj[data[i].recipeId] = data[i]
+        }
+        self.setState({favoriteList: obj})
+      }
+    });
+
+    // var recipeId = recipe.id;
+    // var newFavorite = {};
+    // newFavorite[recipeId] = recipe;
+    //
+    // var newfavoriteList = Object.assign({}, this.state.favoriteList, newFavorite);
+
   }
 
 //sends all the checked ingredients to be searched
@@ -152,6 +179,8 @@ class homePage extends React.Component {
   }
 
   handleUnfavToggle(recipe) {
+    console.log(this.state.favoriteList)
+    console.log(recipe.id)
     var recipeId = recipe.id;
     var newFavoriteList = Object.assign({}, this.state.favoriteList);
 
@@ -160,6 +189,8 @@ class homePage extends React.Component {
     this.setState({
       favoriteList: newFavoriteList
     });
+
+    console.log(this.state.favoriteList)
 
     var favRecipe = (recipe) => {
       if (!this.state.user) {
@@ -178,18 +209,15 @@ class homePage extends React.Component {
           dataType: 'text',
           success: (data) => {
             console.log("DESTROYED");
-          }
-        })
-      }
+        }
+      })
     };
 
     favRecipe(recipe);
   }
+}
 
   render() {
-    if (this.state["404898"]) {
-      console.log(this.state["404898"])
-    }
     return (
       <div>
         <Nav handleLogin = {this.handleLogin}/>
