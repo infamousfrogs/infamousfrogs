@@ -70,7 +70,7 @@ class homePage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleFavesToggle = this.handleFavesToggle.bind(this);
-
+    this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
   }
 
 //changes the state of an ingredient to be checked or unchecked
@@ -108,6 +108,14 @@ class homePage extends React.Component {
     newFavorite[recipeId] = recipe;
     
     var newfavoriteList = Object.assign({}, this.state.favoriteList, newFavorite);
+    var newRecipeList = Object.assign({}, this.state.recipeList);
+
+    for (var prop in newRecipeList) {
+      if (newRecipeList[prop].id === recipeId) {
+        delete newRecipeList[prop];
+      }
+    }
+
     // if (this.state.recipeId) {
     //   this.setState({recipeId: false});
     //   favRecipe(recipe);
@@ -115,9 +123,9 @@ class homePage extends React.Component {
     //   this.setState({recipeId: true});
     // }
     this.setState({
+      recipeList: newRecipeList,
       favoriteList: newfavoriteList
     });
-
 
     let favRecipe = (recipe) => {
       if (!this.state.user) {
@@ -130,6 +138,17 @@ class homePage extends React.Component {
           }
       }
     };
+  }
+
+  handleUnfavToggle(recipe) {
+    var recipeId = recipe.id;
+    var newFavoriteList = Object.assign({}, this.state.favoriteList);
+
+    delete newFavoriteList[recipeId];
+
+    this.setState({
+      favoriteList: newFavoriteList
+    });
   }
 
   render() {
@@ -146,7 +165,7 @@ class homePage extends React.Component {
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
         <RecipesView recipeList = {this.state.recipeList} handleFavesToggle={this.handleFavesToggle}/>
-        {this.state.user && <RecipesFaves recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle}/>}
+        {this.state.user && <RecipesFaves recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );

@@ -79,8 +79,7 @@ class RecipesFaves extends React.Component {
                 key={recipe.id}
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
-                actionIcon={<IconButton
-                  onClick={event => alert(this.handleToggle(recipe))}><StarBorder color="white" /></IconButton>}
+                actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><StarBorder color="white" /></IconButton>}
               >
                 <img
                   src={recipe.image}
