@@ -64,11 +64,11 @@ class RecipesView extends React.Component {
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
                 actionIcon={<IconButton
-                  onClick={event => this.props.handleFavToggle(recipe)}><StarBorder color="white" /></IconButton>}
+                  onClick={event => alert(this.handleToggle(recipe))}><StarBorder color="white" /></IconButton>}
               >
                 <img
                   src={recipe.image}
-                  onClick={event => this.handleToggle(event, recipe.title)}
+                  onClick={event => this.handleTouchTap(event, recipe.title)}
                 />
               </GridTile>
             )}
