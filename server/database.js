@@ -65,7 +65,7 @@ var removeRecipe = (req, res) => {
   Recipe.destroy({
     where: {
       username: req.body.username,
-      recipeId: req.bdy.recipeId
+      recipeId: req.body.recipeId
     }
   });
 

@@ -104,11 +104,11 @@ app.post('/entry', function(req, res) {
   });
 });
 
-app.post('/favorite', function(req, res) {
+app.post('/favoriteCreate', function(req, res) {
   database.createRecipe(req, res);
 });
 
-app.delete('/favorite', function(req, res) {
+app.delete('/favoriteDestroy', function(req, res) {
   database.removeRecipe(req, res);
 });
 

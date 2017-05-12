@@ -102,11 +102,12 @@ class homePage extends React.Component {
     });
   }
 
+
   handleFavesToggle(recipe) {
     var recipeId = recipe.id;
     var newFavorite = {};
     newFavorite[recipeId] = recipe;
-    
+
     var newfavoriteList = Object.assign({}, this.state.favoriteList, newFavorite);
     var newRecipeList = Object.assign({}, this.state.recipeList);
 
@@ -116,28 +117,38 @@ class homePage extends React.Component {
       }
     }
 
-    // if (this.state.recipeId) {
-    //   this.setState({recipeId: false});
-    //   favRecipe(recipe);
-    // } else {
-    //   this.setState({recipeId: true});
-    // }
     this.setState({
       recipeList: newRecipeList,
       favoriteList: newfavoriteList
     });
 
-    let favRecipe = (recipe) => {
+    var favRecipe = (recipe) => {
       if (!this.state.user) {
         alert('please login');
       } else {
-        if (this.state.recipeId) {
-          // send to db and client favs
-          } else {
-          // remove from db and client favs
+        var newRecipe = {
+          username: this.state.user.username,
+          recipeId: recipe.id,
+          title: recipe.title,
+          image: recipe.image,
+          usedIngredientCount: recipe.usedIngredientCount,
+          missedIngredientCount: recipe.missedIngredientCount
+        }
+        console.log("IN HERE")
+        $.ajax({
+          type: 'POST',
+          url: '/favoriteCreate',
+          contentType: 'application/json',
+          data: JSON.stringify(newRecipe),
+          dataType: 'text',
+          success: (data) => {
+            console.log("POSTED");
           }
+        })
       }
     };
+
+    favRecipe(recipe);
   }
 
   handleUnfavToggle(recipe) {
@@ -149,6 +160,30 @@ class homePage extends React.Component {
     this.setState({
       favoriteList: newFavoriteList
     });
+
+    var favRecipe = (recipe) => {
+      if (!this.state.user) {
+        alert('please login');
+      } else {
+        var newRecipe = {
+          username: this.state.user.username,
+          recipeId: recipe.id,
+        }
+        console.log("IN HERE")
+        $.ajax({
+          type: 'DELETE',
+          url: '/favoriteDestroy',
+          contentType: 'application/json',
+          data: JSON.stringify(newRecipe),
+          dataType: 'text',
+          success: (data) => {
+            console.log("DESTROYED");
+          }
+        })
+      }
+    };
+
+    favRecipe(recipe);
   }
 
   render() {
