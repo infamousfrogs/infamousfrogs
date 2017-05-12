@@ -69,7 +69,7 @@ class RecipesFaves extends React.Component {
           style={styles.root}
           className="col-md-12"
         >
-          <h4> Search Result </h4>
+          <h4> Your Favorites </h4>
           <GridList
            cellHeight={240}
            style={styles.gridList}
