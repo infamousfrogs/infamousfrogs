@@ -112,11 +112,9 @@ class homePage extends React.Component {
         alert('please login');
       } else {
         if (this.state.recipeId) {
-
           // send to db and client favs
           } else {
           // remove from db and client favs
-
           }
       }
     };
