@@ -69,7 +69,9 @@ class RecipesFaves extends React.Component {
           style={styles.root}
           className="col-md-12"
         >
+
           <h4> {this.props.user}'s Favorites List! </h4>
+
           <GridList
            cellHeight={240}
            style={styles.gridList}
