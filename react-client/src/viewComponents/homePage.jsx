@@ -72,7 +72,7 @@ class homePage extends React.Component {
     this.handleFavesToggle = this.handleFavesToggle.bind(this);
     this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
   }
-  
+
 //changes the state of an ingredient to be checked or unchecked
   handleChange(ingredient) {
     if (this.state.finalIngredients.indexOf(ingredient) === -1) {
@@ -108,8 +108,7 @@ class homePage extends React.Component {
   }
 
 //sends all the checked ingredients to be searched
-  handleSubmit(e) {
-    e.preventDefault()
+  handleSubmit() {
     var self = this;
     $.ajax({
       type: 'POST',
@@ -121,8 +120,6 @@ class homePage extends React.Component {
         this.setState({recipeList: JSON.parse(data)});
       }
     });
-    
-    
   }
 
 
@@ -144,6 +141,34 @@ class homePage extends React.Component {
       recipeList: newRecipeList,
       favoriteList: newfavoriteList
     });
+
+    var favRecipe = (recipe) => {
+      if (!this.state.user) {
+        alert('please login');
+      } else {
+        var newRecipe = {
+          username: this.state.user.username,
+          recipeId: recipe.id,
+          title: recipe.title,
+          image: recipe.image,
+          usedIngredientCount: recipe.usedIngredientCount,
+          missedIngredientCount: recipe.missedIngredientCount
+        }
+        console.log("IN HERE")
+        $.ajax({
+          type: 'POST',
+          url: '/favoriteCreate',
+          contentType: 'application/json',
+          data: JSON.stringify(newRecipe),
+          dataType: 'text',
+          success: (data) => {
+            console.log("POSTED");
+          }
+        })
+      }
+    };
+
+    favRecipe(recipe);
   }
 
   handleUnfavToggle(recipe) {
@@ -188,11 +213,7 @@ class homePage extends React.Component {
     };
 
     favRecipe(recipe);
-
   }
-  // {this.state.list.forEach( (ingredient, index) => {
-  //         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[index]}/>
-  //       })}
 
   render() {
     if (this.state["404898"]) {
@@ -201,18 +222,15 @@ class homePage extends React.Component {
     return (
       <div>
         <Nav handleLogin = {this.handleLogin}/>
-        <h4>Select Your Ingredients</h4>
-        {/*list ingredients*/}
-        {this.state.list.map( (ingredient, idx) => {
-          return <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[idx]}/>
-        })}
-        {/*list recipes*/}
+        <h4>Pick Your Ingredients</h4>
+        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
+        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
+        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
+        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
+        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
         <RecipesView recipeList = {this.state.recipeList} handleFavesToggle={this.handleFavesToggle}/>
-
-        {/*list faves if loggedin*/}
         {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
-        <button className='submit' onClick={this.handleSubmit}>Submit</button>
-
+        <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
   }

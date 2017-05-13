@@ -19,7 +19,6 @@ class IngredientFilter extends React.Component {
     this.changeOnThird = this.changeOnThird.bind(this);
     this.changeOnFourth = this.changeOnFourth.bind(this);
     this.changeOnFifth = this.changeOnFifth.bind(this);
-
   }
 
   changeOnFirst() {
@@ -45,7 +44,7 @@ class IngredientFilter extends React.Component {
   render() {
     return (
       <div className="col-md-2">
-        <h5 className="ingredient">{this.state.label}</h5>
+        <h5>{this.state.label}</h5>
          <form>
           <input onChange = {this.changeOnFirst} type="checkbox" value="ingredient1"/> {this.state.arrayOfIngredients[0]}<br/>
           <input onChange = {this.changeOnSecond} type="checkbox" value="ingredient2"/> {this.state.arrayOfIngredients[1]}<br/>
