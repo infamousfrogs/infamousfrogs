@@ -10,11 +10,17 @@ var PORT = process.env.PORT || 3000;
 
 var app = express();
 app.use(flash());
-app.use(session({secret: 'keyboard cat'}));
+app.use(session({secret: 'keyboard cat', cookie: {maxAge: 60000}}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(express.static(__dirname + '/../react-client/src'));
+
+app.get('/', function(req, res, next) {
+  var sess = req.session
+  sess.views = 1
+  res.send(sess);
+})
 
 app.get('/summary', function(req, res) {
   var id = req.body.id

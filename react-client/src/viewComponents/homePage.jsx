@@ -124,52 +124,58 @@ class homePage extends React.Component {
 
 
   handleFavesToggle(recipe) {
-    var recipeId = recipe.id;
-    var newFavorite = {};
-    newFavorite[recipeId] = recipe;
+    if (this.state.user) {
+      var recipeId = recipe.id;
+      var newFavorite = {};
+      newFavorite[recipeId] = recipe;
 
-    var newfavoriteList = Object.assign({}, this.state.favoriteList, newFavorite);
-    var newRecipeList = Object.assign({}, this.state.recipeList);
+      var newfavoriteList = Object.assign({}, this.state.favoriteList, newFavorite);
+      var newRecipeList = Object.assign({}, this.state.recipeList);
 
-    for (var prop in newRecipeList) {
-      if (newRecipeList[prop].id === recipeId) {
-        delete newRecipeList[prop];
-      }
-    }
-
-    this.setState({
-      recipeList: newRecipeList,
-      favoriteList: newfavoriteList
-    });
-
-    var favRecipe = (recipe) => {
-      if (!this.state.user) {
-        alert('please login');
-      } else {
-        var newRecipe = {
-          username: this.state.user.username,
-          recipeId: recipe.id,
-          title: recipe.title,
-          image: recipe.image,
-          usedIngredientCount: recipe.usedIngredientCount,
-          missedIngredientCount: recipe.missedIngredientCount
+      for (var prop in newRecipeList) {
+        if (newRecipeList[prop].id === recipeId) {
+          delete newRecipeList[prop];
         }
-        console.log("IN HERE")
-        $.ajax({
-          type: 'POST',
-          url: '/favoriteCreate',
-          contentType: 'application/json',
-          data: JSON.stringify(newRecipe),
-          dataType: 'text',
-          success: (data) => {
-            console.log("POSTED");
-          }
-        })
       }
-    };
 
-    favRecipe(recipe);
+      this.setState({
+        recipeList: newRecipeList,
+        favoriteList: newfavoriteList
+      });
+
+      var favRecipe = (recipe) => {
+        if (!this.state.user) {
+          alert('Please login in order to favorite!');
+        } else {
+          var newRecipe = {
+            username: this.state.user.username,
+            recipeId: recipe.id,
+            title: recipe.title,
+            image: recipe.image,
+            usedIngredientCount: recipe.usedIngredientCount,
+            missedIngredientCount: recipe.missedIngredientCount
+          }
+          console.log("IN HERE")
+          $.ajax({
+            type: 'POST',
+            url: '/favoriteCreate',
+            contentType: 'application/json',
+            data: JSON.stringify(newRecipe),
+            dataType: 'text',
+            success: (data) => {
+              console.log("POSTED");
+            }
+          })
+        }
+      };
+
+      favRecipe(recipe);
+    }
+  else {
+    alert("Please login in order to favorite!")
+
   }
+}
 
   handleUnfavToggle(recipe) {
     console.log("IN HERE", this.state.favoriteList)
