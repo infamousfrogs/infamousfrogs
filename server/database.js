@@ -98,11 +98,13 @@ var createUser = (req, res) => {
 };
 
 var checkIfUserExists = (req, res) => {
-  User.findOne({where: {username: req.body.user}}).then(function(user) {
+  User.findOne({where: {username: req.body.username}}).then(function(user) {
     if (!user) {
       res.send({'userdoesnotexist': 'userdoesnotexist'});
     } else {
       if (req.body.password === user.password) {
+        req.session.user = {username: req.body.username, password: req.body.password};
+        console.log(req.session);
         res.send(user);
       } else {
         res.send({'incorrectpassword': 'incorrectpassword'});

@@ -77,7 +77,19 @@ class homePage extends React.Component {
     this.fetchRecipeById = this.fetchRecipeById.bind(this);
   }
 
-//changes the state of an ingredient to be checked or unchecked
+  componentDidMount() {
+    $.ajax({
+      type: 'GET',
+      url: '/userinfo',
+      success: (data) => {
+        this.handleLogin(data);
+      },
+      error: (data) => {
+        console.log('error');
+      }
+    });
+  }
+
   handleChange(ingredient) {
     if (this.state.finalIngredients.indexOf(ingredient) === -1) {
       this.state.finalIngredients.push(ingredient);

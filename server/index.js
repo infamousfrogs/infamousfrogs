@@ -16,11 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(express.static(__dirname + '/../react-client/src'));
 
-app.get('/', function(req, res, next) {
-  var sess = req.session
-  sess.views = 1
-  res.send(sess);
-})
+app.get('/userinfo', function(req, res, next) {
+  if (req.session.user) {
+    res.send(req.session.user);
+  } else {
+    res.send();
+  }
+});
 
 app.get('/summary', function(req, res) {
   var id = req.body.id
@@ -60,13 +62,6 @@ app.post('/register', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-
-  var req = {
-    body: {
-      user: req.body.username,
-      password: req.body.password
-    }
-  };
   database.checkIfUserExists(req, res);
 });
 
