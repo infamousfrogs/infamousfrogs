@@ -1,0 +1,36 @@
+.app-name {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 40px;
+}
+
+body {
+	background-color: #ECEFF1 !important;
+	font-family: 'Roboto', sans-serif !important;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:15px;
+    height:15px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+
+input[type='checkbox']:checked {
+    background: #abd;
+}
+
+.searchResults {
+	padding: 40px;
+}
+
+.favoriteResults {
+	position: absolute;
+	text-align: center;
+}
+
+.filterHeader {
+	padding: 10px;
+}

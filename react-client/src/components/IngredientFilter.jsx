@@ -1,6 +1,17 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Checkbox from 'material-ui/Checkbox';
 
-//user clicks on ingredient category (i.e. proteins), checks ingredients they want to serach for
+
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  checkbox: {
+    marginBottom: -20,
+  },
+};
+
 class IngredientFilter extends React.Component {
 
   constructor(props) {
@@ -43,14 +54,14 @@ class IngredientFilter extends React.Component {
 
   render() {
     return (
-      <div className="col-md-2">
-        <h5>{this.state.label}</h5>
-         <form>
-          <input onChange = {this.changeOnFirst} type="checkbox" value="ingredient1"/> {this.state.arrayOfIngredients[0]}<br/>
-          <input onChange = {this.changeOnSecond} type="checkbox" value="ingredient2"/> {this.state.arrayOfIngredients[1]}<br/>
-          <input onChange = {this.changeOnThird} type="checkbox" value="ingredient3"/> {this.state.arrayOfIngredients[2]}<br/>
-          <input onChange = {this.changeOnFourth} type="checkbox" value="ingredient4"/> {this.state.arrayOfIngredients[3]}<br/>
-          <input onChange = {this.changeOnFifth} type="checkbox" value="ingredient5"/> {this.state.arrayOfIngredients[4]}<br/>
+      <div className="col-md-2 filterHeader">
+        <h5 className="ingredient">{this.state.label}</h5>
+         <form style={styles.block}>
+          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[0]} onCheck = {this.changeOnFirst} type="checkbox" value="ingredient1"/> <br/>
+          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[1]} onCheck = {this.changeOnSecond} type="checkbox" value="ingredient2"/> <br/>
+          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[2]} onCheck = {this.changeOnThird} type="checkbox" value="ingredient3"/> <br/>
+          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[3]} onCheck = {this.changeOnFourth} type="checkbox" value="ingredient4"/> <br/>
+          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[4]} onCheck = {this.changeOnFifth} type="checkbox" value="ingredient5"/> <br/>
         </form>
       </div>
     );

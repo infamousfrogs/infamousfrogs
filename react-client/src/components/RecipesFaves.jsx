@@ -67,7 +67,7 @@ class RecipesFaves extends React.Component {
       <MuiThemeProvider>
         <div
           style={styles.root}
-          className="col-md-12"
+          className="col-md-12 favoriteResults"
         >
 
           <h4> {this.props.user}'s Favorites List! </h4>
