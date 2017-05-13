@@ -85,6 +85,26 @@ class homePage extends React.Component {
 
   handleLogin(user) {
     this.setState({user});
+    console.log(user.username)
+    var userObj = {
+      username: user.username
+    }
+    var self = this
+    $.ajax({
+      type: 'POST',
+      url: '/favoriteGet',
+      contentType: 'application/json',
+      data: JSON.stringify(userObj),
+      dataType: 'text',
+      success: (data) => {
+        data = JSON.parse(data);
+        var obj = {}
+        for (var i = 0; i < data.length; i++) {
+          obj[data[i].recipeId] = data[i]
+        }
+        self.setState({favoriteList: obj})
+      }
+    });
   }
 
 //sends all the checked ingredients to be searched
@@ -152,7 +172,12 @@ class homePage extends React.Component {
   }
 
   handleUnfavToggle(recipe) {
+    console.log("IN HERE", this.state.favoriteList)
+    console.log(recipe);
     var recipeId = recipe.id;
+    if (JSON.stringify(recipeId).length !== 7) {
+      recipeId = recipe.recipeId
+    }
     var newFavoriteList = Object.assign({}, this.state.favoriteList);
 
     delete newFavoriteList[recipeId];
@@ -163,11 +188,11 @@ class homePage extends React.Component {
 
     var favRecipe = (recipe) => {
       if (!this.state.user) {
-        alert('please login');
+        alert('Please login in order to favorite!');
       } else {
         var newRecipe = {
           username: this.state.user.username,
-          recipeId: recipe.id,
+          recipeId: recipeId,
         }
         console.log("IN HERE")
         $.ajax({

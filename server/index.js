@@ -112,7 +112,7 @@ app.delete('/favoriteDestroy', function(req, res) {
   database.removeRecipe(req, res);
 });
 
-app.get('/favorite', function(req, res) {
+app.post('/favoriteGet', function(req, res) {
   database.retrieveFavorites(req, res);
 });
 
