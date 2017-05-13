@@ -105,13 +105,6 @@ class homePage extends React.Component {
         self.setState({favoriteList: obj})
       }
     });
-
-    // var recipeId = recipe.id;
-    // var newFavorite = {};
-    // newFavorite[recipeId] = recipe;
-    //
-    // var newfavoriteList = Object.assign({}, this.state.favoriteList, newFavorite);
-
   }
 
 //sends all the checked ingredients to be searched
@@ -179,9 +172,12 @@ class homePage extends React.Component {
   }
 
   handleUnfavToggle(recipe) {
-    console.log(this.state.favoriteList)
-    console.log(recipe.id)
+    console.log("IN HERE", this.state.favoriteList)
+    console.log(recipe);
     var recipeId = recipe.id;
+    if (JSON.stringify(recipeId).length < 6) {
+      recipeId = recipe.recipeId
+    }
     var newFavoriteList = Object.assign({}, this.state.favoriteList);
 
     delete newFavoriteList[recipeId];
@@ -190,16 +186,18 @@ class homePage extends React.Component {
       favoriteList: newFavoriteList
     });
 
-    console.log(this.state.favoriteList)
+
 
     var favRecipe = (recipe) => {
       if (!this.state.user) {
-        alert('please login');
+        alert('Please login in order to favorite!');
       } else {
+        console.log(recipeId)
         var newRecipe = {
           username: this.state.user.username,
-          recipeId: recipe.id,
+          recipeId: recipeId,
         }
+        console.log(newRecipe)
         console.log("IN HERE")
         $.ajax({
           type: 'DELETE',
@@ -209,15 +207,18 @@ class homePage extends React.Component {
           dataType: 'text',
           success: (data) => {
             console.log("DESTROYED");
-        }
-      })
+          }
+        })
+      }
     };
 
     favRecipe(recipe);
   }
-}
 
   render() {
+    if (this.state["404898"]) {
+      console.log(this.state["404898"])
+    }
     return (
       <div>
         <Nav handleLogin = {this.handleLogin}/>
