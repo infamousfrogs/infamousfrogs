@@ -67,9 +67,9 @@ class RecipesView extends React.Component {
       <MuiThemeProvider>
         <div
           style={styles.root}
-          className="col-md-12"
+          className="col-md-12 searchResults"
         >
-          <h4> Search Result </h4>
+          <h4> Search Results </h4>
           <GridList
            cellHeight={240}
            style={styles.gridList}

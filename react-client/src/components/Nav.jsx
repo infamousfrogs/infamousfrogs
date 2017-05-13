@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import $ from 'jquery';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const customStyles = {
   content: {
@@ -125,20 +127,21 @@ class Nav extends React.Component {
       );
     } else {
       userMessage = (
-        'Sign in to customise your favorites!'
+        'Log in in to customise your favorites!'
       );
     }
 
     return (
+     <MuiThemeProvider>
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <h3> Recipe-O-Maker </h3>
+            <h3 className="app-name"> Simply Recipes </h3>
           </div>
           <p className="navbar-text navbar-center"> {userMessage} </p>
           <div className="btn-group pull-right">
-            <button onClick = {this.openModal2} className="btn navbar-btn btn-success" role="button"> Sign Up </button>
-            <button onClick = {this.openModal} className="btn navbar-btn btn-success" role="button"> Log In </button>
+            <RaisedButton label="Sign Up" onClick = {this.openModal2} role="button"> </RaisedButton>
+            <RaisedButton label="Log In" onClick = {this.openModal} role="button"> </RaisedButton>
           </div>
           <Modal
               isOpen={this.state.modalIsOpen}
@@ -170,7 +173,7 @@ class Nav extends React.Component {
                       </div>
                       <div className="control-group">
                         <div className="controls">
-                          <button onClick = {this.formSubmit} className="btn btn-success">Login</button>
+                          <RaisedButton label="Login" onClick = {this.formSubmit}></RaisedButton>
                         </div>
                       </div>
                     </fieldset>
@@ -209,7 +212,7 @@ class Nav extends React.Component {
                         </div>
                         <div className="control-group">
                           <div className="controls">
-                            <button onClick = {this.formSubmit2} className="btn btn-success">Sign Up</button>
+                            <RaisedButton label="Sign Up" onClick = {this.formSubmit2}></RaisedButton>
                           </div>
                         </div>
                       </fieldset>
@@ -220,6 +223,7 @@ class Nav extends React.Component {
               </Modal>
         </div>
       </nav>
+     </MuiThemeProvider>
     );
   }
 }

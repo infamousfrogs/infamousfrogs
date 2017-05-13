@@ -6,6 +6,8 @@ import IngredientFilter from './../components/IngredientFilter.jsx';
 import RecipesView from './../components/RecipesView.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import RecipesFaves from './../components/RecipesFaves.jsx';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class homePage extends React.Component {
@@ -226,9 +228,10 @@ class homePage extends React.Component {
       console.log(this.state["404898"])
     }
     return (
+    <MuiThemeProvider>
       <div>
         <Nav handleLogin = {this.handleLogin}/>
-        <h4>Pick Your Ingredients</h4>
+        <h4>Filter by Ingredient(s):</h4>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
@@ -236,8 +239,10 @@ class homePage extends React.Component {
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
         <RecipesView recipeList = {this.state.recipeList} handleFavesToggle={this.handleFavesToggle}/>
         {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
-        <button onClick={this.handleSubmit}>Submit</button>
+        <RaisedButton onClick={this.handleSubmit} label='Search'></RaisedButton>
       </div>
+   </MuiThemeProvider>
+
     );
   }
 }
