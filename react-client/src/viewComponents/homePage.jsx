@@ -72,7 +72,7 @@ class homePage extends React.Component {
     this.handleFavesToggle = this.handleFavesToggle.bind(this);
     this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
   }
-
+  
 //changes the state of an ingredient to be checked or unchecked
   handleChange(ingredient) {
     if (this.state.finalIngredients.indexOf(ingredient) === -1) {
@@ -108,7 +108,8 @@ class homePage extends React.Component {
   }
 
 //sends all the checked ingredients to be searched
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault()
     var self = this;
     $.ajax({
       type: 'POST',
@@ -120,6 +121,8 @@ class homePage extends React.Component {
         this.setState({recipeList: JSON.parse(data)});
       }
     });
+    
+    
   }
 
 
@@ -142,6 +145,7 @@ class homePage extends React.Component {
       favoriteList: newfavoriteList
     });
 
+<<<<<<< 5a4ebf246440c68141975baf0953b42caf163085
     var favRecipe = (recipe) => {
       if (!this.state.user) {
         alert('please login');
@@ -213,7 +217,12 @@ class homePage extends React.Component {
     };
 
     favRecipe(recipe);
+=======
+>>>>>>> mod files
   }
+  // {this.state.list.forEach( (ingredient, index) => {
+  //         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[index]}/>
+  //       })}
 
   render() {
     if (this.state["404898"]) {
@@ -222,15 +231,21 @@ class homePage extends React.Component {
     return (
       <div>
         <Nav handleLogin = {this.handleLogin}/>
-        <h4>Pick Your Ingredients</h4>
-        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
-        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
-        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
-        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
-        <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
+        <h4>Select Your Ingredients</h4>
+        {/*list ingredients*/}
+        {this.state.list.map( (ingredient, idx) => {
+          return <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[idx]}/>
+        })}
+        {/*list recipes*/}
         <RecipesView recipeList = {this.state.recipeList} handleFavesToggle={this.handleFavesToggle}/>
+<<<<<<< 5a4ebf246440c68141975baf0953b42caf163085
         {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
         <button onClick={this.handleSubmit}>Submit</button>
+=======
+        {/*list faves if loggedin*/}
+        {this.state.user && <RecipesFaves recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle}/>}
+        <button className='submit' onClick={this.handleSubmit}>Submit</button>
+>>>>>>> mod files
       </div>
     );
   }
