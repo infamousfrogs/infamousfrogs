@@ -122,6 +122,33 @@ app.post('/favoriteGet', function(req, res) {
   database.retrieveFavorites(req, res);
 });
 
+app.get('/fetchRecipeById', function(req, res) { 
+  let recipeId = req.query.id;
+  let url = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information`;
+  var fetchRecipeById = {
+    url: url,
+    includeNutrition: false,
+    method: 'GET',
+    headers: {
+      'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
+      'Accept': 'application/json'
+    }
+  }
+  request(fetchRecipeById, function(err, response, body) {
+    if (err) {
+      throw err;
+    }
+    else {
+      body = JSON.parse(body).analyzedInstructions
+      console.log(body)
+      res.send(body);
+    }
+  });
+  // res.send('information')
+});
+
+
+
 
 app.listen(PORT, function() {
   console.log(`listening on port ${PORT}`);

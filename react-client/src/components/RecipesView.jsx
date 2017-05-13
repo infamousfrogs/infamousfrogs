@@ -43,6 +43,7 @@ class RecipesView extends React.Component {
       dataType: 'text',
       success: (data) => {
         this.setState({srcId: data})
+        this.setState({fetchRecipeById: id})
       }
     })
     this.setState ({
@@ -63,6 +64,10 @@ class RecipesView extends React.Component {
     if (this.state.srcId) {
       var description = renderHTML(this.state.srcId)
     }
+    if (this.state.fetchRecipeById) {
+      let id = this.state.fetchRecipeById
+      var instructions = renderHTML(this.props.recipeInstruction);
+    }
     return (
       <MuiThemeProvider>
         <div
@@ -80,11 +85,19 @@ class RecipesView extends React.Component {
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
                 actionIcon={<IconButton
-                  onClick={event => this.props.handleFavesToggle(recipe)}><StarBorder color="white" /></IconButton>}
+                  onClick={event => 
+                    this.props.handleFavesToggle(recipe)
+                  }><StarBorder color="white" /></IconButton>}
                              >
                 <img
                   src={recipe.image}
-                  onClick={event => this.handleTouchTap(event, recipe.title, recipe.id)}
+                  onClick={event => {
+                    this.handleTouchTap(event, recipe.title, recipe.id)
+                    this.props.fetchRecipeById(recipe.id) 
+                    
+                    }
+                    
+                  }
                 />
               </GridTile>
             )}
@@ -95,14 +108,20 @@ class RecipesView extends React.Component {
             anchorOrigin={{horizontal: 'middle', vertical: 'center'}}
             targetOrigin={{horizontal: 'middle', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
+            className="col-md-5 recipe"
           >
-            <div className="col-md-4">
+            <div className="col-md-6">
               <img
                 src={this.state.srcUrl}
                 height={400}
               />
+             
               <h4>{this.state.srcTitle}</h4>
               {description}
+
+
+              <h3> Instructions </h3>
+              {instructions}
             </div>
           </Popover>
         </div>

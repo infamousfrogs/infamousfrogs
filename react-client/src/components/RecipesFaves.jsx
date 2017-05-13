@@ -70,7 +70,8 @@ class RecipesFaves extends React.Component {
           className="col-md-12 favoriteResults"
         >
 
-          <h4> {this.props.user}'s Favorites List! </h4>
+
+          <h4> {`${this.props.user}'s Favorites List!`} </h4>
 
           <GridList
            cellHeight={240}
@@ -81,7 +82,8 @@ class RecipesFaves extends React.Component {
                 key={recipe.id}
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
-                actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="white" /></IconButton>}
+
+                actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="yellow" /></IconButton>}
               >
                 <img
                   src={recipe.image}
@@ -96,6 +98,7 @@ class RecipesFaves extends React.Component {
             anchorOrigin={{horizontal: 'middle', vertical: 'center'}}
             targetOrigin={{horizontal: 'middle', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
+            className="col-md-4"
           >
             <div>
               <img
