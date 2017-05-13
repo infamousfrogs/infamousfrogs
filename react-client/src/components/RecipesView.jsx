@@ -95,7 +95,6 @@ class RecipesView extends React.Component {
             anchorOrigin={{horizontal: 'middle', vertical: 'center'}}
             targetOrigin={{horizontal: 'middle', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
-            className="col-md-4"
           >
             <div className="col-md-4">
               <img
