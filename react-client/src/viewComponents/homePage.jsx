@@ -144,35 +144,6 @@ class homePage extends React.Component {
       recipeList: newRecipeList,
       favoriteList: newfavoriteList
     });
-
-<<<<<<< 5a4ebf246440c68141975baf0953b42caf163085
-    var favRecipe = (recipe) => {
-      if (!this.state.user) {
-        alert('please login');
-      } else {
-        var newRecipe = {
-          username: this.state.user.username,
-          recipeId: recipe.id,
-          title: recipe.title,
-          image: recipe.image,
-          usedIngredientCount: recipe.usedIngredientCount,
-          missedIngredientCount: recipe.missedIngredientCount
-        }
-        console.log("IN HERE")
-        $.ajax({
-          type: 'POST',
-          url: '/favoriteCreate',
-          contentType: 'application/json',
-          data: JSON.stringify(newRecipe),
-          dataType: 'text',
-          success: (data) => {
-            console.log("POSTED");
-          }
-        })
-      }
-    };
-
-    favRecipe(recipe);
   }
 
   handleUnfavToggle(recipe) {
@@ -217,8 +188,7 @@ class homePage extends React.Component {
     };
 
     favRecipe(recipe);
-=======
->>>>>>> mod files
+
   }
   // {this.state.list.forEach( (ingredient, index) => {
   //         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[index]}/>
@@ -238,14 +208,11 @@ class homePage extends React.Component {
         })}
         {/*list recipes*/}
         <RecipesView recipeList = {this.state.recipeList} handleFavesToggle={this.handleFavesToggle}/>
-<<<<<<< 5a4ebf246440c68141975baf0953b42caf163085
-        {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
-        <button onClick={this.handleSubmit}>Submit</button>
-=======
+
         {/*list faves if loggedin*/}
-        {this.state.user && <RecipesFaves recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle}/>}
+        {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
         <button className='submit' onClick={this.handleSubmit}>Submit</button>
->>>>>>> mod files
+
       </div>
     );
   }
