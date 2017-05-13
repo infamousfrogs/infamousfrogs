@@ -51,13 +51,7 @@ app.get('/summary', function(req, res) {
 
 
 app.post('/register', function(req, res) {
-
-  var req = {
-    body: {
-      user: req.body.username,
-      password: req.body.password
-    }
-  };
+  console.log(req);
   database.createUser(req, res);
 });
 

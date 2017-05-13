@@ -154,9 +154,13 @@ class Nav extends React.Component {
           </div>
           <p className="navbar-text navbar-center"> {userMessage} </p>
           <div className="btn-group pull-right">
-            <RaisedButton label="Sign Up" onClick = {this.openModal2} role="button"> </RaisedButton>
-            <RaisedButton label="Log In" onClick = {this.openModal} role="button"> </RaisedButton>
-            <RaisedButton label="Log Out" onClick={this.props.handleLogout} role="button"> </RaisedButton>
+            {this.props.user ?
+              <RaisedButton label="Log Out" onClick={this.props.handleLogout} role="button"> </RaisedButton> :
+              <div>
+                <RaisedButton label="Sign Up" onClick = {this.openModal2} role="button"> </RaisedButton>
+                <RaisedButton label="Log In" onClick = {this.openModal} role="button"> </RaisedButton>
+              </div>
+            }
           </div>
           <Modal
               isOpen={this.state.modalIsOpen}
