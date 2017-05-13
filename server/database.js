@@ -104,7 +104,6 @@ var checkIfUserExists = (req, res) => {
     } else {
       if (req.body.password === user.password) {
         req.session.user = {username: req.body.username, password: req.body.password};
-        console.log(req.session);
         res.send(user);
       } else {
         res.send({'incorrectpassword': 'incorrectpassword'});
