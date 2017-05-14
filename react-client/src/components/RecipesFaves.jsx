@@ -39,8 +39,9 @@ class RecipesFaves extends React.Component {
       url: `/summary?id=${id}`,
       contentType: 'application/json',
       data: JSON.stringify(id),
-      dataType: 'application/json',
+      dataType: 'text',
       success: (data) => {
+        console.log("IN HERE")
         this.setState({srcId: data})
         this.setState({fetchRecipeById: id})
       }

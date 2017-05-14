@@ -31,17 +31,20 @@ app.get('/summary', function(req, res) {
     url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${id}/summary`,
     method: 'GET',
     headers: {
-      'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
+      'X-Mashape-Key': 'q4398u4TA1mshLwj7IkUIAfEV3KHp11cFqPjsnzkkxjtTBxlHc',
       'Accept': 'application/json'
     }
   }
 
+
   request(recipeSummaryOptions, function(error, response, body) {
     if (error) {
+      console.log(error)
       throw err;
     }
     else {
       body = JSON.parse(body);
+      console.log(body)
       res.send(body.summary)
     }
 
@@ -118,16 +121,18 @@ app.get('/fetchRecipeById', function(req, res) {
     includeNutrition: false,
     method: 'GET',
     headers: {
-      'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
+      'X-Mashape-Key': 'q4398u4TA1mshLwj7IkUIAfEV3KHp11cFqPjsnzkkxjtTBxlHc',
       'Accept': 'application/json'
     }
   }
   request(fetchRecipeById, function(err, response, body) {
     if (err) {
+      console.log(error)
       throw err;
     }
     else {
       body = JSON.parse(body).analyzedInstructions
+      console.log(body)
       res.send(body);
     }
   });
