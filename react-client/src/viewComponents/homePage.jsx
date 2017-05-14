@@ -73,10 +73,8 @@ class homePage extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleFavesToggle = this.handleFavesToggle.bind(this);
     this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
-<<<<<<< afb687564e5604deef0ce909cb88a462bebf4481
-=======
+
     this.fetchRecipeById = this.fetchRecipeById.bind(this);
->>>>>>> added instructions and minor other changes
   }
 
 //changes the state of an ingredient to be checked or unchecked
