@@ -34,16 +34,15 @@ class RecipesFaves extends React.Component {
   }
 
   handleTouchTap(event, title, id) {
-    console.log("IN HERE")
-    event.preventDefault();
     $.ajax({
       type: 'GET',
-      url: '/summary',
+      url: `/summary?id=${id}`,
       contentType: 'application/json',
-      data: JSON.stringify(obj),
-      dataType: 'text',
+      data: JSON.stringify(id),
+      dataType: 'application/json',
       success: (data) => {
         this.setState({srcId: data})
+        this.setState({fetchRecipeById: id})
       }
     })
     this.setState ({
