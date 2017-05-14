@@ -127,7 +127,7 @@ class Nav extends React.Component {
       );
     } else {
       userMessage = (
-        'Log in in to customise your favorites!'
+        'Log in in to customize your favorites!'
       );
     }
 
