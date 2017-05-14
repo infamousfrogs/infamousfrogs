@@ -80,13 +80,14 @@ var retrieveFavorites = (req, res) => {
 };
 
 var createUser = (req, res) => {
-  User.findOne({where: {username: req.body.user}}).then(function(user) {
+  User.findOne({where: {username: req.body.username}}).then(function(user) {
     if (!user) {
       User.create({
-        username: req.body.user,
+        username: req.body.username,
         password: req.body.password
       }).then(function() {
-        User.findOne({where: {username: req.body.user}}).then(function(user) {
+        req.session.user = {username: req.body.username, password: req.body.password};
+        User.findOne({where: {username: req.body.username}}).then(function(user) {
           res.send(user);
         });
       });
@@ -98,11 +99,12 @@ var createUser = (req, res) => {
 };
 
 var checkIfUserExists = (req, res) => {
-  User.findOne({where: {username: req.body.user}}).then(function(user) {
+  User.findOne({where: {username: req.body.username}}).then(function(user) {
     if (!user) {
       res.send({'userdoesnotexist': 'userdoesnotexist'});
     } else {
       if (req.body.password === user.password) {
+        req.session.user = {username: req.body.username, password: req.body.password};
         res.send(user);
       } else {
         res.send({'incorrectpassword': 'incorrectpassword'});

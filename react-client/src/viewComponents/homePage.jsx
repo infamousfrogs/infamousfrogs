@@ -68,16 +68,30 @@ class homePage extends React.Component {
 
       favoriteList: {}
     };
+    this.componentDidMount = this.componentDidMount.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
     this.handleFavesToggle = this.handleFavesToggle.bind(this);
     this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
 
     this.fetchRecipeById = this.fetchRecipeById.bind(this);
   }
 
-//changes the state of an ingredient to be checked or unchecked
+  componentDidMount() {
+    $.ajax({
+      type: 'GET',
+      url: '/userinfo',
+      success: (data) => {
+        this.handleLogin(data);
+      },
+      error: (data) => {
+        console.log('error');
+      }
+    });
+  }
+
   handleChange(ingredient) {
     if (this.state.finalIngredients.indexOf(ingredient) === -1) {
       this.state.finalIngredients.push(ingredient);
@@ -89,11 +103,11 @@ class homePage extends React.Component {
 
   handleLogin(user) {
     this.setState({user});
-    console.log(user.username)
+    console.log(this.state.user);
     var userObj = {
       username: user.username
-    }
-    var self = this
+    };
+    var self = this;
     $.ajax({
       type: 'POST',
       url: '/favoriteGet',
@@ -102,13 +116,32 @@ class homePage extends React.Component {
       dataType: 'text',
       success: (data) => {
         data = JSON.parse(data);
-        var obj = {}
+        var obj = {};
         for (var i = 0; i < data.length; i++) {
-          obj[data[i].recipeId] = data[i]
+          obj[data[i].recipeId] = data[i];
         }
-        self.setState({favoriteList: obj})
+        self.setState({favoriteList: obj});
       }
     });
+  }
+
+  handleLogout() {
+    $.ajax({
+      type: 'DELETE',
+      url: '/logout',
+      success: (data) => {
+        console.log('successfully logged out');
+      },
+      error: (data) => {
+        console.log('error logging out');
+      }
+    });
+    
+    this.setState({
+      favoriteList: {}
+    });
+
+    delete this.state.user;
   }
 
 //sends all the checked ingredients to be searched
@@ -260,7 +293,7 @@ class homePage extends React.Component {
     return (
     <MuiThemeProvider>
       <div>
-        <Nav handleLogin = {this.handleLogin}/>
+        <Nav handleLogin={this.handleLogin} handleLogout={this.handleLogout} user={this.state.user}/>
         <h4>Filter by Ingredient(s):</h4>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>

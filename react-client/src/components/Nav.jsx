@@ -34,6 +34,7 @@ class Nav extends React.Component {
     this.formSubmit = this.formSubmit.bind(this);
     this.openModal2 = this.openModal2.bind(this);
     this.formSubmit2 = this.formSubmit2.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   openModal() {
@@ -118,12 +119,25 @@ class Nav extends React.Component {
     });
   }
 
+  logOut() {
+    $.ajax({
+      type: 'DELETE',
+      url: '/logout',
+      success: (data) => {
+        console.log('successfully logged out');
+      },
+      error: (data) => {
+        console.log('error logging out');
+      }
+    });
+  }
+
   render() {
     let userMessage;
     let formType;
-    if (this.state.user) {
+    if (this.props.user) {
       userMessage = (
-        `Welcome ${this.state.user.username}!`
+        `Welcome ${this.props.user.username}!`
       );
     } else {
       userMessage = (
@@ -140,8 +154,13 @@ class Nav extends React.Component {
           </div>
           <p className="navbar-text navbar-center"> {userMessage} </p>
           <div className="btn-group pull-right">
-            <RaisedButton label="Sign Up" onClick = {this.openModal2} role="button"> </RaisedButton>
-            <RaisedButton label="Log In" onClick = {this.openModal} role="button"> </RaisedButton>
+            {this.props.user ?
+              <RaisedButton label="Log Out" onClick={this.props.handleLogout} role="button"> </RaisedButton> :
+              <div>
+                <RaisedButton label="Sign Up" onClick = {this.openModal2} role="button"> </RaisedButton>
+                <RaisedButton label="Log In" onClick = {this.openModal} role="button"> </RaisedButton>
+              </div>
+            }
           </div>
           <Modal
               isOpen={this.state.modalIsOpen}

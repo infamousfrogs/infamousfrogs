@@ -61,7 +61,7 @@ class RecipesFaves extends React.Component {
 
   render() {
     if (this.state.srcId) {
-      var description = renderHTML(this.state.srcId)
+      var description = renderHTML(this.state.srcId);
     }
     return (
       <MuiThemeProvider>
@@ -70,8 +70,9 @@ class RecipesFaves extends React.Component {
           className="col-md-12 favoriteResults"
         >
 
-
-          <h4> {`${this.props.user}'s Favorites List!`} </h4>
+          {this.props.user ?
+            <h4> {this.props.user}'s Favorites List! </h4> : ''
+          }
 
           <GridList
            cellHeight={240}

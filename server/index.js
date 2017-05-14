@@ -10,17 +10,19 @@ var PORT = process.env.PORT || 3000;
 
 var app = express();
 app.use(flash());
-app.use(session({secret: 'keyboard cat', cookie: {maxAge: 60000}}));
+app.use(session({secret: 'keyboard cat', cookie: {maxAge: 60000}, saveUninitialized: false, resave: false}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(express.static(__dirname + '/../react-client/src'));
 
-app.get('/', function(req, res, next) {
-  var sess = req.session
-  sess.views = 1
-  res.send(sess);
-})
+app.get('/userinfo', function(req, res, next) {
+  if (req.session.user) {
+    res.send(req.session.user);
+  } else {
+    res.send();
+  }
+});
 
 app.get('/summary', function(req, res) {
   var id = req.body.id
@@ -49,24 +51,11 @@ app.get('/summary', function(req, res) {
 
 
 app.post('/register', function(req, res) {
-
-  var req = {
-    body: {
-      user: req.body.username,
-      password: req.body.password
-    }
-  };
+  console.log(req);
   database.createUser(req, res);
 });
 
 app.post('/login', function(req, res) {
-
-  var req = {
-    body: {
-      user: req.body.username,
-      password: req.body.password
-    }
-  };
   database.checkIfUserExists(req, res);
 });
 
@@ -144,10 +133,13 @@ app.get('/fetchRecipeById', function(req, res) {
       res.send(body);
     }
   });
-  // res.send('information')
 });
 
-
+app.delete('/logout', function(req, res) {
+  console.log('BEFORE', req.session);
+  req.session.destroy();
+  console.log('AFTER', req.session);
+});
 
 
 app.listen(PORT, function() {
