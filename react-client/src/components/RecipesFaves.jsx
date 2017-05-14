@@ -34,12 +34,13 @@ class RecipesFaves extends React.Component {
   }
 
   handleTouchTap(event, title, id) {
+    console.log("IN HERE")
     event.preventDefault();
     $.ajax({
       type: 'GET',
       url: '/summary',
       contentType: 'application/json',
-      data: JSON.stringify(id),
+      data: JSON.stringify(obj),
       dataType: 'text',
       success: (data) => {
         this.setState({srcId: data})
@@ -71,7 +72,7 @@ class RecipesFaves extends React.Component {
         >
 
           {this.props.user ?
-            <h4> {this.props.user}'s Favorites List! </h4> : ''
+            <h4> {this.props.user}s Favorites List! </h4> : ''
           }
 
           <GridList
