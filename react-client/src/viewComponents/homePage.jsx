@@ -73,6 +73,8 @@ class homePage extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleFavesToggle = this.handleFavesToggle.bind(this);
     this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
+
+    this.fetchRecipeById = this.fetchRecipeById.bind(this);
   }
 
 //changes the state of an ingredient to be checked or unchecked
@@ -223,6 +225,34 @@ class homePage extends React.Component {
     favRecipe(recipe);
   }
 
+  fetchRecipeById (recipeId) {
+    let recipeInstructions;
+    console.log('homePage.fetchRecipeById', recipeId)
+    let sampleData = [{"name":"","steps":[{"number":1,"step":"In a food processor pulse the yogurt, milk, cream cheese, condensed milk, and coffee together.Taste to make sure it is sweet enough for you and add more condensed milk/sugar if needed. You can also use Stevia to reduce the calories.","ingredients":[{"id":14209,"name":"coffee","image":"https://spoonacular.com/cdn/ingredients_100x100/coffee.jpg"}],"equipment":[{"id":404771,"name":"food processor","image":"https://spoonacular.com/cdn/equipment_100x100/food-processor.png"}]},{"number":2,"step":"Pour into popsicle molds and let freeze for 4 hours or until frozen.","ingredients":[],"equipment":[{"id":405929,"name":"popsicle molds","image":"https://spoonacular.com/cdn/equipment_100x100/popsicle-molds.jpg"}]}]}];
+    if (recipeId !== undefined) {
+      $.ajax({
+        type: 'GET',
+        url: '/fetchRecipeById',
+        contentType: 'application/json',
+        data: ({id: recipeId}),
+        dataType: 'text',
+        success: (data) => {
+          let recipeIdObj = { recipeId: data};
+          this.setState(recipeIdObj);
+          console.log('wanna to return', sampleData, '<- sampleData :: data->', data, 'state', this.state.recipeId)
+          return this.state.recipeId;
+        },
+        error : (error) => console.log('fetchRecipeById error', error) 
+      });
+          
+    }
+
+  }
+
+      // ajax call to server requesting recipe instruction information
+      // 
+  
+
   render() {
     if (this.state["404898"]) {
       console.log(this.state["404898"])
@@ -237,9 +267,16 @@ class homePage extends React.Component {
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
-        <RecipesView recipeList = {this.state.recipeList} handleFavesToggle={this.handleFavesToggle}/>
+        <RecipesView 
+          recipeList = {this.state.recipeList} 
+          handleFavesToggle = {this.handleFavesToggle}
+          fetchRecipeById = {this.fetchRecipeById} 
+          recipeInstruction = {this.state.recipeId}
+          />
+
         {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
-        <RaisedButton onClick={this.handleSubmit} label='Search'></RaisedButton>
+        <button onClick={this.handleSubmit}>Submit</button>
+
       </div>
    </MuiThemeProvider>
 
