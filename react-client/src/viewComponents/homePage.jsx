@@ -308,7 +308,7 @@ class homePage extends React.Component {
           />
 
         {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
-        <button onClick={this.handleSubmit}>Submit</button>
+        <RaisedButton label="Search" onClick={this.handleSubmit}></RaisedButton>
 
       </div>
    </MuiThemeProvider>
