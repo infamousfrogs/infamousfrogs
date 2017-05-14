@@ -37,10 +37,10 @@ class RecipesView extends React.Component {
     event.preventDefault();
     $.ajax({
       type: 'GET',
-      url: '/summary',
+      url: `/summary?id=${id}`,
       contentType: 'application/json',
       data: JSON.stringify(id),
-      dataType: 'text',
+      dataType: 'application/json',
       success: (data) => {
         this.setState({srcId: data})
         this.setState({fetchRecipeById: id})
@@ -85,7 +85,7 @@ class RecipesView extends React.Component {
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
                 actionIcon={<IconButton
-                  onClick={event => 
+                  onClick={event =>
                     this.props.handleFavesToggle(recipe)
                   }><StarBorder color="white" /></IconButton>}
                              >
@@ -93,10 +93,10 @@ class RecipesView extends React.Component {
                   src={recipe.image}
                   onClick={event => {
                     this.handleTouchTap(event, recipe.title, recipe.id)
-                    this.props.fetchRecipeById(recipe.id) 
-                    
+                    this.props.fetchRecipeById(recipe.id)
+
                     }
-                    
+
                   }
                 />
               </GridTile>
@@ -115,7 +115,7 @@ class RecipesView extends React.Component {
                 src={this.state.srcUrl}
                 height={400}
               />
-             
+
               <h4>{this.state.srcTitle}</h4>
               {description}
 

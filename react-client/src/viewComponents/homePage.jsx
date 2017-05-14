@@ -103,7 +103,6 @@ class homePage extends React.Component {
 
   handleLogin(user) {
     this.setState({user});
-    console.log(this.state.user);
     var userObj = {
       username: user.username
     };
@@ -136,7 +135,7 @@ class homePage extends React.Component {
         console.log('error logging out');
       }
     });
-    
+
     this.setState({
       favoriteList: {}
     });
@@ -192,7 +191,6 @@ class homePage extends React.Component {
             usedIngredientCount: recipe.usedIngredientCount,
             missedIngredientCount: recipe.missedIngredientCount
           }
-          console.log("IN HERE")
           $.ajax({
             type: 'POST',
             url: '/favoriteCreate',
@@ -215,8 +213,6 @@ class homePage extends React.Component {
 }
 
   handleUnfavToggle(recipe) {
-    console.log("IN HERE", this.state.favoriteList)
-    console.log(recipe);
     var recipeId = recipe.id;
     if (JSON.stringify(recipeId).length < 6) {
       recipeId = recipe.recipeId
@@ -235,13 +231,11 @@ class homePage extends React.Component {
       if (!this.state.user) {
         alert('Please login in order to favorite!');
       } else {
-        console.log(recipeId)
         var newRecipe = {
           username: this.state.user.username,
           recipeId: recipeId,
         }
-        console.log(newRecipe)
-        console.log("IN HERE")
+
         $.ajax({
           type: 'DELETE',
           url: '/favoriteDestroy',
@@ -260,7 +254,6 @@ class homePage extends React.Component {
 
   fetchRecipeById (recipeId) {
     let recipeInstructions;
-    console.log('homePage.fetchRecipeById', recipeId)
     let sampleData = [{"name":"","steps":[{"number":1,"step":"In a food processor pulse the yogurt, milk, cream cheese, condensed milk, and coffee together.Taste to make sure it is sweet enough for you and add more condensed milk/sugar if needed. You can also use Stevia to reduce the calories.","ingredients":[{"id":14209,"name":"coffee","image":"https://spoonacular.com/cdn/ingredients_100x100/coffee.jpg"}],"equipment":[{"id":404771,"name":"food processor","image":"https://spoonacular.com/cdn/equipment_100x100/food-processor.png"}]},{"number":2,"step":"Pour into popsicle molds and let freeze for 4 hours or until frozen.","ingredients":[],"equipment":[{"id":405929,"name":"popsicle molds","image":"https://spoonacular.com/cdn/equipment_100x100/popsicle-molds.jpg"}]}]}];
     if (recipeId !== undefined) {
       $.ajax({
@@ -272,24 +265,21 @@ class homePage extends React.Component {
         success: (data) => {
           let recipeIdObj = { recipeId: data};
           this.setState(recipeIdObj);
-          console.log('wanna to return', sampleData, '<- sampleData :: data->', data, 'state', this.state.recipeId)
           return this.state.recipeId;
         },
-        error : (error) => console.log('fetchRecipeById error', error) 
+        error : (error) => console.log('fetchRecipeById error', error)
       });
-          
+
     }
 
   }
 
       // ajax call to server requesting recipe instruction information
-      // 
-  
+      //
+
 
   render() {
-    if (this.state["404898"]) {
-      console.log(this.state["404898"])
-    }
+
     return (
     <MuiThemeProvider>
       <div>
@@ -300,10 +290,10 @@ class homePage extends React.Component {
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
-        <RecipesView 
-          recipeList = {this.state.recipeList} 
+        <RecipesView
+          recipeList = {this.state.recipeList}
           handleFavesToggle = {this.handleFavesToggle}
-          fetchRecipeById = {this.fetchRecipeById} 
+          fetchRecipeById = {this.fetchRecipeById}
           recipeInstruction = {this.state.recipeId}
           />
 
