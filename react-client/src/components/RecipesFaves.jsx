@@ -95,7 +95,7 @@ class RecipesFaves extends React.Component {
                 <img
                   src={recipe.image}
                   onClick={event => {
-                    this.handleTouchTap(event, recipe.title, recipe.id)
+                    this.handleTouchTap(event, recipe.title, recipe.recipeId)
                     this.props.fetchRecipeById(recipe.recipeId)
                     }
                   }
