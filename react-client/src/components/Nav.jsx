@@ -152,7 +152,7 @@ class Nav extends React.Component {
           <div className="navbar-header">
             <h3 className="app-name"> Simply Recipes </h3>
           </div>
-          <p className="navbar-text navbar-center"> {userMessage} </p>
+          <p className="navbar-text navbar-center centerTitle"> {userMessage} </p>
           <div className="btn-group pull-right">
             {this.props.user ?
               <RaisedButton label="Log Out" onClick={this.props.handleLogout} role="button"> </RaisedButton> :

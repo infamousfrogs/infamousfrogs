@@ -34,6 +34,7 @@ class RecipesFaves extends React.Component {
   }
 
   handleTouchTap(event, title, id) {
+    event.preventDefault();
     $.ajax({
       type: 'GET',
       url: `/summary?id=${id}`,
@@ -41,8 +42,8 @@ class RecipesFaves extends React.Component {
       data: JSON.stringify(id),
       dataType: 'text',
       success: (data) => {
-        this.setState({srcId: data});
-        this.setState({fetchRecipeById: id});
+        this.setState({srcId: data})
+        this.setState({fetchRecipeById: id})
       }
     });
     
@@ -64,6 +65,10 @@ class RecipesFaves extends React.Component {
     if (this.state.srcId) {
       var description = renderHTML(this.state.srcId);
     }
+    if (this.state.fetchRecipeById) {
+      let id = this.state.fetchRecipeById
+      var instructions = this.props.recipeInstruction;
+    }
     return (
       <MuiThemeProvider>
         <div
@@ -76,18 +81,22 @@ class RecipesFaves extends React.Component {
           <GridList
            cellHeight={240}
            style={styles.gridList}
+           className='recipeViewList'
           >
             {Object.values(this.props.favoriteList).map((recipe) =>
               <GridTile
                 key={recipe.id}
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
-
-                actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="yellow" /></IconButton>}
+                  actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="yellow" /></IconButton>}
               >
                 <img
                   src={recipe.image}
-                  onClick={event => this.handleTouchTap(event, recipe.title, recipe.id)}
+                  onClick={event => {
+                    this.handleTouchTap(event, recipe.title, recipe.id)
+                    this.props.fetchRecipeById(recipe.id)
+                    }
+                  }
                 />
               </GridTile>
             )}
@@ -95,18 +104,21 @@ class RecipesFaves extends React.Component {
           <Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'middle', vertical: 'center'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'left', vertical: 'center'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
-            className="col-md-4"
+            className="col-md-4 recipeViewBK"
           >
             <div>
               <img
                 src={this.state.srcUrl}
                 height={400}
+                className="imagePlacer"
               />
               <h4>{this.state.srcTitle}</h4>
               {description}
+              <h3> Instructions </h3>
+              {instructions}
             </div>
           </Popover>
         </div>

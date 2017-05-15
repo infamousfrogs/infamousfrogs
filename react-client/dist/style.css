@@ -1,3 +1,4 @@
+
 .app-name {
 	font-weight: bold;
 	font-style: italic;
@@ -13,10 +14,12 @@ input[type='checkbox'] {
     -webkit-appearance:none;
     width:15px;
     height:15px;
+
     background:white;
     border-radius:5px;
     border:2px solid #555;
 }
+
 
 input[type='checkbox']:checked {
     background: #abd;
@@ -33,4 +36,46 @@ input[type='checkbox']:checked {
 
 .filterHeader {
 	padding: 10px;
+
+}
+
+.recipeViewList {
+  border-style: solid;
+  border-width: 10px;
+  border-color: transparent;
+  border-radius: 5px !important;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+.recipeViewBK {
+  border-style: solid;
+  border-width: 10px;
+  border-color: transparent;
+  border-radius: 5px !important;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+.imagePlacer {
+  margin: auto;
+  
+}
+
+.ingredientTitle {
+  font-size: 22px;
+  font-weight: 400;
+  text-decoration: underline;
+
+}
+.centerTitle {
+  color: green !important;
+  top: 25px !important;
+  left: 115px !important;
+  position: relative !important;
+}
+
+.iconShape {
+  width:30%;
+  height:30%;
+  padding-left: 10px;
+ 
 }
