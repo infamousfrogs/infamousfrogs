@@ -16,7 +16,7 @@ class homePage extends React.Component {
 
     this.state = {
       finalIngredients: [],
-
+      
       list: [
         {proteins: {
           chicken: false,
@@ -262,16 +262,15 @@ class homePage extends React.Component {
         data: ({id: recipeId}),
         dataType: 'text',
         success: (data) => {
+          console.log('homePage /fetchRecipeById', data)
           let recipeIdObj = { recipeId: data};
           this.setState(recipeIdObj);
           return this.state.recipeId;
         },
         error: (error) => console.log('fetchRecipeById error', error)
       });
-
-    }
-
   }
+}
 
   render() {
     return (
@@ -290,7 +289,15 @@ class homePage extends React.Component {
           fetchRecipeById = {this.fetchRecipeById}
           recipeInstruction = {this.state.recipeId}
           />
-        {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
+        {this.state.user && <RecipesFaves 
+          user = {this.state.user.username} 
+          recipeList = {this.state.recipeList} 
+          favoriteList={this.state.favoriteList} 
+          handleFavesToggle={this.handleFavesToggle} 
+          handleUnfavToggle={this.handleUnfavToggle}
+          fetchRecipeById = {this.fetchRecipeById}
+          recipeInstruction = {this.state.recipeId}/>}
+    
         <RaisedButton label="Search" onClick={this.handleSubmit}></RaisedButton>
       </div>
    </MuiThemeProvider>

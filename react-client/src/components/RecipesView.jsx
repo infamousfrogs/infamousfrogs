@@ -68,7 +68,7 @@ class RecipesView extends React.Component {
     
     if (this.state.fetchRecipeById) {
       let id = this.state.fetchRecipeById;
-      var instructions = renderHTML(this.props.recipeInstruction);
+      var instructions = this.props.recipeInstruction;
     }
 
     return (
@@ -81,13 +81,14 @@ class RecipesView extends React.Component {
           <GridList
            cellHeight={240}
            style={styles.gridList}
+           className='recipeViewList'
           >
             {Object.values(this.props.recipeList).map((recipe) =>
               <GridTile
                 key={recipe.id}
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
-                actionIcon={<IconButton
+                  actionIcon={<IconButton
                   onClick={event =>
                     this.props.handleFavesToggle(recipe)
                   }><StarBorder color="white" /></IconButton>}
@@ -95,9 +96,9 @@ class RecipesView extends React.Component {
                 <img
                   src={recipe.image}
                   onClick={event => {
-                    this.handleTouchTap(event, recipe.title, recipe.id);
-                    this.props.fetchRecipeById(recipe.id);
-                  }
+                    this.handleTouchTap(event, recipe.title, recipe.id)
+                    this.props.fetchRecipeById(recipe.id)
+                    }
                   }
                 />
               </GridTile>
@@ -106,15 +107,16 @@ class RecipesView extends React.Component {
           <Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'middle', vertical: 'center'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'left', vertical: 'center'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
-            className="col-md-5 recipe"
+            className="col-md-5 recipeViewBK"
           >
             <div className="col-md-6">
               <img
                 src={this.state.srcUrl}
                 height={400}
+                className="imagePlacer"
               />
               <h4>{this.state.srcTitle}</h4>
               {description}
