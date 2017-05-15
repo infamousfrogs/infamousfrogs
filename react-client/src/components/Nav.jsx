@@ -191,7 +191,7 @@ class Nav extends React.Component {
                       </div>
                       <div className="control-group">
                         <div className="controls">
-                          <RaisedButton label="Login" onClick = {this.formSubmit}></RaisedButton>
+                          <RaisedButton className="submitButton" label="Login" onClick = {this.formSubmit}></RaisedButton>
                         </div>
                       </div>
                     </fieldset>
