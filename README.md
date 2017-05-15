@@ -1,4 +1,4 @@
-# Project Name
+# Simply Recipes
 
 Personalized, interactive recipe search site.
 
