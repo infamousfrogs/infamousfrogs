@@ -262,6 +262,7 @@ class homePage extends React.Component {
         data: ({id: recipeId}),
         dataType: 'text',
         success: (data) => {
+          console.log('homePage /fetchRecipeById', data)
           let recipeIdObj = { recipeId: data};
           this.setState(recipeIdObj);
           return this.state.recipeId;
@@ -269,6 +270,7 @@ class homePage extends React.Component {
         error: (error) => console.log('fetchRecipeById error', error)
       });
   }
+}
 
   render() {
     return (
@@ -293,6 +295,7 @@ class homePage extends React.Component {
           favoriteList={this.state.favoriteList} 
           handleFavesToggle={this.handleFavesToggle} 
           handleUnfavToggle={this.handleUnfavToggle}
+          fetchRecipeById = {this.fetchRecipeById}
           recipeInstruction = {this.state.recipeId}/>}
     
         <RaisedButton label="Search" onClick={this.handleSubmit}></RaisedButton>

@@ -67,7 +67,7 @@ class RecipesFaves extends React.Component {
     }
     if (this.state.fetchRecipeById) {
       let id = this.state.fetchRecipeById
-      var instructions = renderHTML(this.props.recipeInstruction);
+      var instructions = this.props.recipeInstruction;
     }
     return (
       <MuiThemeProvider>
@@ -104,8 +104,8 @@ class RecipesFaves extends React.Component {
           <Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'middle', vertical: 'center'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'left', vertical: 'center'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
             className="col-md-4 recipeViewBK"
           >
@@ -113,6 +113,7 @@ class RecipesFaves extends React.Component {
               <img
                 src={this.state.srcUrl}
                 height={400}
+                className="imagePlacer"
               />
               <h4>{this.state.srcTitle}</h4>
               {description}

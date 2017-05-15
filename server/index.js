@@ -116,14 +116,13 @@ app.get('/fetchRecipeById', function(req, res) {
     includeNutrition: false,
     method: 'GET',
     headers: {
-      'X-Mashape-Key': 'q4398u4TA1mshLwj7IkUIAfEV3KHp11cFqPjsnzkkxjtTBxlHc',
+      'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
       'Accept': 'application/json'
     }
   };
 
   request(fetchRecipeById, function(err, response, body) {
     if (err) {
-      console.log(error);
       throw err;
     }
     else {

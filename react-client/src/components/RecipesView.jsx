@@ -40,7 +40,7 @@ class RecipesView extends React.Component {
       url: `/summary?id=${id}`,
       contentType: 'application/json',
       data: JSON.stringify(id),
-      dataType: 'application/json',
+      dataType: 'text',
       success: (data) => {
         this.setState({srcId: data});
         this.setState({fetchRecipeById: id});
@@ -68,7 +68,7 @@ class RecipesView extends React.Component {
     
     if (this.state.fetchRecipeById) {
       let id = this.state.fetchRecipeById;
-      var instructions = renderHTML(this.props.recipeInstruction);
+      var instructions = this.props.recipeInstruction;
     }
 
     return (
@@ -81,6 +81,7 @@ class RecipesView extends React.Component {
           <GridList
            cellHeight={240}
            style={styles.gridList}
+           className='recipeViewList'
           >
             {Object.values(this.props.recipeList).map((recipe) =>
               <GridTile
@@ -106,10 +107,10 @@ class RecipesView extends React.Component {
           <Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'middle', vertical: 'center'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'left', vertical: 'center'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
-            className="col-md-5 recipe"
+            className="col-md-5 recipeViewBK"
           >
             <div className="col-md-6">
               <img
