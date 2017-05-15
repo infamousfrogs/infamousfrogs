@@ -114,7 +114,7 @@ class RecipesView extends React.Component {
             onRequestClose={this.handleRequestClose}
             className="col-md-5 recipeViewBK"
           >
-            <div className="col-md-6">
+            <div>
               <img
                 src={this.state.srcUrl}
                 height={400}
