@@ -37,4 +37,47 @@ input[type='checkbox']:checked {
 .filterHeader {
 	padding: 10px;
 
+<<<<<<< 92b3028e20df7970d576b8dd7e7f2944c260d986
+=======
+}
+
+.recipeViewList {
+  border-style: solid;
+  border-width: 10px;
+  border-color: transparent;
+  border-radius: 5px !important;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+.recipeViewBK {
+  border-style: solid;
+  border-width: 10px;
+  border-color: transparent;
+  border-radius: 5px !important;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+.imagePlacer {
+  margin: auto;
+  
+}
+
+.ingredientTitle {
+  font-size: 22px;
+  font-weight: 400;
+  text-decoration: underline;
+
+}
+.centerTitle {
+  color: green !important;
+  top: 25px !important;
+  left: 115px !important;
+  position: relative !important;
+}
+
+.iconShape {
+  width:30%;
+  height:30%;
+  padding-left: 10px;
+>>>>>>> css addons and instructions and view
 }

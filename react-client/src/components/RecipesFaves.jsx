@@ -64,6 +64,10 @@ class RecipesFaves extends React.Component {
     if (this.state.srcId) {
       var description = renderHTML(this.state.srcId);
     }
+    if (this.state.fetchRecipeById) {
+      let id = this.state.fetchRecipeById
+      var instructions = renderHTML(this.props.recipeInstruction);
+    }
     return (
       <MuiThemeProvider>
         <div
@@ -76,18 +80,21 @@ class RecipesFaves extends React.Component {
           <GridList
            cellHeight={240}
            style={styles.gridList}
+           className='recipeViewList'
           >
             {Object.values(this.props.favoriteList).map((recipe) =>
               <GridTile
                 key={recipe.id}
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
-
-                actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="yellow" /></IconButton>}
+                  actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="yellow" /></IconButton>}
               >
                 <img
                   src={recipe.image}
-                  onClick={event => this.handleTouchTap(event, recipe.title, recipe.id)}
+                  onClick={event => {
+                    this.handleTouchTap(event, recipe.title, recipe.id)
+                    this.props.fetchRecipeById.id}
+                  }
                 />
               </GridTile>
             )}
@@ -98,7 +105,7 @@ class RecipesFaves extends React.Component {
             anchorOrigin={{horizontal: 'middle', vertical: 'center'}}
             targetOrigin={{horizontal: 'middle', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
-            className="col-md-4"
+            className="col-md-4 recipeViewBK"
           >
             <div>
               <img
@@ -107,6 +114,8 @@ class RecipesFaves extends React.Component {
               />
               <h4>{this.state.srcTitle}</h4>
               {description}
+              <h3> Instructions </h3>
+              {instructions}
             </div>
           </Popover>
         </div>

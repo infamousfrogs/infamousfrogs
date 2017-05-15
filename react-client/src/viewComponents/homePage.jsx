@@ -16,7 +16,7 @@ class homePage extends React.Component {
 
     this.state = {
       finalIngredients: [],
-
+      
       list: [
         {proteins: {
           chicken: false,
@@ -281,13 +281,29 @@ class homePage extends React.Component {
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
+<<<<<<< 92b3028e20df7970d576b8dd7e7f2944c260d986
+=======
+
+>>>>>>> css addons and instructions and view
         <RecipesView
           recipeList = {this.state.recipeList}
           handleFavesToggle = {this.handleFavesToggle}
           fetchRecipeById = {this.fetchRecipeById}
           recipeInstruction = {this.state.recipeId}
           />
+<<<<<<< 92b3028e20df7970d576b8dd7e7f2944c260d986
         {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
+=======
+
+        {this.state.user && <RecipesFaves 
+          user = {this.state.user.username} 
+          recipeList = {this.state.recipeList} 
+          favoriteList={this.state.favoriteList} 
+          handleFavesToggle={this.handleFavesToggle} 
+          handleUnfavToggle={this.handleUnfavToggle}
+          recipeInstruction = {this.state.recipeId}/>}
+      
+>>>>>>> css addons and instructions and view
         <RaisedButton label="Search" onClick={this.handleSubmit}></RaisedButton>
       </div>
    </MuiThemeProvider>

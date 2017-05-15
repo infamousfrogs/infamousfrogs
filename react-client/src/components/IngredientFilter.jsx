@@ -2,6 +2,13 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Checkbox from 'material-ui/Checkbox';
 
+const ingredientSrc = {
+  dairy: 'https://static1.squarespace.com/static/56f31a8a1bbee0a7bd9a6aeb/572691c186db4345e72ecfe5/5918f1266b8f5b6a4a1e69b9/1494806823396/dairyIMG.png',
+  vegetables: 'https://static1.squarespace.com/static/56f31a8a1bbee0a7bd9a6aeb/572691c186db4345e72ecfe5/5918f1272e69cf82b8f1c0a2/1494806823525/vegIMG.png',
+  grains: 'https://static1.squarespace.com/static/56f31a8a1bbee0a7bd9a6aeb/572691c186db4345e72ecfe5/5918f1279de4bb3c0192ef0c/1494806823388/grainIMG.png',
+  fruits: 'https://static1.squarespace.com/static/56f31a8a1bbee0a7bd9a6aeb/572691c186db4345e72ecfe5/5918f1276a496322aab8d712/1494806823182/fruitIMG.png',
+  proteins: 'https://static1.squarespace.com/static/56f31a8a1bbee0a7bd9a6aeb/572691c186db4345e72ecfe5/5918f127440243708845ea19/1494806823399/proteinIMG.png'
+  }
 
 const styles = {
   block: {
@@ -55,7 +62,12 @@ class IngredientFilter extends React.Component {
   render() {
     return (
       <div className="col-md-2 filterHeader">
-        <h5 className="ingredient">{this.state.label}</h5>
+        <h5 className="ingredientTitle">
+          {this.state.label} 
+
+          <img className="iconShape" src={ingredientSrc[this.state.label]} />
+        </h5>
+
          <form style={styles.block}>
           <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[0]} onCheck = {this.changeOnFirst} type="checkbox" value="ingredient1"/> <br/>
           <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[1]} onCheck = {this.changeOnSecond} type="checkbox" value="ingredient2"/> <br/>
