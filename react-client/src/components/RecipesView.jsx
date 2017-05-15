@@ -77,7 +77,9 @@ class RecipesView extends React.Component {
           style={styles.root}
           className="col-md-12 searchResults"
         >
-          <h4> Search Results </h4>
+          <div className="col-md-12">
+            <h4> Search Results </h4>
+          </div>
           <GridList
            cellHeight={240}
            style={styles.gridList}

@@ -302,7 +302,9 @@ class homePage extends React.Component {
     <MuiThemeProvider>
       <div>
         <Nav handleLogin={this.handleLogin} handleLogout={this.handleLogout} user={this.state.user}/>
-        <h4>Filter by Ingredient(s):</h4>
+        <div className="col-md-12">
+          <h4>Filter by Ingredient(s):</h4>
+        </div>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
         <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
@@ -322,8 +324,7 @@ class homePage extends React.Component {
           handleUnfavToggle={this.handleUnfavToggle}
           fetchRecipeById = {this.fetchRecipeById}
           recipeInstruction = {this.state.recipeId}/>}
-
-        <RaisedButton label="Search" onClick={this.handleSubmit}></RaisedButton>
+        <RaisedButton className="logButton" label="Search" onClick={this.handleSubmit}></RaisedButton>
       </div>
    </MuiThemeProvider>
 
