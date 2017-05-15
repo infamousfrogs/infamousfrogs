@@ -118,11 +118,12 @@ class homePage extends React.Component {
         data = JSON.parse(data);
         var obj = {};
         for (var i = 0; i < data.length; i++) {
+          console.log(data[i].recipeId)
           obj[data[i].recipeId] = data[i];
         }
         self.setState({favoriteList: obj});
       }
-    });
+    })
   }
 
   handleLogout() {
@@ -253,6 +254,7 @@ class homePage extends React.Component {
   }
 
   fetchRecipeById (recipeId) {
+    console.log(recipeId)
     let recipeInstructions;
     let sampleData = [{"name":"","steps":[{"number":1,"step":"In a food processor pulse the yogurt, milk, cream cheese, condensed milk, and coffee together.Taste to make sure it is sweet enough for you and add more condensed milk/sugar if needed. You can also use Stevia to reduce the calories.","ingredients":[{"id":14209,"name":"coffee","image":"https://spoonacular.com/cdn/ingredients_100x100/coffee.jpg"}],"equipment":[{"id":404771,"name":"food processor","image":"https://spoonacular.com/cdn/equipment_100x100/food-processor.png"}]},{"number":2,"step":"Pour into popsicle molds and let freeze for 4 hours or until frozen.","ingredients":[],"equipment":[{"id":405929,"name":"popsicle molds","image":"https://spoonacular.com/cdn/equipment_100x100/popsicle-molds.jpg"}]}]}];
     if (recipeId !== undefined) {

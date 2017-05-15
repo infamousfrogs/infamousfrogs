@@ -46,7 +46,7 @@ class RecipesFaves extends React.Component {
         this.setState({fetchRecipeById: id})
       }
     });
-    
+
     this.setState ({
       open: true,
       anchorEl: event.currentTarget,
@@ -94,7 +94,7 @@ class RecipesFaves extends React.Component {
                   src={recipe.image}
                   onClick={event => {
                     this.handleTouchTap(event, recipe.title, recipe.id)
-                    this.props.fetchRecipeById(recipe.id)
+                    this.props.fetchRecipeById(recipe.recipeId)
                     }
                   }
                 />
