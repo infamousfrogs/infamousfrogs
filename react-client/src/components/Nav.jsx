@@ -141,7 +141,7 @@ class Nav extends React.Component {
       );
     } else {
       userMessage = (
-        'Log in in to customize your favorites!'
+        'Log in to customize your favorites!'
       );
     }
 
@@ -153,7 +153,7 @@ class Nav extends React.Component {
             <h3 className="app-name"> Simply Recipes </h3>
           </div>
           <p className="navbar-text navbar-center centerTitle"> {userMessage} </p>
-          <div className="btn-group pull-right">
+          <div className="btn-group pull-right logButton">
             {this.props.user ?
               <RaisedButton label="Log Out" onClick={this.props.handleLogout} role="button"> </RaisedButton> :
               <div>

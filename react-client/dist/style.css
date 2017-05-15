@@ -26,12 +26,14 @@ input[type='checkbox']:checked {
 }
 
 .searchResults {
-	padding: 40px;
+	padding: 20px 0 40px 0;
+  text-align: center;
 }
 
 .favoriteResults {
-	position: absolute;
-	text-align: center;
+  padding: 0 0 40px 0;
+  position: absolute;
+  text-align: center;
 }
 
 .filterHeader {
@@ -66,9 +68,15 @@ input[type='checkbox']:checked {
   text-decoration: underline;
 
 }
+
+.logButton {
+  top: 20px !important;
+  position: relative !important;
+}
+
 .centerTitle {
   color: green !important;
-  top: 25px !important;
+  top: 15px !important;
   left: 115px !important;
   position: relative !important;
 }

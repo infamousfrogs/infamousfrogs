@@ -10,7 +10,7 @@ var PORT = process.env.PORT || 3000;
 
 var app = express();
 app.use(flash());
-app.use(session({secret: 'keyboard cat', cookie: {maxAge: 60000}, saveUninitialized: false, resave: false}));
+app.use(session({secret: 'keyboard cat', cookie: {maxAge: 300000}, saveUninitialized: false, resave: false}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
