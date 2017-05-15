@@ -40,7 +40,7 @@ class RecipesView extends React.Component {
       url: `/summary?id=${id}`,
       contentType: 'application/json',
       data: JSON.stringify(id),
-      dataType: 'text',
+      dataType: 'application/json',
       success: (data) => {
         this.setState({srcId: data});
         this.setState({fetchRecipeById: id});
@@ -115,7 +115,7 @@ class RecipesView extends React.Component {
               <img
                 src={this.state.srcUrl}
                 height={400}
-                
+                className="imagePlacer"
               />
               <h4>{this.state.srcTitle}</h4>
               {description}

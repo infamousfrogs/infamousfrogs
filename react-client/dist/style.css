@@ -37,8 +37,6 @@ input[type='checkbox']:checked {
 .filterHeader {
 	padding: 10px;
 
-<<<<<<< 92b3028e20df7970d576b8dd7e7f2944c260d986
-=======
 }
 
 .recipeViewList {
@@ -79,5 +77,5 @@ input[type='checkbox']:checked {
   width:30%;
   height:30%;
   padding-left: 10px;
->>>>>>> css addons and instructions and view
+
 }

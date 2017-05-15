@@ -34,6 +34,7 @@ class RecipesFaves extends React.Component {
   }
 
   handleTouchTap(event, title, id) {
+    event.preventDefault();
     $.ajax({
       type: 'GET',
       url: `/summary?id=${id}`,
@@ -41,8 +42,8 @@ class RecipesFaves extends React.Component {
       data: JSON.stringify(id),
       dataType: 'text',
       success: (data) => {
-        this.setState({srcId: data});
-        this.setState({fetchRecipeById: id});
+        this.setState({srcId: data})
+        this.setState({fetchRecipeById: id})
       }
     });
     
@@ -93,7 +94,8 @@ class RecipesFaves extends React.Component {
                   src={recipe.image}
                   onClick={event => {
                     this.handleTouchTap(event, recipe.title, recipe.id)
-                    this.props.fetchRecipeById.id}
+                    this.props.fetchRecipeById(recipe.id)
+                    }
                   }
                 />
               </GridTile>

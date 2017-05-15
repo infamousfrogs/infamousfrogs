@@ -125,8 +125,9 @@ app.get('/fetchRecipeById', function(req, res) {
     if (err) {
       console.log(error);
       throw err;
-    } else {
-      body = JSON.parse(body).analyzedInstructions;
+    }
+    else {
+      body = JSON.parse(body).analyzedInstructions
       res.send(body);
     }
   });
