@@ -169,7 +169,6 @@ class Nav extends React.Component {
               style={customStyles}
               contentLabel="Modal"
             >
-
             <div className="container">
                 <div className="row">
                 <div className="span12">
@@ -208,7 +207,6 @@ class Nav extends React.Component {
                 style={customStyles}
                 contentLabel="Modal"
               >
-
               <div className="container">
                   <div className="row">
                   <div className="span12">

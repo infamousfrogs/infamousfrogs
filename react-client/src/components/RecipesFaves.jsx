@@ -41,11 +41,11 @@ class RecipesFaves extends React.Component {
       data: JSON.stringify(id),
       dataType: 'text',
       success: (data) => {
-        console.log("IN HERE")
-        this.setState({srcId: data})
-        this.setState({fetchRecipeById: id})
+        this.setState({srcId: data});
+        this.setState({fetchRecipeById: id});
       }
-    })
+    });
+    
     this.setState ({
       open: true,
       anchorEl: event.currentTarget,
@@ -70,11 +70,9 @@ class RecipesFaves extends React.Component {
           style={styles.root}
           className="col-md-12 favoriteResults"
         >
-
           {this.props.user ?
             <h4> {this.props.user}s Favorites List! </h4> : ''
           }
-
           <GridList
            cellHeight={240}
            style={styles.gridList}

@@ -190,7 +190,8 @@ class homePage extends React.Component {
             image: recipe.image,
             usedIngredientCount: recipe.usedIngredientCount,
             missedIngredientCount: recipe.missedIngredientCount
-          }
+          };
+
           $.ajax({
             type: 'POST',
             url: '/favoriteCreate',
@@ -198,24 +199,22 @@ class homePage extends React.Component {
             data: JSON.stringify(newRecipe),
             dataType: 'text',
             success: (data) => {
-              console.log("POSTED");
+              console.log('POSTED');
             }
-          })
+          });
         }
       };
 
       favRecipe(recipe);
+    } else {
+      alert('Please login in order to favorite!');
     }
-  else {
-    alert("Please login in order to favorite!")
-
   }
-}
 
   handleUnfavToggle(recipe) {
     var recipeId = recipe.id;
     if (JSON.stringify(recipeId).length < 6) {
-      recipeId = recipe.recipeId
+      recipeId = recipe.recipeId;
     }
     var newFavoriteList = Object.assign({}, this.state.favoriteList);
 
@@ -234,7 +233,7 @@ class homePage extends React.Component {
         var newRecipe = {
           username: this.state.user.username,
           recipeId: recipeId,
-        }
+        };
 
         $.ajax({
           type: 'DELETE',
@@ -243,9 +242,9 @@ class homePage extends React.Component {
           data: JSON.stringify(newRecipe),
           dataType: 'text',
           success: (data) => {
-            console.log("DESTROYED");
+            console.log('DESTROYED');
           }
-        })
+        });
       }
     };
 
@@ -267,19 +266,14 @@ class homePage extends React.Component {
           this.setState(recipeIdObj);
           return this.state.recipeId;
         },
-        error : (error) => console.log('fetchRecipeById error', error)
+        error: (error) => console.log('fetchRecipeById error', error)
       });
 
     }
 
   }
 
-      // ajax call to server requesting recipe instruction information
-      //
-
-
   render() {
-
     return (
     <MuiThemeProvider>
       <div>
@@ -296,10 +290,8 @@ class homePage extends React.Component {
           fetchRecipeById = {this.fetchRecipeById}
           recipeInstruction = {this.state.recipeId}
           />
-
         {this.state.user && <RecipesFaves user = {this.state.user.username} recipeList = {this.state.recipeList} favoriteList={this.state.favoriteList} handleFavesToggle={this.handleFavesToggle} handleUnfavToggle={this.handleUnfavToggle}/>}
         <RaisedButton label="Search" onClick={this.handleSubmit}></RaisedButton>
-
       </div>
    </MuiThemeProvider>
 
