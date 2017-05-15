@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import RecipesFaves from './../components/RecipesFaves.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import renderHTML from 'react-render-html';
 
 
 class homePage extends React.Component {
@@ -16,7 +17,7 @@ class homePage extends React.Component {
 
     this.state = {
       finalIngredients: [],
-      
+
       list: [
         {proteins: {
           chicken: false,
@@ -262,10 +263,32 @@ class homePage extends React.Component {
         data: ({id: recipeId}),
         dataType: 'text',
         success: (data) => {
-          console.log('homePage /fetchRecipeById', data)
-          let recipeIdObj = { recipeId: data};
-          this.setState(recipeIdObj);
-          return this.state.recipeId;
+          recipeObj = JSON.parse(data);
+          var recipeObj = recipeObj[0]['steps']
+          var recipeIngredients = []
+          var recipeDescription = ''
+          for (var i = 0; i < recipeObj.length; i++) {
+            recipeDescription += ('<br>' + "<strong>Step " + recipeObj[i].number + "</strong>: " + recipeObj[i].step + '</br>')
+            if (recipeObj[i].ingredients) {
+              for (var j = 0; j < recipeObj[i].ingredients.length; j++) {
+                if (recipeIngredients.indexOf(recipeObj[i].ingredients[j].name) === -1) {
+                recipeIngredients.push(recipeObj[i].ingredients[j].name)
+              }
+            }
+          }
+        }
+        var finalIngredients = "<br><strong>Ingredients: "
+        for (var i = 0; i < recipeIngredients.length; i++) {
+          if (i + 1 === recipeIngredients.length) {
+            finalIngredients += (recipeIngredients[i])
+          }
+          else {
+          finalIngredients += (recipeIngredients[i] + ", ")
+        }
+        }
+          recipeDescription = renderHTML(finalIngredients + "</br>" + recipeDescription)
+          this.setState({recipeId: recipeDescription});
+
         },
         error: (error) => console.log('fetchRecipeById error', error)
       });
@@ -289,15 +312,15 @@ class homePage extends React.Component {
           fetchRecipeById = {this.fetchRecipeById}
           recipeInstruction = {this.state.recipeId}
           />
-        {this.state.user && <RecipesFaves 
-          user = {this.state.user.username} 
-          recipeList = {this.state.recipeList} 
-          favoriteList={this.state.favoriteList} 
-          handleFavesToggle={this.handleFavesToggle} 
+        {this.state.user && <RecipesFaves
+          user = {this.state.user.username}
+          recipeList = {this.state.recipeList}
+          favoriteList={this.state.favoriteList}
+          handleFavesToggle={this.handleFavesToggle}
           handleUnfavToggle={this.handleUnfavToggle}
           fetchRecipeById = {this.fetchRecipeById}
           recipeInstruction = {this.state.recipeId}/>}
-    
+
         <RaisedButton label="Search" onClick={this.handleSubmit}></RaisedButton>
       </div>
    </MuiThemeProvider>
