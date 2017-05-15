@@ -26,7 +26,7 @@ app.get('/userinfo', function(req, res, next) {
 
 app.get('/summary', function(req, res) {
 
-  var id = req.query.id
+  var id = req.query.id;
   var recipeSummaryOptions = {
     url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${id}/summary`,
     method: 'GET',
@@ -34,23 +34,18 @@ app.get('/summary', function(req, res) {
       'X-Mashape-Key': 'q4398u4TA1mshLwj7IkUIAfEV3KHp11cFqPjsnzkkxjtTBxlHc',
       'Accept': 'application/json'
     }
-  }
-
+  };
 
   request(recipeSummaryOptions, function(error, response, body) {
     if (error) {
-      console.log(error)
+      console.log(error);
       throw err;
-    }
-    else {
+    } else {
       body = JSON.parse(body);
-      console.log(body)
-      res.send(body.summary)
+      res.send(body.summary);
     }
-
   });
 });
-
 
 app.post('/register', function(req, res) {
   console.log(req);
@@ -124,15 +119,14 @@ app.get('/fetchRecipeById', function(req, res) {
       'X-Mashape-Key': 'q4398u4TA1mshLwj7IkUIAfEV3KHp11cFqPjsnzkkxjtTBxlHc',
       'Accept': 'application/json'
     }
-  }
+  };
+
   request(fetchRecipeById, function(err, response, body) {
     if (err) {
-      console.log(error)
+      console.log(error);
       throw err;
-    }
-    else {
-      body = JSON.parse(body).analyzedInstructions
-      console.log(body)
+    } else {
+      body = JSON.parse(body).analyzedInstructions;
       res.send(body);
     }
   });
@@ -143,7 +137,6 @@ app.delete('/logout', function(req, res) {
   req.session.destroy();
   console.log('AFTER', req.session);
 });
-
 
 app.listen(PORT, function() {
   console.log(`listening on port ${PORT}`);

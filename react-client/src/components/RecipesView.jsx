@@ -42,10 +42,11 @@ class RecipesView extends React.Component {
       data: JSON.stringify(id),
       dataType: 'text',
       success: (data) => {
-        this.setState({srcId: data})
-        this.setState({fetchRecipeById: id})
+        this.setState({srcId: data});
+        this.setState({fetchRecipeById: id});
       }
-    })
+    });
+    
     this.setState ({
       open: true,
       anchorEl: event.currentTarget,
@@ -62,12 +63,14 @@ class RecipesView extends React.Component {
 
   render() {
     if (this.state.srcId) {
-      var description = renderHTML(this.state.srcId)
+      var description = renderHTML(this.state.srcId);
     }
+    
     if (this.state.fetchRecipeById) {
-      let id = this.state.fetchRecipeById
+      let id = this.state.fetchRecipeById;
       var instructions = renderHTML(this.props.recipeInstruction);
     }
+
     return (
       <MuiThemeProvider>
         <div
@@ -92,11 +95,9 @@ class RecipesView extends React.Component {
                 <img
                   src={recipe.image}
                   onClick={event => {
-                    this.handleTouchTap(event, recipe.title, recipe.id)
-                    this.props.fetchRecipeById(recipe.id)
-
-                    }
-
+                    this.handleTouchTap(event, recipe.title, recipe.id);
+                    this.props.fetchRecipeById(recipe.id);
+                  }
                   }
                 />
               </GridTile>
@@ -115,11 +116,8 @@ class RecipesView extends React.Component {
                 src={this.state.srcUrl}
                 height={400}
               />
-
               <h4>{this.state.srcTitle}</h4>
               {description}
-
-
               <h3> Instructions </h3>
               {instructions}
             </div>
