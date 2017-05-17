@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import $ from 'jquery';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
 
 const customStyles = {
   content: {
@@ -14,6 +15,17 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)'
   }
+};
+
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  checkbox: {
+    marginBottom: -20,
+    marginLeft: 50,
+    width: 150
+  },
 };
 
 
@@ -214,6 +226,7 @@ class Nav extends React.Component {
                       <fieldset>
                         <div id="legend">
                           <legend className="">Sign Up</legend>
+                          <p>Sign up now for access to thousands of recipes!</p>
                         </div>
                         <div className="control-group">
                           <label className="control-label" htmlFor="username">Username</label>
@@ -227,6 +240,26 @@ class Nav extends React.Component {
                             <input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />
                           </div>
                         </div>
+
+                        { /******* JEE ADDED FEATURE ******/ }
+                          <label class="checkbox">
+                              Any food allergies we should know about?
+                          </label>
+                          <div style={{display: 'flex', flexDirection: 'row'}}>   
+                            <div><Checkbox style={styles.checkbox} label='Peanuts'  type="checkbox" value="ingredient1"/></div> <br/>
+                            <div><Checkbox style={styles.checkbox} label='Tree Nuts'  type="checkbox" value="ingredient1"/></div> <br/>
+                            <div><Checkbox style={styles.checkbox} label='Dairy'  type="checkbox" value="ingredient1"/></div> <br/>
+                            <div><Checkbox style={styles.checkbox} label='Eggs'  type="checkbox" value="ingredient1"/></div> <br/>
+                          </div>
+                          <div style={{display: 'flex', flexDirection: 'row'}}>
+                            <div><Checkbox style={styles.checkbox} label='Wheat'  type="checkbox" value="ingredient1"/></div> <br/>
+                            <div><Checkbox style={styles.checkbox} label='Soy'  type="checkbox" value="ingredient1"/></div> <br/>
+                            <div><Checkbox style={styles.checkbox} label='Fish'  type="checkbox" value="ingredient1"/></div> <br/>
+                            <div><Checkbox style={styles.checkbox} label='Shell'  type="checkbox" value="ingredient1"/></div> <br/>
+                          </div>
+                          <br/>
+                        { /******* END OF JEE ADDED FEATURE ******/ }
+
                         <div className="control-group">
                           <div className="controls">
                             <RaisedButton label="Sign Up" onClick = {this.formSubmit2}></RaisedButton>

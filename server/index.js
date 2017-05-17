@@ -6,8 +6,8 @@ var Sequelize = require('sequelize');
 var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var PORT = 5150;
-// = process.env.PORT || 3000;
+// var PORT = 5150;
+var PORT = process.env.PORT || 5150;
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.get('/userinfo', function(req, res, next) {
 });
 
 app.get('/summary', function(req, res) {
-  res.status(200).send('ok');
+  // res.status(200).send('ok');
   var id = req.query.id;
   var recipeSummaryOptions = {
     url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${id}/summary`,
@@ -50,17 +50,17 @@ app.get('/summary', function(req, res) {
 });
 
 app.post('/register', function(req, res) {
-  res.status(302).send('ok');
+  // res.status(302).send('ok');
   database.createUser(req, res);
 });
 
 app.post('/login', function(req, res) {
-  res.status(302).send('Found');
+  // res.status(302).send('Found');
   database.checkIfUserExists(req, res);
 });
 
 app.post('/entry', function(req, res) {
-  res.status(302).send('Found');
+  // res.status(302).send('Found');
   var ingreds = req.body.toString();
 
   //setting up params for request to Spoonacular API
@@ -101,22 +101,22 @@ app.post('/entry', function(req, res) {
 });
 
 app.post('/favoriteCreate', function(req, res) {
-  res.status(302).send('Found');
+  // res.status(302).send('Found');
   database.createRecipe(req, res);
 });
 
 app.delete('/favoriteDestroy', function(req, res) {
-  res.status(200).send('ok');
+  // res.status(200).send('ok');
   database.removeRecipe(req, res);
 });
 
 app.post('/favoriteGet', function(req, res) {
-  res.status(302).send('Found');
+  // res.status(302).send('Found');
   database.retrieveFavorites(req, res);
 });
 
 app.get('/fetchRecipeById', function(req, res) {
-  res.status(200).send('ok');
+  // res.status(200).send('ok');
   let recipeId = req.query.id;
   let url = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information`;
   var fetchRecipeById = {
@@ -141,7 +141,7 @@ app.get('/fetchRecipeById', function(req, res) {
 });
 
 app.delete('/logout', function(req, res) {
-  res.status(200).send('ok');
+  // res.status(200).send('ok');
   console.log('BEFORE', req.session);
   req.session.destroy();
   console.log('AFTER', req.session);
