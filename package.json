@@ -8,7 +8,8 @@
     "server": "nodemon server/index.js",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
     "react-dev": "webpack -d --watch",
-    "test": "jest"
+    "test": "jest",
+    "test-server": "mocha server/spec/ServerSpec.js"
   },
   "author": "Vincent",
   "license": "ISC",
@@ -22,7 +23,8 @@
     "jest": "^20.0.1",
     "mocha": "^3.3.0",
     "react-test-renderer": "^15.5.4",
-    "regenerator-runtime": "^0.10.5"
+    "regenerator-runtime": "^0.10.5",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "babel-core": "^6.23.1",
