@@ -1,6 +1,6 @@
 var pg = require('pg');
 // var request = require('request'); // You might need to npm install the request module!
-request = require('request-promise');
+var request = require('request-promise');
 var expect = require('chai').expect;
 
 describe('Postgres Database Testing', function() {
