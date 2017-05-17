@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`homePage component should render as expected 1`] = `<homePage />`;
+
+exports[`homePage should render a homePage element 1`] = `<homePage />`;

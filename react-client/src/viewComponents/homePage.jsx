@@ -19,49 +19,54 @@ class homePage extends React.Component {
       finalIngredients: [],
 
       list: [
-        {proteins: {
-          chicken: false,
-          beef: false,
-          salmon: false,
-          pork: false,
-          shrimp: false
-        }
+        {
+          proteins: {
+            chicken: false,
+            beef: false,
+            salmon: false,
+            pork: false,
+            shrimp: false
+          }
         },
 
-        {grains: {
-          oats: false,
-          rice: false,
-          pasta: false,
-          quinoa: false,
-          barley: false
-        }
+        {
+          grains: {
+            oats: false,
+            rice: false,
+            pasta: false,
+            quinoa: false,
+            barley: false
+          }
         },
 
-        {vegetables: {
-          carrots: false,
-          potatoes: false,
-          broccoli: false,
-          tomatoes: false,
-          spinach: false
-        }
+        {
+          vegetables: {
+            carrots: false,
+            potatoes: false,
+            broccoli: false,
+            tomatoes: false,
+            spinach: false
+          }
         },
 
-        {fruits: {
-          bananas: false,
-          strawberries: false,
-          orange: false,
-          apple: false,
-          mangoes: false
-        }
+        {
+          fruits: {
+            bananas: false,
+            strawberries: false,
+            orange: false,
+            apple: false,
+            mangoes: false
+          }
         },
 
-        {dairy: {
-          milk: false,
-          yogurt: false,
-          cheese: false,
-          butter: false,
-          eggs: false
-        }
+        {
+          dairy: {
+            milk: false,
+            yogurt: false,
+            cheese: false,
+            butter: false,
+            eggs: false
+          }
         }
       ],
 
