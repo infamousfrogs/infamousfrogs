@@ -306,14 +306,22 @@ class homePage extends React.Component {
           }
           recipeDescription = renderHTML(finalIngredients + "</br>" + recipeDescription)
           this.setState({recipeId: recipeDescription});
+
+          //****** RPK ADDED FEATURE *******
           var recipeNutrition = JSON.parse(data).nutrition.nutrients;
           var nutrientTitle = [];
           var percentDaily = [];
           recipeNutrition.forEach(function(nutrient) {
-            nutrientTitle.push([nutrient.title + ' in ' + nutrient.unit]);
+            nutrientTitle.push(nutrient.title + ' in ' + nutrient.unit);
             percentDaily.push(nutrient.percentOfDailyNeeds);
           });
+
+
+
+
+
           this.setState({nutritionData: [nutrientTitle, percentDaily]})
+          console.log(this.state.nutritionData)
         },
         error: (error) => console.log('fetchRecipeById error', error)
       });

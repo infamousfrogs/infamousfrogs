@@ -1,4 +1,4 @@
-module.exports{
+module.exports = {
     chart: {
         type: 'bar'
     },
@@ -9,7 +9,7 @@ module.exports{
         text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
     },
     xAxis: {
-        categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+        // categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
         title: {
             text: null
         }

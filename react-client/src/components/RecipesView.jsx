@@ -6,6 +6,8 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Popover from 'material-ui/Popover';
 import $ from 'jquery';
 import renderHTML from 'react-render-html';
+//****** RPK ADDED FEATURE********
+import graph from './nutritionGraph/nutrtionInfo.js';
 
 const styles = {
   root: {
@@ -46,7 +48,7 @@ class RecipesView extends React.Component {
         this.setState({fetchRecipeById: id});
       }
     });
-    
+
     this.setState ({
       open: true,
       anchorEl: event.currentTarget,
@@ -65,7 +67,7 @@ class RecipesView extends React.Component {
     if (this.state.srcId) {
       var description = renderHTML(this.state.srcId);
     }
-    
+
     if (this.state.fetchRecipeById) {
       let id = this.state.fetchRecipeById;
       var instructions = this.props.recipeInstruction;
