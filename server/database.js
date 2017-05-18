@@ -22,6 +22,9 @@ var User = sequelize.define('users', {
   },
   password: {
     type: Sequelize.STRING
+  },
+  allergens: {
+    type: Sequelize.STRING
   }
 });
 
@@ -80,20 +83,21 @@ var retrieveFavorites = (req, res) => {
 };
 
 var createUser = (req, res) => {
+  console.log(req.body);
   User.findOne({where: {username: req.body.username}}).then(function(user) {
     if (!user) {
       User.create({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        allergens: req.body.allergens // ****** JEE ADDED *******
       }).then(function() {
-        req.session.user = {username: req.body.username, password: req.body.password};
+        req.session.user = {username: req.body.username, password: req.body.password, allergens: req.body.allergens};
         User.findOne({where: {username: req.body.username}}).then(function(user) {
           res.send(user);
         });
       });
     } else {
       res.send({'useralreadyexists': 'useralreadyexists'});
-      // res.render('./views/login.html', {error: 'Username doesnt exist'})
     }
   });
 };

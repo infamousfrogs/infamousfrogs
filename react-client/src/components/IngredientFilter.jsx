@@ -63,7 +63,7 @@ class IngredientFilter extends React.Component {
     return (
       <div className="col-md-2 filterHeader">
         <h5 className="ingredientTitle">
-          {this.state.label} 
+          {this.state.label}
 
           <img className="iconShape" src={ingredientSrc[this.state.label]} />
         </h5>

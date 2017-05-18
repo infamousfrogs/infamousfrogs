@@ -22,9 +22,8 @@ const styles = {
     maxWidth: 250,
   },
   checkbox: {
-    marginBottom: -20,
-    marginLeft: 50,
-    width: 150
+    marginBottom: -10,
+    width: 150,
   },
 };
 
@@ -35,7 +34,8 @@ class Nav extends React.Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      modalIsOpen2: false
+      modalIsOpen2: false,
+      allergens: []
     };
 
     this.openModal = this.openModal.bind(this);
@@ -48,6 +48,106 @@ class Nav extends React.Component {
     this.formSubmit2 = this.formSubmit2.bind(this);
     this.logOut = this.logOut.bind(this);
   }
+  // ****** JEE ADDED FEATURE ****** {/* gluten, sesame, sulfite*/}   
+    onCheckPeanut(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('peanut');
+      } else {
+        var index = this.state.allergens.indexOf('peanut');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckGluten(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('gluten');
+      } else {
+        var index = this.state.allergens.indexOf('gluten');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckSesame(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('sesame');
+      } else {
+        var index = this.state.allergens.indexOf('sesame');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckSulfite(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('sulfite');
+      } else {
+        var index = this.state.allergens.indexOf('sulfite');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckTreeNut(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('tree nut');
+      } else {
+        var index = this.state.allergens.indexOf('tree nut');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckDairy(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('dairy');
+      } else {
+        var index = this.state.allergens.indexOf('dairy');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckEgg(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('egg');
+      } else {
+        var index = this.state.allergens.indexOf('egg');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckWheat(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('wheat');
+      } else {
+        var index = this.state.allergens.indexOf('wheat');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckSoy(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('soy');
+      } else {
+        var index = this.state.allergens.indexOf('soy');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckSeafood(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('seafood');
+      } else {
+        var index = this.state.allergens.indexOf('seafood');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    }
+    onCheckShellfish(e) {
+      if (e.target.checked) {
+        this.state.allergens.push('shellfish');
+      } else {
+        var index = this.state.allergens.indexOf('shellfish');
+        this.state.allergens.splice(index, 1);
+      }
+      console.log('Allergens:', this.state.allergens);
+    } // ****** END OF JEE ADDED FEATURE ******
 
   openModal() {
     this.setState({modalIsOpen: true});
@@ -109,8 +209,11 @@ class Nav extends React.Component {
     e.preventDefault();
     var obj = {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      // ****** JEE ADDED FEATURE ******
+      allergens: this.state.allergens.join(', ') // ****** END OF JEE ADDED FEATURE ******
     };
+    console.log(obj);
     var self = this;
     $.ajax({
       type: 'POST',
@@ -119,7 +222,9 @@ class Nav extends React.Component {
       data: JSON.stringify(obj),
       dataType: 'text',
       success: (data) => {
+        // console.log('Stuff was sent back from the server...', data)
         data = JSON.parse(data);
+        // console.log(data);
         if (data.id) {
           self.props.handleLogin(data);
           self.setState({user: data});
@@ -242,22 +347,27 @@ class Nav extends React.Component {
                         </div>
 
                         { /******* JEE ADDED FEATURE ******/ }
-                          <label class="checkbox">
-                              Any food allergies we should know about?
-                          </label>
-                          <div style={{display: 'flex', flexDirection: 'row'}}>   
-                            <div><Checkbox style={styles.checkbox} label='Peanuts'  type="checkbox" value="ingredient1"/></div> <br/>
-                            <div><Checkbox style={styles.checkbox} label='Tree Nuts'  type="checkbox" value="ingredient1"/></div> <br/>
-                            <div><Checkbox style={styles.checkbox} label='Dairy'  type="checkbox" value="ingredient1"/></div> <br/>
-                            <div><Checkbox style={styles.checkbox} label='Eggs'  type="checkbox" value="ingredient1"/></div> <br/>
-                          </div>
-                          <div style={{display: 'flex', flexDirection: 'row'}}>
-                            <div><Checkbox style={styles.checkbox} label='Wheat'  type="checkbox" value="ingredient1"/></div> <br/>
-                            <div><Checkbox style={styles.checkbox} label='Soy'  type="checkbox" value="ingredient1"/></div> <br/>
-                            <div><Checkbox style={styles.checkbox} label='Fish'  type="checkbox" value="ingredient1"/></div> <br/>
-                            <div><Checkbox style={styles.checkbox} label='Shell'  type="checkbox" value="ingredient1"/></div> <br/>
-                          </div>
-                          <br/>
+                            <br/>
+                            <label>
+                                Any food allergies we should know about? We'll filter your recipes for safe choices.
+                            </label>
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                              <Checkbox style={styles.checkbox} label='Peanut' type="checkbox" onCheck={this.onCheckPeanut.bind(this)} value="ingredient1"/>
+                              <Checkbox style={styles.checkbox} label='Tree Nut' type="checkbox" onCheck={this.onCheckTreeNut.bind(this)} value="ingredient1"/> 
+                              <Checkbox style={styles.checkbox} label='Dairy' type="checkbox" onCheck={this.onCheckDairy.bind(this)} value="ingredient1"/> 
+                              <Checkbox style={styles.checkbox} label='Egg' type="checkbox" onCheck={this.onCheckEgg.bind(this)} value="ingredient1"/> 
+                              <Checkbox style={styles.checkbox} label='Gluten' type="checkbox" onCheck={this.onCheckGluten.bind(this)} value="ingredient1"/>
+                              <Checkbox style={styles.checkbox} label='Sesame' type="checkbox" onCheck={this.onCheckSesame.bind(this)} value="ingredient1"/>  
+                            </div>
+                            <br />
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                              <Checkbox style={styles.checkbox} label='Wheat' type="checkbox" onCheck={this.onCheckWheat.bind(this)} value="ingredient1"/> 
+                              <Checkbox style={styles.checkbox} label='Soy' type="checkbox" onCheck={this.onCheckSoy.bind(this)} value="ingredient1"/> 
+                              <Checkbox style={styles.checkbox} label='Seafood' type="checkbox" onCheck={this.onCheckSeafood.bind(this)} value="ingredient1"/> 
+                              <Checkbox style={styles.checkbox} label='Shellfish' type="checkbox" onCheck={this.onCheckShellfish.bind(this)} value="ingredient1"/> 
+                              <Checkbox style={styles.checkbox} label='Sulfite' type="checkbox" onCheck={this.onCheckSulfite.bind(this)} value="ingredient1"/> 
+                            </div>
+                            <br/>
                         { /******* END OF JEE ADDED FEATURE ******/ }
 
                         <div className="control-group">

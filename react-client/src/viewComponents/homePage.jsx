@@ -16,7 +16,10 @@ class homePage extends React.Component {
     super(props);
 
     this.state = {
-      finalIngredients: [],
+      finalIngredients: {
+        safe: [], // ****** JEE ADDED FEATURE ******
+        unsafe: [] // ****** JEE ADDED FEATURE ******
+      },
 
       list: [
         {
@@ -99,16 +102,20 @@ class homePage extends React.Component {
   }
 
   handleChange(ingredient) {
-    if (this.state.finalIngredients.indexOf(ingredient) === -1) {
-      this.state.finalIngredients.push(ingredient);
+    if (this.state.finalIngredients.safe.indexOf(ingredient) === -1) { // ****** JEE ADDED FEATURE ******
+      this.state.finalIngredients.safe.push(ingredient); // ****** JEE ADDED FEATURE ******
     } else {
-      var index = this.state.finalIngredients.indexOf(ingredient);
-      this.state.finalIngredients.splice(index, 1);
+      var index = this.state.finalIngredients.safe.indexOf(ingredient); // ****** JEE ADDED FEATURE ******
+      this.state.finalIngredients.safe.splice(index, 1); // ****** JEE ADDED FEATURE ******
     }
   }
 
   handleLogin(user) {
     this.setState({user});
+    // ****** JEE ADDED FEATURE ******
+    if (user.allergens) {
+      this.state.finalIngredients.unsafe = user.allergens.split(', ');
+    } // ****** END OF JEE ADDED FEATURE ******
     var userObj = {
       username: user.username
     };

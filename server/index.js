@@ -51,6 +51,7 @@ app.get('/summary', function(req, res) {
 
 app.post('/register', function(req, res) {
   // res.status(302).send('ok');
+  // console.log(req.body);
   database.createUser(req, res);
 });
 
@@ -61,18 +62,20 @@ app.post('/login', function(req, res) {
 
 app.post('/entry', function(req, res) {
   // res.status(302).send('Found');
-  var ingreds = req.body.toString();
-
-  //setting up params for request to Spoonacular API
+  // console.log(req.body);
+  var ingreds = req.body.safe.toString();
+  var intols = req.body.unsafe.toString();
+  // setting up params for request to Spoonacular API
   var recipeRetrievalOptions = {
-    url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?',
+    url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?',
     method: 'GET',
     headers: {
       'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
       'Accept': 'application/json'
     },
     qs: {
-      ingredients: ingreds,
+      includeIngredients: ingreds,
+      intolerances: intols,
       number: 10
     }
   };
@@ -84,10 +87,10 @@ app.post('/entry', function(req, res) {
   request(recipeRetrievalOptions, function(error, response, body) {
     response = JSON.parse(response.body);
 
-    for (var i = 0; i < response.length; i++) {
-      var newResponse = response[i];
+    for (var i = 0; i < response.results.length; i++) {
+      var newResponse = response.results[i];
 
-      //setting up object that will be stored inside of finalResponse for each recipe
+      // setting up object that will be stored inside of finalResponse for each recipe
       var responseObj = {};
       responseObj['id'] = newResponse.id;
       responseObj['title'] = newResponse.title;
@@ -98,6 +101,50 @@ app.post('/entry', function(req, res) {
     }
     res.send(finalResponseObj);
   });
+
+
+
+
+
+
+
+
+
+  // setting up params for request to Spoonacular API
+  // var recipeRetrievalOptions = {
+  //   url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?',
+  //   method: 'GET',
+  //   headers: {
+  //     'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
+  //     'Accept': 'application/json'
+  //   },
+  //   qs: {
+  //     ingredients: ingreds,
+  //     number: 10
+  //   }
+  // };
+
+  // sending request to Spoonacular
+  // var finalResponseObj = {};
+  // var summary = {};
+
+  // request(recipeRetrievalOptions, function(error, response, body) {
+  //   response = JSON.parse(response.body);
+
+  //   for (var i = 0; i < response.length; i++) {
+  //     var newResponse = response[i];
+
+  //     //setting up object that will be stored inside of finalResponse for each recipe
+  //     var responseObj = {};
+  //     responseObj['id'] = newResponse.id;
+  //     responseObj['title'] = newResponse.title;
+  //     responseObj['image'] = newResponse.image;
+  //     responseObj['usedIngredientCount'] = newResponse.usedIngredientCount;
+  //     responseObj['missedIngredientCount'] = newResponse.missedIngredientCount;
+  //     finalResponseObj[i] = responseObj;
+  //   }
+  //   res.send(finalResponseObj);
+  // });
 });
 
 app.post('/favoriteCreate', function(req, res) {
