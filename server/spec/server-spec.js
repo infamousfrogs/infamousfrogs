@@ -13,6 +13,7 @@ describe('Postgres Database Testing', function() {
     var tablename = "recipes"; // TODO: fill this out
 
     dbConnection.query('truncate ' + tablename, done);
+    
   });
 
   afterEach(function() {
@@ -23,7 +24,7 @@ describe('Postgres Database Testing', function() {
 
     request({
       method: 'POST',
-      uri: 'http://127.0.0.1:3000/favoriteCreate',
+      uri: 'http://127.0.0.1:5150/favoriteCreate',
       json: {
         username: 'joneric',
         recipeId: 555,
@@ -67,25 +68,27 @@ describe('Postgres Database Testing', function() {
     });
   });
 
-  it('Should insert user `sgt_slaughter` directly into `users` table', function(done) {
-    var queryString = `INSERT INTO users (username, password, "createdAt", "updatedAt") VALUES ('sgt_slaughter', 'wham', current_timestamp, current_timestamp)`;
-
-    dbConnection.query(queryString, function(err, results) {
-      if (err) {
-        console.log('ERROR');
+  it('Should call /register and sign up user with their specific allergens from DB', function(done) {
+    request({
+      method: 'POST',
+      uri: 'http://127.0.0.1:5150/register',
+      json: {
+        username: 'ricky',
+        password: 'bobby',
+        allergens: 'wheat, soy, gluten'
       }
+    }, function(error, response, body) {
+        var queryString = 'SELECT * FROM users';
+
+        dbConnection.query(queryString, function(err, results) {
+          setTimeout(function() {
+            expect(results.rows.length).to.equal(1);
+            expect(results.rows[0].allergens).to.equal('wheat, soy, gluten');
+            dbConnection.query('truncate ' + 'users');
+          }, 500)
+        done();
+      });
     });
-
-    queryString = 'SELECT * FROM users';
-
-    dbConnection.query(queryString, function(err, results) {
-      if (err) {
-        console.log('ERROR');
-      }
-      expect(results.rows[0].username).to.equal('sgt_slaughter');
-    });
-
-    dbConnection.query('truncate ' + 'users', done);
   });
 
   it('Should call /favoriteDestroy and remove `Shit On A Shingle` from recipes table in DB', function(done) {
@@ -93,7 +96,7 @@ describe('Postgres Database Testing', function() {
     // console.log('ONE!');
     request({
       method: 'POST',
-      uri: 'http://127.0.0.1:3000/favoriteCreate',
+      uri: 'http://127.0.0.1:5150/favoriteCreate',
       json: {
         username: 'joneric',
         recipeId: 666,
@@ -106,7 +109,7 @@ describe('Postgres Database Testing', function() {
       // console.log('TWO!');
       request({
         method: 'DELETE',
-        uri: 'http://127.0.0.1:3000/favoriteDestroy',
+        uri: 'http://127.0.0.1:5150/favoriteDestroy',
         json: {
           username: 'joneric',
           recipeId: 666
@@ -131,7 +134,7 @@ describe('Postgres Database Testing', function() {
   //   console.log('ONE!');
   //   request({
   //     method: 'POST',
-  //     uri: 'http://127.0.0.1:3000/favoriteCreate',
+  //     uri: 'http://127.0.0.1:5150/favoriteCreate',
   //     json: {
   //       username: 'joneric',
   //       recipeId: 666,
@@ -145,7 +148,7 @@ describe('Postgres Database Testing', function() {
   //   console.log('TWO!');
   //     request({
   //       method: 'DELETE',
-  //       uri: 'http://127.0.0.1:3000/favoriteDestroy',
+  //       uri: 'http://127.0.0.1:5150/favoriteDestroy',
   //       json: {
   //         username: 'joneric',
   //         recipeId: 666
@@ -185,7 +188,7 @@ describe('Postgres Database Testing', function() {
   it('Should call /favoriteGet and retrieve a users favorite recipe from DB', function(done) {
     request({
       method: 'POST',
-      uri: 'http://127.0.0.1:3000/favoriteCreate',
+      uri: 'http://127.0.0.1:5150/favoriteCreate',
       json: {
         username: 'joneric',
         recipeId: 888,
@@ -197,7 +200,7 @@ describe('Postgres Database Testing', function() {
     }, function () {
       request({
         method: 'POST',
-        uri: 'http://127.0.0.1:3000/favoriteGet',
+        uri: 'http://127.0.0.1:5150/favoriteGet',
         json: {
           username: 'joneric'
         }
@@ -209,6 +212,7 @@ describe('Postgres Database Testing', function() {
       })
     });
   });
+
 
 
 

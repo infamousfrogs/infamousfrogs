@@ -48,7 +48,7 @@ class Nav extends React.Component {
     this.formSubmit2 = this.formSubmit2.bind(this);
     this.logOut = this.logOut.bind(this);
   }
-  // ****** JEE ADDED FEATURE ****** {/* gluten, sesame, sulfite*/}   
+  // ****** JEE ADDED FEATURE ******   
     onCheckPeanut(e) {
       if (e.target.checked) {
         this.state.allergens.push('peanut');
@@ -210,10 +210,8 @@ class Nav extends React.Component {
     var obj = {
       username: this.state.username,
       password: this.state.password,
-      // ****** JEE ADDED FEATURE ******
-      allergens: this.state.allergens.join(', ') // ****** END OF JEE ADDED FEATURE ******
+      allergens: this.state.allergens.join(', ') // ****** JEE ADDED *******
     };
-    console.log(obj);
     var self = this;
     $.ajax({
       type: 'POST',
@@ -222,9 +220,7 @@ class Nav extends React.Component {
       data: JSON.stringify(obj),
       dataType: 'text',
       success: (data) => {
-        // console.log('Stuff was sent back from the server...', data)
         data = JSON.parse(data);
-        // console.log(data);
         if (data.id) {
           self.props.handleLogin(data);
           self.setState({user: data});
@@ -237,7 +233,6 @@ class Nav extends React.Component {
   }
 
   logOut() {
-    // console.log('ALLERGENS', this.state.allergens)
     $.ajax({
       type: 'DELETE',
       url: '/logout',

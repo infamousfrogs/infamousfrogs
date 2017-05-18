@@ -51,7 +51,6 @@ app.get('/summary', function(req, res) {
 
 app.post('/register', function(req, res) {
   // res.status(302).send('ok');
-  // console.log(req.body);
   database.createUser(req, res);
 });
 
@@ -64,7 +63,7 @@ app.post('/entry', function(req, res) {
   // res.status(302).send('Found');
   var ingreds = req.body.safe.toString();
   var intols = req.body.unsafe.toString();
-  console.log("SAFE:", ingreds, "UNSAFE:", intols);
+  console.log("SAFE INGREDIENTS:", ingreds, "UNSAFE INGREDIENTS:", intols);
   // setting up params for request to Spoonacular API
   var recipeRetrievalOptions = {
     url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?',
@@ -76,7 +75,8 @@ app.post('/entry', function(req, res) {
     qs: {
       includeIngredients: ingreds,
       intolerances: intols,
-      number: 10
+      number: 10,
+      ranking: 2
     }
   };
 
@@ -84,23 +84,23 @@ app.post('/entry', function(req, res) {
   var finalResponseObj = {};
   var summary = {};
 
-  // request(recipeRetrievalOptions, function(error, response, body) {
-  //   response = JSON.parse(response.body);
+  request(recipeRetrievalOptions, function(error, response, body) {
+    response = JSON.parse(response.body);
 
-  //   for (var i = 0; i < response.results.length; i++) {
-  //     var newResponse = response.results[i];
+    for (var i = 0; i < response.results.length; i++) {
+      var newResponse = response.results[i];
 
-  //     // setting up object that will be stored inside of finalResponse for each recipe
-  //     var responseObj = {};
-  //     responseObj['id'] = newResponse.id;
-  //     responseObj['title'] = newResponse.title;
-  //     responseObj['image'] = newResponse.image;
-  //     responseObj['usedIngredientCount'] = newResponse.usedIngredientCount;
-  //     responseObj['missedIngredientCount'] = newResponse.missedIngredientCount;
-  //     finalResponseObj[i] = responseObj;
-  //   }
+      // setting up object that will be stored inside of finalResponse for each recipe
+      var responseObj = {};
+      responseObj['id'] = newResponse.id;
+      responseObj['title'] = newResponse.title;
+      responseObj['image'] = newResponse.image;
+      responseObj['usedIngredientCount'] = newResponse.usedIngredientCount;
+      responseObj['missedIngredientCount'] = newResponse.missedIngredientCount;
+      finalResponseObj[i] = responseObj;
+    }
     res.send(finalResponseObj);
-  // });
+  });
 
 
 

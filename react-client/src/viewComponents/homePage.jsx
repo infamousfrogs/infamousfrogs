@@ -139,9 +139,7 @@ class homePage extends React.Component {
   }
 
   handleLogout() {
-    console.log('ALLERGENS', this.state.finalIngredients.unsafe)
     this.state.finalIngredients.unsafe = [];
-    console.log('ALLERGENS AFTER LOGOUT', this.state.finalIngredients.unsafe)
     $.ajax({
       type: 'DELETE',
       url: '/logout',

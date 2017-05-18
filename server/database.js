@@ -83,7 +83,7 @@ var retrieveFavorites = (req, res) => {
 };
 
 var createUser = (req, res) => {
-  console.log(req.body);
+  console.log('INSIDE CREATEUSER', req.body);
   User.findOne({where: {username: req.body.username}}).then(function(user) {
     if (!user) {
       User.create({
