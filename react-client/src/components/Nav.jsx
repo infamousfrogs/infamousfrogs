@@ -237,6 +237,7 @@ class Nav extends React.Component {
   }
 
   logOut() {
+    // console.log('ALLERGENS', this.state.allergens)
     $.ajax({
       type: 'DELETE',
       url: '/logout',
