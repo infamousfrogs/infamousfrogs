@@ -1,7 +1,8 @@
 module.exports = {
     chart: {
         type: 'bar',
-        height: 600
+        height: 600,
+        // renderTo: 'chart'
     },
     title: {
         // text: 'Historic World Population by Region'

@@ -11,6 +11,10 @@ import Dialog from 'material-ui/Dialog'; // ****** JEE ADDED FEATURE ******
 import injectTapEventPlugin from 'react-tap-event-plugin'; // ****** JEE ADDED FEATURE ******
 injectTapEventPlugin(); // ****** JEE ADDED FEATURE ******
 
+//****** RPK ADDED FEATURE********
+var Highcharts = require('highcharts');
+var options = require('./nutritionGraph/nutrtionInfo.js');
+
 const styles = {
   root: {
     display: 'flex',
@@ -62,6 +66,21 @@ class RecipesFaves extends React.Component {
       srcUrl: event.target.src,
       srcTitle: title
     });
+  }
+
+  //******RPK ADDED FEATURES*********
+  componentWillReceiveProps(props) {
+    if ( props.nutrientTitle && this.state.open) {
+
+      options.xAxis.categories = props.nutrientTitle;
+      options.series = [{
+          data: props.percentDaily
+        }]
+      this.chart = new Highcharts["Chart"](
+        'chart',
+        options
+      );
+    }
   }
 
   handleRequestClose() {
@@ -145,6 +164,9 @@ class RecipesFaves extends React.Component {
               {description}
               <h3> Instructions </h3>
               {instructions}
+              <h3>Nutrition Information</h3>
+              <div id="chart">
+              </div>
             </div>
           </Popover>
 
@@ -164,7 +186,7 @@ class RecipesFaves extends React.Component {
                   <p>Text goes in here</p>
                 </div>
               </div>
-            </div>            
+            </div>
           </Dialog> { /******* END OF JEE ADDED FEATURE ******/ }
 
         </div>

@@ -58,31 +58,23 @@ class RecipesView extends React.Component {
       srcUrl: event.target.src,
       srcTitle: title
     });
-  }
 
-
-  componentDidMount() {
-    var chart = new Highcharts[this.props.type || "Chart"](
-        'chart',
-        options
-    );
   }
 
   //******RPK ADDED FEATURES*********
-
   componentWillReceiveProps(props) {
-    options.xAxis.categories = props.nutrientTitle;
-    options.series = [{
-        data: props.percentDaily
-      }]
-    var chart = new Highcharts[this.props.type || "Chart"](
-      'chart',
-      options
-    );
-  }
+    if ( props.nutrientTitle && this.state.open) {
 
-  componentWillUnmount () {
-     this.chart.destroy();
+      options.xAxis.categories = props.nutrientTitle;
+      options.series = [{
+          data: props.percentDaily
+        }]
+      this.chart = new Highcharts["Chart"](
+        'chart',
+        options
+      );
+
+    }
   }
 
   handleRequestClose() {
