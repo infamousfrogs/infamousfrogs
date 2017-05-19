@@ -278,37 +278,47 @@ class homePage extends React.Component {
         data: ({id: recipeId}),
         dataType: 'text',
         success: (data) => {
-          recipeObj = JSON.parse(data);
+          // data = JSON.parse(data);
+          // var recipeObj = data[0]
+          recipeObj = JSON.parse(data).analyzedInstructions;
           var recipeObj = recipeObj[0]['steps']
           var recipeIngredients = []
           var recipeDescription = ''
+          var recipeNutrition = {};
           for (var i = 0; i < recipeObj.length; i++) {
             recipeDescription += ('<br>' + "<strong>Step " + recipeObj[i].number + "</strong>: " + recipeObj[i].step + '</br>')
             if (recipeObj[i].ingredients) {
               for (var j = 0; j < recipeObj[i].ingredients.length; j++) {
                 if (recipeIngredients.indexOf(recipeObj[i].ingredients[j].name) === -1) {
                 recipeIngredients.push(recipeObj[i].ingredients[j].name)
+                }
               }
             }
           }
-        }
-        var finalIngredients = "<br><strong>Ingredients: "
-        for (var i = 0; i < recipeIngredients.length; i++) {
-          if (i + 1 === recipeIngredients.length) {
-            finalIngredients += (recipeIngredients[i])
+          var finalIngredients = "<br><strong>Ingredients: "
+          for (var i = 0; i < recipeIngredients.length; i++) {
+            if (i + 1 === recipeIngredients.length) {
+              finalIngredients += (recipeIngredients[i])
+            }
+            else {
+              finalIngredients += (recipeIngredients[i] + ", ")
+            }
           }
-          else {
-          finalIngredients += (recipeIngredients[i] + ", ")
-        }
-        }
           recipeDescription = renderHTML(finalIngredients + "</br>" + recipeDescription)
           this.setState({recipeId: recipeDescription});
-
+          var recipeNutrition = JSON.parse(data).nutrition.nutrients;
+          var nutrientTitle = [];
+          var percentDaily = [];
+          recipeNutrition.forEach(function(nutrient) {
+            nutrientTitle.push([nutrient.title + ' in ' + nutrient.unit]);
+            percentDaily.push(nutrient.percentOfDailyNeeds);
+          });
+          this.setState({nutritionData: [nutrientTitle, percentDaily]})
         },
         error: (error) => console.log('fetchRecipeById error', error)
       });
+    }
   }
-}
 
   render() {
     return (
