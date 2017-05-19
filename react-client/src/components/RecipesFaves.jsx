@@ -6,7 +6,10 @@ import Star from 'material-ui/svg-icons/toggle/star';
 import Popover from 'material-ui/Popover';
 import $ from 'jquery';
 import renderHTML from 'react-render-html';
-
+import RaisedButton from 'material-ui/RaisedButton'; // ****** JEE ADDED FEATURE ******
+import Dialog from 'material-ui/Dialog'; // ****** JEE ADDED FEATURE ******
+import injectTapEventPlugin from 'react-tap-event-plugin'; // ****** JEE ADDED FEATURE ******
+injectTapEventPlugin(); // ****** JEE ADDED FEATURE ******
 
 const styles = {
   root: {
@@ -18,6 +21,9 @@ const styles = {
     display: 'flex',
     flexWrap: 'nowrap',
     overflowY: 'auto',
+  },
+  dialog: {
+    minWidth: '95%'
   }
 };
 
@@ -26,11 +32,14 @@ class RecipesFaves extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      dialogIsOpen: false // ****** JEE ADDED FEATURE ******
     };
 
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleTouchTap(event, title, id) {
@@ -61,6 +70,20 @@ class RecipesFaves extends React.Component {
     });
   }
 
+  // ****** JEE ADDED FEATURE ******
+  handleOpen() {
+    this.setState({
+      dialogIsOpen: true
+    });
+  };
+
+  handleClose() {
+    this.setState({
+      dialogIsOpen: false
+    });
+  };
+  // ****** END OF JEE ADDED FEATURE ******
+
   render() {
     if (this.state.srcId) {
       var description = renderHTML(this.state.srcId);
@@ -77,7 +100,7 @@ class RecipesFaves extends React.Component {
         >
           {this.props.user ?
             <div className="col-md-12">
-              <h4> {this.props.user}'s Favorites List! </h4>
+              <h4> {this.props.user}'s Favorites List! <span id="compare"><RaisedButton className="button" onTouchTap={this.handleOpen} label="Compare"></RaisedButton></span></h4>
             </div> : ''
           }
           <GridList
@@ -90,7 +113,8 @@ class RecipesFaves extends React.Component {
                 key={recipe.id}
                 title={recipe.title}
                 subtitle={<span>Match <b>{recipe.usedIngredientCount}</b> of {recipe.usedIngredientCount + recipe.missedIngredientCount} ingredients</span>}
-                  actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="yellow" /></IconButton>}
+                actionIcon={<IconButton onClick={event => this.props.handleUnfavToggle(recipe)}><Star color="yellow" /></IconButton>}
+                titleBackground='linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)'
               >
                 <img
                   src={recipe.image}
@@ -123,6 +147,26 @@ class RecipesFaves extends React.Component {
               {instructions}
             </div>
           </Popover>
+
+          { /******* JEE ADDED FEATURE ******/ }
+          <Dialog
+            title="Compare Your Meals"
+            contentStyle={styles.dialog}
+            modal={false}
+            open={this.state.dialogIsOpen}
+            onRequestClose={this.handleClose}
+            autoScrollBodyContent={true}
+          >
+            <div style={{height: '70vh'}} className="container-fluid">
+              <div className="row">
+                <div className="col">
+                  <h4>Graphs go in here</h4>
+                  <p>Text goes in here</p>
+                </div>
+              </div>
+            </div>            
+          </Dialog> { /******* END OF JEE ADDED FEATURE ******/ }
+
         </div>
       </MuiThemeProvider>
     );

@@ -85,5 +85,10 @@ input[type='checkbox']:checked {
   width:30%;
   height:30%;
   padding-left: 10px;
- 
+}
+
+#compare {
+  position: relative;
+  /*margin-left: 20px*/
+  float: right;
 }
