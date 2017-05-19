@@ -281,6 +281,7 @@ class homePage extends React.Component {
           // data = JSON.parse(data);
           // var recipeObj = data[0]
           recipeObj = JSON.parse(data).analyzedInstructions;
+          console.log(recipeObj)
           var recipeObj = recipeObj[0]['steps']
           var recipeIngredients = []
           var recipeDescription = ''
