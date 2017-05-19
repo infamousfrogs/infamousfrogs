@@ -312,7 +312,7 @@ class homePage extends React.Component {
           var nutrientTitle = [];
           var percentDaily = [];
           recipeNutrition.forEach(function(nutrient) {
-            nutrientTitle.push(nutrient.title + '(in ' + nutrient.unit + ')');
+            nutrientTitle.push(nutrient.title);
             percentDaily.push(nutrient.percentOfDailyNeeds);
           });
           this.setState({

@@ -181,8 +181,6 @@ app.get('/fetchRecipeById', function(req, res) {
       throw err;
     }
     else {
-      // body = [JSON.parse(body).analyzedInstructions, JSON.parse(body).nutrition.nutrients];
-      // console.log(body);
       res.send(JSON.parse(body));
     }
   });

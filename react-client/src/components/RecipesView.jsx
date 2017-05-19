@@ -155,7 +155,7 @@ class RecipesView extends React.Component {
               {description}
               <h3> Instructions </h3>
               {instructions}
-              <h4>Nutrition</h4>
+              <h3>Nutrition Information</h3>
               <div id="chart">
               </div>
             </div>
