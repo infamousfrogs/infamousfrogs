@@ -47,27 +47,49 @@ describe('testing for response from all simple requests', function () {
   it('responds to /register', function (done) {
     request
       .post('/register')
-      .expect(302, done);
+      .expect(200, done);
   });
   it('responds to /login', function (done) {
     request
       .post('/login')
-      .expect(302, done);
+      .expect(200, done);
   });
   it('responds to /entry', function (done) {
     request
       .post('/entry')
-      .expect(302, done);
+      .expect(200, done);
   });
   it('responds to /favoriteCreate', function (done) {
     request
       .post('/favoriteCreate')
-      .expect(302, done);
+      .expect(200, done);
   });
   it('responds to /favoriteGet', function (done) {
     request
       .post('/favoriteGet')
-      .expect(302, done);
+      .expect(200, done);
+  });
+});
+
+describe('testing for API fetching', function () {
+  // beforeEach(function () {
+  // });
+  // afterEach(function () {
+  //   server.close();
+  // });
+
+  it('obtains nutrition data from API request', function (done) {
+    request
+    .get('/fetchRecipeById')
+    .expect(200)
+    // .expect('Content-Type', /json/)
+    .end(function(response) {
+      expect(response.body).to.not.equal(null);
+      expect(response.body).to.have.property('nutrition')
+      expect(response.body.nutrition.nutrients[0].percentOfDailyNeeds).to.equal(18.13)
+      expect(response.body.nutrition.nutrients[4].percentOfDailyNeeds).to.equal('Sugar')
+      .done()
+    });
   });
 });
 //
