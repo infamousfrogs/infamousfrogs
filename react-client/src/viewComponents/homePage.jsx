@@ -327,63 +327,67 @@ class homePage extends React.Component {
 
   render() {
     return (
-    <MuiThemeProvider>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col">
-            <Nav handleLogin={this.handleLogin} handleLogout={this.handleLogout} user={this.state.user}/>
+      <MuiThemeProvider>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col">
+              <Nav handleLogin={this.handleLogin} handleLogout={this.handleLogout} user={this.state.user}/>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <h4>Filter by Ingredient(s):</h4>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
+            </div>
+            <div className="col">
+              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
+            </div>
+            <div className="col">
+              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
+            </div>
+            <div className="col">
+              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
+            </div>
+            <div className="col">
+              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
+            </div>
+            <div className="col">
+              <RaisedButton className="logButton" label="Search" onClick={this.handleSubmit}></RaisedButton>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <RecipesView
+                recipeList = {this.state.recipeList}
+                handleFavesToggle = {this.handleFavesToggle}
+                fetchRecipeById = {this.fetchRecipeById}
+                recipeInstruction = {this.state.recipeId}
+                nutrientTitle = {this.state.nutrientTitle}
+                percentDaily = {this.state.percentDaily}
+                />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              {this.state.user && <RecipesFaves
+                user = {this.state.user.username}
+                recipeList = {this.state.recipeList}
+                favoriteList={this.state.favoriteList}
+                handleFavesToggle={this.handleFavesToggle}
+                handleUnfavToggle={this.handleUnfavToggle}
+                fetchRecipeById = {this.fetchRecipeById}
+                recipeInstruction = {this.state.recipeId}
+                nutrientTitle = {this.state.nutrientTitle}
+                percentDaily = {this.state.percentDaily}
+                />}
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col">
-            <h4>Filter by Ingredient(s):</h4>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
-          </div>
-          <div className="col">
-            <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
-          </div>
-          <div className="col">
-            <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
-          </div>
-          <div className="col">
-            <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
-          </div>
-          <div className="col">
-            <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
-          </div>
-          <div className="col">
-            <RaisedButton className="logButton" label="Search" onClick={this.handleSubmit}></RaisedButton>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <RecipesView
-              recipeList = {this.state.recipeList}
-              handleFavesToggle = {this.handleFavesToggle}
-              fetchRecipeById = {this.fetchRecipeById}
-              recipeInstruction = {this.state.recipeId}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            {this.state.user && <RecipesFaves
-              user = {this.state.user.username}
-              recipeList = {this.state.recipeList}
-              favoriteList={this.state.favoriteList}
-              handleFavesToggle={this.handleFavesToggle}
-              handleUnfavToggle={this.handleUnfavToggle}
-              fetchRecipeById = {this.fetchRecipeById}
-              recipeInstruction = {this.state.recipeId}/>}
-          </div>
-        </div>
-      </div>
-   </MuiThemeProvider>
-
+      </MuiThemeProvider>
     );
   }
 }

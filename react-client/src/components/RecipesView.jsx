@@ -9,12 +9,8 @@ import renderHTML from 'react-render-html';
 
 
 //****** RPK ADDED FEATURE********
-// Load Highcharts
 var Highcharts = require('highcharts');
 var options = require('./nutritionGraph/nutrtionInfo.js');
-
-// var options = require('../graphGen/highCharts1.jsx');
-// var theme = require('../graphGen/highChartsTheme.jsx');
 
 
 const styles = {
@@ -62,13 +58,6 @@ class RecipesView extends React.Component {
       srcUrl: event.target.src,
       srcTitle: title
     });
-    this.setState({series: this.props.percentDaily});
-    this.setState({titles: this.props.nutrientTitle});
-  //   // ****RPK ADDED FEATURE*****
-  //   var chart = new Highcharts[this.props.type || "Chart"](
-  //       'chart',
-  //       options
-  //   );
   }
 
 
@@ -80,21 +69,18 @@ class RecipesView extends React.Component {
   }
 
   //******RPK ADDED FEATURES*********
+
   componentWillReceiveProps(props) {
-    // if ( this.props.percentDaily > 0 ) {
     options.xAxis.categories = props.nutrientTitle;
     options.series = [{
         data: props.percentDaily
-    }]
-      var chart = new Highcharts[this.props.type || "Chart"](
-          'chart',
-          options
-      );
-    // }
-      //
-      // this.props.nutrientTitle = null;
-      // this.props.percentDaily = [];
+      }]
+    var chart = new Highcharts[this.props.type || "Chart"](
+      'chart',
+      options
+    );
   }
+
   componentWillUnmount () {
      this.chart.destroy();
   }
@@ -103,7 +89,6 @@ class RecipesView extends React.Component {
     this.setState({
       open: false
     });
-    // this.chart.destroy();
   }
 
   render() {
