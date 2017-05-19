@@ -9,7 +9,7 @@ import renderHTML from 'react-render-html';
 import RaisedButton from 'material-ui/RaisedButton'; // ****** JEE ADDED FEATURE ******
 import Dialog from 'material-ui/Dialog'; // ****** JEE ADDED FEATURE ******
 import injectTapEventPlugin from 'react-tap-event-plugin'; // ****** JEE ADDED FEATURE ******
-injectTapEventPlugin(); // ****** JEE ADDED FEATURE ******
+injectTapEventPlugin(); // ****** JEE ADDED FEATURE ****** testing testing
 
 //****** RPK ADDED FEATURE********
 var Highcharts = require('highcharts');
