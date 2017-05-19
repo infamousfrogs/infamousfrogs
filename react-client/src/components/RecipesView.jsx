@@ -6,8 +6,16 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Popover from 'material-ui/Popover';
 import $ from 'jquery';
 import renderHTML from 'react-render-html';
+
+
 //****** RPK ADDED FEATURE********
-import graph from './nutritionGraph/nutrtionInfo.js';
+// Load Highcharts
+var Highcharts = require('highcharts');
+var options = require('./nutritionGraph/nutrtionInfo.js');
+
+// var options = require('../graphGen/highCharts1.jsx');
+// var theme = require('../graphGen/highChartsTheme.jsx');
+
 
 const styles = {
   root: {
@@ -27,8 +35,7 @@ class RecipesView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
-
+      open: false,
     };
 
     this.handleTouchTap = this.handleTouchTap.bind(this);
@@ -55,12 +62,48 @@ class RecipesView extends React.Component {
       srcUrl: event.target.src,
       srcTitle: title
     });
+    this.setState({series: this.props.percentDaily});
+    this.setState({titles: this.props.nutrientTitle});
+  //   // ****RPK ADDED FEATURE*****
+  //   var chart = new Highcharts[this.props.type || "Chart"](
+  //       'chart',
+  //       options
+  //   );
+  }
+
+
+  componentDidMount() {
+    var chart = new Highcharts[this.props.type || "Chart"](
+        'chart',
+        options
+    );
+  }
+
+  //******RPK ADDED FEATURES*********
+  componentWillReceiveProps(props) {
+    // if ( this.props.percentDaily > 0 ) {
+    options.xAxis.categories = props.nutrientTitle;
+    options.series = [{
+        data: props.percentDaily
+    }]
+      var chart = new Highcharts[this.props.type || "Chart"](
+          'chart',
+          options
+      );
+    // }
+      //
+      // this.props.nutrientTitle = null;
+      // this.props.percentDaily = [];
+  }
+  componentWillUnmount () {
+     this.chart.destroy();
   }
 
   handleRequestClose() {
     this.setState({
       open: false
     });
+    // this.chart.destroy();
   }
 
   render() {
@@ -127,6 +170,9 @@ class RecipesView extends React.Component {
               {description}
               <h3> Instructions </h3>
               {instructions}
+              <h4>Nutrition</h4>
+              <div id="chart">
+              </div>
             </div>
           </Popover>
         </div>

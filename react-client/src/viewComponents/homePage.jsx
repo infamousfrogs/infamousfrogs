@@ -312,16 +312,13 @@ class homePage extends React.Component {
           var nutrientTitle = [];
           var percentDaily = [];
           recipeNutrition.forEach(function(nutrient) {
-            nutrientTitle.push(nutrient.title + ' in ' + nutrient.unit);
+            nutrientTitle.push(nutrient.title + '(in ' + nutrient.unit + ')');
             percentDaily.push(nutrient.percentOfDailyNeeds);
           });
-
-
-
-
-
-          this.setState({nutritionData: [nutrientTitle, percentDaily]})
-          console.log(this.state.nutritionData)
+          this.setState({
+            nutrientTitle: nutrientTitle,
+            percentDaily: percentDaily
+          });
         },
         error: (error) => console.log('fetchRecipeById error', error)
       });
