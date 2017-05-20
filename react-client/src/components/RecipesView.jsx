@@ -40,23 +40,26 @@ class RecipesView extends React.Component {
 
   handleTouchTap(event, title, id) {
     event.preventDefault();
-    $.ajax({
-      type: 'GET',
-      url: `/summary?id=${id}`,
-      contentType: 'application/json',
-      data: JSON.stringify(id),
-      dataType: 'text',
-      success: (data) => {
-        this.setState({srcId: data});
-        this.setState({fetchRecipeById: id});
-      }
-    });
-
+    //*********RPK ADDED FEATURES*********
+    //consider refactoring request into homePage
+    // $.ajax({
+    //   type: 'GET',
+    //   url: `/summary?id=${id}`,
+    //   contentType: 'application/json',
+    //   data: JSON.stringify(id),
+    //   dataType: 'text',
+    //   success: (data) => {
+    //     this.setState({srcId: data});
+    //     this.setState({fetchRecipeById: id});
+    //   }
+    // });
     this.setState ({
       open: true,
       anchorEl: event.currentTarget,
       srcUrl: event.target.src,
       srcTitle: title
+      // this.setState({srcId: data});
+      //     this.setState({fetchRecipeById: id});
     });
 
   }

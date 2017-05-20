@@ -332,6 +332,23 @@ class homePage extends React.Component {
         },
         error: (error) => console.log('fetchRecipeById error', error)
       });
+      //*********RPK ADDED FEATURES*********
+      //consider refactoring request into homePage
+      $.ajax({
+        type: 'GET',
+        // url: `/summary?id=${recipeId}`,
+        url: `/summary?id=${recipeId}`,
+        contentType: 'application/json',
+        data: ({id: recipeId}),
+        dataType: 'text',
+        success: (data) => {
+          this.setState({srcId: data});
+          this.setState({fetchRecipeById: recipeId});
+        }
+      });
+
+
+
     }
   }
 
@@ -405,6 +422,8 @@ class homePage extends React.Component {
                 recipeInstruction = {this.state.recipeId}
                 nutrientTitle = {this.state.nutrientTitle}
                 percentDaily = {this.state.percentDaily}
+                srcId = {this.state.srcId}
+                fetchRecipeById = {this.state.fetchRecipeById}
                 />
             </div>
           </div>
@@ -430,6 +449,8 @@ class homePage extends React.Component {
                 recipeInstruction = {this.state.recipeId}
                 nutrientTitle = {this.state.nutrientTitle}
                 percentDaily = {this.state.percentDaily}
+                // srcId = {this.state.srcId}
+                fetchRecipeById = {this.state.fetchRecipeById}
                 />}
             </div>
           </div>

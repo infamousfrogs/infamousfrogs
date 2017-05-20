@@ -141,9 +141,27 @@ var checkIfUserExists = (req, res) => {
 };
 
 //********RPK ADDED FEATURE******
+
 var checkIfRecipeIsCached = (req, res) => {
-  Recipe.findOne({where: {recipeId: req.body.recipeId}}).then(function(recipe) {
-    if (!recipeId) {
+  Recipe.findOne({where: {recipeId: req.query.id}}).then(function(recipe) {
+    if (!recipe) {
+      res.send(false)
+    } else {
+      res.send(recipe)
+    }
+  });
+}
+
+var cacheRecipe = (req, res) => {
+    Recipe.create({
+      recipeId: req.body.id,
+      title: req.body.title,
+      image: req.body.image,
+      summary: req.body.
+      instructions: req.body.
+      nutrition: req.body.
+
+    })
       red.send({'recipeNotCached': 'recipeNotCached'});
     }
   })

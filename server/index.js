@@ -28,25 +28,29 @@ app.get('/userinfo', function(req, res, next) {
 
 app.get('/summary', function(req, res) {
   // res.status(200).send('ok');
-  var id = req.query.id;
-  var recipeSummaryOptions = {
-    url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${id}/summary`,
-    method: 'GET',
-    headers: {
-      'X-Mashape-Key': 'q4398u4TA1mshLwj7IkUIAfEV3KHp11cFqPjsnzkkxjtTBxlHc',
-      'Accept': 'application/json'
+  database.checkIfRecipeIsCached(req, res) {
+    if ( !res.body.recipe ) {
+      var id = req.query.id;
+      var recipeSummaryOptions = {
+        url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${id}/summary`,
+        method: 'GET',
+        headers: {
+          'X-Mashape-Key': 'q4398u4TA1mshLwj7IkUIAfEV3KHp11cFqPjsnzkkxjtTBxlHc',
+          'Accept': 'application/json'
+        }
+      };
+
+      request(recipeSummaryOptions, function(error, response, body) {
+        if (error) {
+          console.log(error);
+          throw err;
+        } else {
+          body = JSON.parse(body);
+          res.send(body.summary);
+        }
+      });
     }
   };
-
-  request(recipeSummaryOptions, function(error, response, body) {
-    if (error) {
-      console.log(error);
-      throw err;
-    } else {
-      body = JSON.parse(body);
-      res.send(body.summary);
-    }
-  });
 });
 
 app.post('/register', function(req, res) {
@@ -163,27 +167,39 @@ app.post('/favoriteGet', function(req, res) {
 });
 
 app.get('/fetchRecipeById', function(req, res) {
-  // res.status(200).send('ok');
-  let recipeId = req.query.id || 569201;
-  let url = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information?includeNutrition=true`;
-  var fetchRecipeById = {
-    url: url,
-    includeNutrition: true,
-    method: 'GET',
-    headers: {
-      'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
-      'Accept': 'application/json'
+  //********RPK ADDED FEATURE**********
+  database.checkIfRecipeIsCached(req, res) {
+    if ( !res.body.recipe ) {
+      // query database for recipeId - if true, send recipe information
+      //else perform API request
+      // res.status(200).send('ok');
+      let recipeId = req.query.id || 569201;
+      let url = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information?includeNutrition=true`;
+      var fetchRecipeById = {
+        url: url,
+        includeNutrition: true,
+        method: 'GET',
+        headers: {
+          'X-Mashape-Key': 'h88XRdVMrZmshoBOiBWVrmfnfWKTp1SlnIjjsn4adRtjrPpen1',
+          'Accept': 'application/json'
+        }
+      };
+      request(fetchRecipeById, function(err, response, body) {
+        if (err) {
+          throw err;
+        }
+        else {
+          //****RPK ADDED FEATURE******
+          database.cacheRecipe(body, res) {
+
+            res.send(JSON.parse(body));
+          }
+        }
+      }
+    } else {
+      res.send(JSON.parse(res.body.recipe));
     }
   };
-
-  request(fetchRecipeById, function(err, response, body) {
-    if (err) {
-      throw err;
-    }
-    else {
-      res.send(JSON.parse(body));
-    }
-  });
 });
 
 app.get('/addressConvert', function(req, res) {
