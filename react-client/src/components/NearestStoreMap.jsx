@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {GridList, GridTile} from 'material-ui/GridList';
 import GoogleMapReact from 'google-map-react';
 import FlatButton from 'material-ui/FlatButton';
-import injectTapEventPlugin from 'react-tap-event-plugin'; 
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
     // var initMap = () => {
@@ -33,7 +33,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
   //   // window.initMap = this.initMap;
   //   // Asynchronously load the Google Maps script, passing in the callback reference
   //   loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyBD5VDZHAMghzun891D2rAZCOgKo7xM6Wc&callback=initMap')
-  // }  
+  // }
 
   // update() {
   //   this.setState({
