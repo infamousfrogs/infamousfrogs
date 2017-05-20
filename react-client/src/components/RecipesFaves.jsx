@@ -22,8 +22,11 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    display: 'flex',
-    flexWrap: 'nowrap',
+    // display: 'flex',
+    // flexWrap: 'nowrap',
+    // overflowY: 'auto',
+    width: 500,
+    height: 450,
     overflowY: 'auto',
   },
   dialog: {
@@ -71,8 +74,7 @@ class RecipesFaves extends React.Component {
 
   //******RPK ADDED FEATURES*********
   componentWillReceiveProps(props) {
-    if ( props.nutrientTitle && this.state.open) {
-
+    if ( props.nutrientTitle && this.state.dialogIsOpen) { // Charts for recipes testing
       options.xAxis.categories = props.nutrientTitle;
       options.series = [{
           data: props.percentDaily
@@ -82,6 +84,18 @@ class RecipesFaves extends React.Component {
         options
       );
     }
+
+    // if ( props.nutrientTitle && this.state.dialogIsOpen) { // Charts for comparisons
+    //   options.xAxis.categories = props.nutrientTitle;
+    //   options.series = [{
+    //       data: props.percentDaily
+    //     }]
+    //   this.comparisons = new Highcharts["Chart"](
+    //     'comparisons',
+    //     options
+    //   );
+    // }
+
   }
 
   handleRequestClose() {
@@ -124,7 +138,7 @@ class RecipesFaves extends React.Component {
             </div> : ''
           }
           <GridList
-           cellHeight={240}
+           cellHeight={180}
            style={styles.gridList}
            className='recipeViewList'
           >
@@ -185,6 +199,9 @@ class RecipesFaves extends React.Component {
                 <div className="col">
                   <h4>Graphs go in here</h4>
                   <p>Text goes in here</p>
+                  <p>TESTBALLZ</p>
+                  <div id="chart">
+                  </div>
                 </div>
               </div>
             </div>
