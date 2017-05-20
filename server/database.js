@@ -51,7 +51,7 @@ var Recipe = sequelize.define('recipes', {
 
 //*********RPK ADDED FEATURES********
 var Cache = sequelize.define('cache', {
-  recipeID: {
+  recipeId: {
     type: Sequelize.INTEGER
   },
   title: {
@@ -139,6 +139,15 @@ var checkIfUserExists = (req, res) => {
     }
   });
 };
+
+//********RPK ADDED FEATURE******
+var checkIfRecipeIsCached = (req, res) => {
+  Recipe.findOne({where: {recipeId: req.body.recipeId}}).then(function(recipe) {
+    if (!recipeId) {
+      red.send({'recipeNotCached': 'recipeNotCached'});
+    }
+  })
+}
 
 
 module.exports.checkIfUserExists = checkIfUserExists;
