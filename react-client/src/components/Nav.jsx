@@ -264,7 +264,7 @@ class Nav extends React.Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <h3 className="app-name"> Simply Recipes </h3>
+            <h3 className="app-name">What's In The Pantry™</h3>
           </div>
           <p className="navbar-text navbar-center centerTitle"> {userMessage} </p>
           <div className="btn-group pull-right logButton">
