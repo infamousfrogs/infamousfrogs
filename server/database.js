@@ -49,7 +49,30 @@ var Recipe = sequelize.define('recipes', {
   }
 });
 
+//*********RPK ADDED FEATURES********
+var Cache = sequelize.define('cache', {
+  recipeID: {
+    type: Sequelize.INTEGER
+  },
+  title: {
+    type: Sequelize.STRING
+  },
+  image: {
+    type: Sequelize.STRING
+  },
+  summary: {
+    type: Sequelize.STRING
+  },
+  instructions: {
+    type: Sequelize.STRING
+  },
+  nutrition: {
+    type: Sequelize.STRING
+  }
+});
+
 sequelize.sync();
+
 
 var createRecipe = (req, res) => {
   Recipe.create({
