@@ -82,7 +82,7 @@ class homePage extends React.Component {
 
       favoriteList: {},
       homeAddressLat: 37.7836966,
-      homeAddressLng: -122.4111551
+      homeAddressLng: -122.4095136
     };
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -333,20 +333,26 @@ class homePage extends React.Component {
     }
   }
 
-  changeHomeAddress (lat, lng) {
-    this.setState({
-      homeAddressLat: lat,
-      homeAddressLng: lng
-    })
+  resetMap (e) {
+    this.render()
+    e.preventDefault();
   }
 
-  handleChange(e) {
+  handleChangeLat(e) {
     this.setState({
-      number: e.target.value
+      homeAddressLat: e.target.value
     })
+    console.log('Home address latitude coordinate is ' + this.state.homeAddressLat)
   }
 
- render() {
+  handleChangeLng(e) {
+    this.setState({
+      homeAddressLng: e.target.value
+    })
+    console.log('Home address longitude coordinate is ' + this.state.homeAddressLng)
+  }
+
+  render() {
     return (
       <MuiThemeProvider>
         <div className="container-fluid">
@@ -387,11 +393,20 @@ class homePage extends React.Component {
                 handleFavesToggle = {this.handleFavesToggle}
                 fetchRecipeById = {this.fetchRecipeById}
                 recipeInstruction = {this.state.recipeId}
+                nutrientTitle = {this.state.nutrientTitle}
+                percentDaily = {this.state.percentDaily}
               />
             </div>
           </div>
           <div className="row">
-            <div className="col">
+            <div className="col-sm-6">
+              <NearestStoreMap 
+              state={this.state} 
+              handleChangeLat={this.handleChangeLat.bind(this)}
+              handleChangeLng={this.handleChangeLng.bind(this)} 
+              resetMap={this.resetMap.bind(this)}/>
+            </div>
+            <div className="col-sm-6">
               {this.state.user && <RecipesFaves
                 user = {this.state.user.username}
                 recipeList = {this.state.recipeList}
@@ -399,16 +414,10 @@ class homePage extends React.Component {
                 handleFavesToggle={this.handleFavesToggle}
                 handleUnfavToggle={this.handleUnfavToggle}
                 fetchRecipeById = {this.fetchRecipeById}
-                recipeInstruction = {this.state.recipeId}/>}
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <NearestStoreMap 
-              homeAddressLat={this.state.homeAddressLat} 
-              homeAddressLng={this.state.homeAddressLng} 
-              changeHomeAddress={this.changeHomeAddress.bind(this)}
-              handleChange={this.handleChange.bind(this)}/>
+                recipeInstruction = {this.state.recipeId}
+                nutrientTitle = {this.state.nutrientTitle}
+                percentDaily = {this.state.percentDaily}
+                />}
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ import FlatButton from 'material-ui/FlatButton';
  class ClosestStore extends React.Component {
   constructor (props) {
     super(props);
+    // this.testFunc = this.testFunc.bind(this)
   }
 
 
@@ -32,51 +33,70 @@ import FlatButton from 'material-ui/FlatButton';
   //   loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyBD5VDZHAMghzun891D2rAZCOgKo7xM6Wc&callback=initMap')
   // }  
 
+  // update() {
+  //   this.setState({
+  //     lat: this.props.state.homeAddressLat,
+  //     lng: this.props.state.homeAddressLng
+  //   })
+  // }
+
+  // shouldComponentUpdate () {if () {return true;}}
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return (nextprops.cardDetails != this.props.cardDetails);
+  // }
+
+  // testFunc (e) {
+  //   e.preventDefault();
+  //   this.render();
+  // }
+
   render() {
+
     const styles = {
       div: {
-        display: 'block'
+        display: 'block',
       },
       card: {
-        width: 400,
-        height: 400
+        width: 500,
+        height: 500
       },
       cardHeader: {
-        height: 60,
+        height: 50,
+        margin: 0,
+        
+        align: 'center'
       },
       center: {
-        lat: this.props.homeAddressLat,
-        lng: this.props.homeAddressLng
+        lat: parseFloat(this.props.state.homeAddressLat),
+        lng: parseFloat(this.props.state.homeAddressLng)
       },
       map: {
-        height: 300,
-        width: 300
+        height: 350,
+        width: 500
       },
-      actions: {
-        height: 40
+      coordinates: {
+        height: 35,
+        marginLeft: 20,
+        marginBottom: 0
       }
     }
 
     return (
       <div style={styles.div}>
         <Card style={styles.card}>
-          <CardHeader title="Closest Grocery Store with Your Ingredients."/>
-          <form handleSubmit={this.render}>
-            <input id="latit" type="text" name="lat" value={styles.center.lat} onChange={this.props.handleChange}></input>
-            <input id="long" type="text" name="lng" value={styles.center.lng} onChange={this.props.handleChange}></input>
-            <input type="submit" value="Submit"></input>
-          </form>
-          <TextField hintText="Address" onTouchTap={this.props.changeHomeAddress}/>
-            <div style={styles.map}>
+          <CardHeader style={{ marginLeft: 20, marginBottom: 0 }} title='All of Your Ingredients Are "Right Around the Corner"™'/>
+            <div style={{ marginTop: 0 }} style={styles.map} >
               <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyBD5VDZHAMghzun891D2rAZCOgKo7xM6Wc' }}
                 center={styles.center}
                 zoom={13}>
               </GoogleMapReact>
             </div>
-            <CardActions style={styles.actions}>
-              <FlatButton primary = {true} label="Nav" />
-            </CardActions>
+          <form>
+            <TextField style={styles.coordinates} type="text" hintText="Latitude" name="lat" onChange={this.props.handleChangeLat}></TextField><TextField style={styles.coordinates} type="text" hintText="Longitude" name="lng" onChange={this.props.handleChangeLng}></TextField>
+            <FlatButton type="submit" value="Submit" handleTouchTap={this.props.resetMap}></FlatButton>
+          </form>
         </Card>
       </div>
     )
@@ -84,3 +104,4 @@ import FlatButton from 'material-ui/FlatButton';
 }
 
 export default ClosestStore;
+          // <TextField style={{ marginLeft: 50 }} hintText="Address" />
