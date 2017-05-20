@@ -9,10 +9,14 @@ import renderHTML from 'react-render-html';
 import RaisedButton from 'material-ui/RaisedButton'; // ****** JEE ADDED FEATURE ******
 import Dialog from 'material-ui/Dialog'; // ****** JEE ADDED FEATURE ******
 import injectTapEventPlugin from 'react-tap-event-plugin'; // ****** JEE ADDED FEATURE ******
-injectTapEventPlugin(); // ****** JEE ADDED FEATURE ****** testing testing
 
+injectTapEventPlugin(); // ****** JEE ADDED FEATURE ****** testing testing
 //****** RPK ADDED FEATURE********
 var Highcharts = require('highcharts');
+var ReactHighcharts = require('react-highcharts');
+var HighchartsMore = require('highcharts-more');
+HighchartsMore(ReactHighcharts.Highcharts);
+
 var options = require('./nutritionGraph/nutrtionInfo.js');
 
 const styles = {
@@ -74,7 +78,7 @@ class RecipesFaves extends React.Component {
 
   //******RPK ADDED FEATURES*********
   componentWillReceiveProps(props) {
-    if ( props.nutrientTitle && this.state.dialogIsOpen) { // Charts for recipes testing
+    if ( props.nutrientTitle && this.state.open) { // Charts for recipes testing
       options.xAxis.categories = props.nutrientTitle;
       options.series = [{
           data: props.percentDaily
@@ -83,6 +87,7 @@ class RecipesFaves extends React.Component {
         'chart',
         options
       );
+
     }
 
     // if ( props.nutrientTitle && this.state.dialogIsOpen) { // Charts for comparisons
@@ -109,6 +114,65 @@ class RecipesFaves extends React.Component {
     this.setState({
       dialogIsOpen: true
     });
+    if (!this.state.dialogIsOpen) {
+      console.log(this.state.dialogIsOpen);
+      var self = this
+      setTimeout(function() {
+        console.log(self.state.dialogIsOpen)
+        Highcharts.chart('container', {
+
+      chart: {
+          polar: true,
+          type: 'line'
+      },
+
+      title: {
+          text: 'Budget vs spending',
+          x: -80
+      },
+
+      pane: {
+          size: '80%'
+      },
+
+      xAxis: {
+          categories: ['Sales', 'Marketing', 'Development', 'Customer Support',
+                  'Information Technology', 'Administration'],
+          tickmarkPlacement: 'on',
+          lineWidth: 0
+      },
+
+      yAxis: {
+          gridLineInterpolation: 'polygon',
+          lineWidth: 0,
+          min: 0
+      },
+
+      tooltip: {
+          shared: true,
+          pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+      },
+
+      legend: {
+          align: 'right',
+          verticalAlign: 'top',
+          y: 70,
+          layout: 'vertical'
+      },
+
+      series: [{
+          name: 'Allocated Budget',
+          data: [43000, 19000, 60000, 35000, 17000, 10000],
+          pointPlacement: 'on'
+      }, {
+          name: 'Actual Spending',
+          data: [50000, 39000, 42000, 31000, 26000, 14000],
+          pointPlacement: 'on'
+      }]
+
+    });
+      }, 0)
+    }
   };
 
   handleClose() {
@@ -199,8 +263,7 @@ class RecipesFaves extends React.Component {
                 <div className="col">
                   <h4>Graphs go in here</h4>
                   <p>Text goes in here</p>
-                  <p>TESTBALLZ</p>
-                  <div id="chart">
+                  <div id="container">
                   </div>
                 </div>
               </div>
