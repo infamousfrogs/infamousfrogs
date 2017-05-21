@@ -39,8 +39,6 @@ class RecipesView extends React.Component {
 
   handleTouchTap(event, title, id) {
     event.preventDefault();
-    //*********RPK ADDED FEATURES*********
-    // consider refactoring request into homePage
     $.ajax({
       type: 'GET',
       url: `/summary?id=${id}`,

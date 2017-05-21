@@ -55,16 +55,17 @@ class RecipesFaves extends React.Component {
       data: JSON.stringify(id),
       dataType: 'text',
       success: (data) => {
-        this.setState({srcId: data})
+        this.setState({srcId: data}),
         this.setState({fetchRecipeById: id})
       }
     });
-
     this.setState ({
       open: true,
       anchorEl: event.currentTarget,
       srcUrl: event.target.src,
-      srcTitle: title
+      srcTitle: title,
+      srcId: this.props.srcId,
+      fetchRecipeById: this.props.fetchRecipeById
     });
   }
 

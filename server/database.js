@@ -65,9 +65,9 @@ var Cache = sequelize.define('caches', {
   },
   nutrition: {
     type: Sequelize.TEXT
-  },
-  summary: {
-    type: Sequelize.TEXT
+  // },
+  // summary: {
+  //   type: Sequelize.TEXT
   }
 });
 
