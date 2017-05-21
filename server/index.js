@@ -186,6 +186,27 @@ app.get('/fetchRecipeById', function(req, res) {
   });
 });
 
+app.get('/addressConvert', function(req, res) {
+  // res.status(200).send('ok');
+  console.log(req)
+  let address = req.query.address.split(' ').join('+');
+  console.log(address)
+  let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyBD5VDZHAMghzun891D2rAZCOgKo7xM6Wc`;
+  var maps = {url: url};
+
+  request(maps, function(err, response, body) {
+    if (err) {
+      console.log('1', err)
+      throw err;
+    }
+    else {
+      console.log('2', response)
+      console.log('3', body)
+      res.send(JSON.parse(body));
+    }
+  });
+});
+
 app.delete('/logout', function(req, res) {
   // res.status(200).send('ok');
   console.log('BEFORE', req.session);

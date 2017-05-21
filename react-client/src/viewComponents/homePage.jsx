@@ -82,7 +82,8 @@ class homePage extends React.Component {
 
       favoriteList: {},
       homeAddressLat: 37.7836966,
-      homeAddressLng: -122.4095136
+      homeAddressLng: -122.4095136,
+      homeAddressWords: '20 main st exeter nh'
     };
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -93,6 +94,8 @@ class homePage extends React.Component {
     this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
 
     this.fetchRecipeById = this.fetchRecipeById.bind(this);
+    this.handleChangeAddress = this.handleChangeAddress.bind(this)
+    this.changeProp = this.changeProp.bind(this)
   }
 
   componentDidMount() {
@@ -333,10 +336,10 @@ class homePage extends React.Component {
     }
   }
 
-  resetMap (e) {
-    this.render()
-    e.preventDefault();
-  }
+  // resetMap (e) {
+  //   this.render()
+  //   e.preventDefault();
+  // }
 
   handleChangeLat(e) {
     this.setState({
@@ -350,6 +353,33 @@ class homePage extends React.Component {
       homeAddressLng: e.target.value
     })
     console.log('Home address longitude coordinate is ' + this.state.homeAddressLng)
+  }
+
+  changeProp(key, val) {
+    this.setState({
+      [key]: val
+    });
+  }
+
+  handleChangeAddress () {
+    $.ajax({
+      type: 'GET',
+      url: '/addressConvert',
+      contentType: 'application/json',
+      data: ({address: this.state.homeAddressWords}),
+      dataType: 'text',
+      success: (data) => {
+        var result = JSON.parse(data)
+        this.setState({
+          homeAddressLat: result.results[0].geometry.location.lat,
+          homeAddressLng: result.results[0].geometry.location.lng
+        })
+      },
+      error: (err) => {
+        alert('ERROR')
+        console.log('error is ', err)
+      }
+    })
   }
 
   render() {
@@ -403,8 +433,9 @@ class homePage extends React.Component {
               <NearestStoreMap 
               state={this.state} 
               handleChangeLat={this.handleChangeLat.bind(this)}
-              handleChangeLng={this.handleChangeLng.bind(this)} 
-              resetMap={this.resetMap.bind(this)}/>
+              handleChangeLng={this.handleChangeLng.bind(this)}
+              handleChangeAddress={this.handleChangeAddress.bind(this)}
+              changeProp={this.changeProp.bind(this)}/>
             </div>
             <div className="col-sm-6">
               {this.state.user && <RecipesFaves

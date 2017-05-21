@@ -6,6 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {GridList, GridTile} from 'material-ui/GridList';
 import GoogleMapReact from 'google-map-react';
 import FlatButton from 'material-ui/FlatButton';
+import injectTapEventPlugin from 'react-tap-event-plugin'; 
+
 
     // var initMap = () => {
     //   map = new google.maps.Map(this.refs.map.getDOMNode());
@@ -59,12 +61,11 @@ import FlatButton from 'material-ui/FlatButton';
       },
       card: {
         width: 500,
-        height: 500
+        height: 550
       },
       cardHeader: {
         height: 50,
         margin: 0,
-        
         align: 'center'
       },
       center: {
@@ -73,12 +74,17 @@ import FlatButton from 'material-ui/FlatButton';
       },
       map: {
         height: 350,
-        width: 500
+        width: 500,
+        marginBottom: 10
       },
       coordinates: {
         height: 35,
         marginLeft: 20,
         marginBottom: 0
+      },
+      button: {
+        width: 30,
+        height: 30
       }
     }
 
@@ -90,12 +96,12 @@ import FlatButton from 'material-ui/FlatButton';
               <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyBD5VDZHAMghzun891D2rAZCOgKo7xM6Wc' }}
                 center={styles.center}
-                zoom={13}>
+                zoom={18}>
               </GoogleMapReact>
             </div>
           <form>
-            <TextField style={styles.coordinates} type="text" hintText="Latitude" name="lat" onChange={this.props.handleChangeLat}></TextField><TextField style={styles.coordinates} type="text" hintText="Longitude" name="lng" onChange={this.props.handleChangeLng}></TextField>
-            <FlatButton type="submit" value="Submit" handleTouchTap={this.props.resetMap}></FlatButton>
+            <TextField style={styles.coordinates} type="text" hintText="Home Address" name="lng" onChange={ e => this.props.changeProp('homeAddressWords', e.target.value)}></TextField>
+            <FlatButton style={styles.button} type="button" label="Submit" onClick={this.props.handleChangeAddress}></FlatButton>
           </form>
         </Card>
       </div>
@@ -105,3 +111,5 @@ import FlatButton from 'material-ui/FlatButton';
 
 export default ClosestStore;
           // <TextField style={{ marginLeft: 50 }} hintText="Address" />
+            // <TextField style={styles.coordinates} type="text" hintText="Latitude" name="lat" value={this.props.state.homeAddressLat} onChange={this.props.handleChangeLat}></TextField>
+            // <TextField style={styles.coordinates} type="text" hintText="Longitude" name="lng" value={this.props.state.homeAddressLng} onChange={this.props.handleChangeLng}></TextField>
