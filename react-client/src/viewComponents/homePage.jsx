@@ -94,8 +94,6 @@ class homePage extends React.Component {
     this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
 
     this.fetchRecipeById = this.fetchRecipeById.bind(this);
-    this.handleChangeAddress = this.handleChangeAddress.bind(this)
-    this.changeProp = this.changeProp.bind(this)
   }
 
   componentDidMount() {
@@ -336,25 +334,6 @@ class homePage extends React.Component {
     }
   }
 
-  // resetMap (e) {
-  //   this.render()
-  //   e.preventDefault();
-  // }
-
-  handleChangeLat(e) {
-    this.setState({
-      homeAddressLat: e.target.value
-    })
-    console.log('Home address latitude coordinate is ' + this.state.homeAddressLat)
-  }
-
-  handleChangeLng(e) {
-    this.setState({
-      homeAddressLng: e.target.value
-    })
-    console.log('Home address longitude coordinate is ' + this.state.homeAddressLng)
-  }
-
   changeProp(key, val) {
     this.setState({
       [key]: val
@@ -432,8 +411,6 @@ class homePage extends React.Component {
             <div className="col-sm-6">
               <NearestStoreMap 
               state={this.state} 
-              handleChangeLat={this.handleChangeLat.bind(this)}
-              handleChangeLng={this.handleChangeLng.bind(this)}
               handleChangeAddress={this.handleChangeAddress.bind(this)}
               changeProp={this.changeProp.bind(this)}/>
             </div>

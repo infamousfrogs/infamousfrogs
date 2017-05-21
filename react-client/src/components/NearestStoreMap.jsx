@@ -96,7 +96,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
               <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyBD5VDZHAMghzun891D2rAZCOgKo7xM6Wc' }}
                 center={styles.center}
-                zoom={18}>
+                zoom={16}>
               </GoogleMapReact>
             </div>
           <form>
