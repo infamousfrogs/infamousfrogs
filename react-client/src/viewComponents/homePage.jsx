@@ -79,7 +79,8 @@ class homePage extends React.Component {
       favoriteList: {},
       homeAddressLat: 37.7836966,
       homeAddressLng: -122.4095136,
-      homeAddressWords: '20 main st exeter nh'
+      homeAddressWords: '20 main st exeter nh',
+      foodComparison: {}
     };
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -132,12 +133,28 @@ class homePage extends React.Component {
       dataType: 'text',
       success: (data) => {
         data = JSON.parse(data);
-        var obj = {};
+        var recipes = {};
+        var comparison = {};
         for (var i = 0; i < data.length; i++) {
-          console.log(data[i].recipeId)
-          obj[data[i].recipeId] = data[i];
-        }
-        self.setState({favoriteList: obj});
+          recipes[data[i].recipeId] = data[i];
+
+          // ****** JEE ADDED FEATURE ******
+          $.ajax({
+            type: 'GET',
+            url: '/fetchRecipeById',
+            contentType: 'application/json',
+            data: ({id: data[i].recipeId}),
+            dataType: 'text',
+            success: (data) => {
+              var parsedData = JSON.parse(data)
+              comparison[parsedData.title] = [];
+              comparison[parsedData.title].push(parsedData.nutrition.nutrients[0].percentOfDailyNeeds, parsedData.nutrition.nutrients[1].percentOfDailyNeeds, parsedData.nutrition.nutrients[3].percentOfDailyNeeds, parsedData.nutrition.nutrients[4].percentOfDailyNeeds,parsedData.nutrition.nutrients[7].percentOfDailyNeeds)
+            },
+            error: (error) => console.log('something went wrong', error)
+          }) // ****** END OF JEE ADDED FEATURE ******
+        };
+        self.setState({favoriteList: recipes});
+        self.setState({foodComparison: comparison});
       }
     })
   }
@@ -271,7 +288,6 @@ class homePage extends React.Component {
   }
 
   fetchRecipeById (recipeId) {
-    console.log(recipeId)
     let recipeInstructions;
     let sampleData = [{"name":"","steps":[{"number":1,"step":"In a food processor pulse the yogurt, milk, cream cheese, condensed milk, and coffee together.Taste to make sure it is sweet enough for you and add more condensed milk/sugar if needed. You can also use Stevia to reduce the calories.","ingredients":[{"id":14209,"name":"coffee","image":"https://spoonacular.com/cdn/ingredients_100x100/coffee.jpg"}],"equipment":[{"id":404771,"name":"food processor","image":"https://spoonacular.com/cdn/equipment_100x100/food-processor.png"}]},{"number":2,"step":"Pour into popsicle molds and let freeze for 4 hours or until frozen.","ingredients":[],"equipment":[{"id":405929,"name":"popsicle molds","image":"https://spoonacular.com/cdn/equipment_100x100/popsicle-molds.jpg"}]}]}];
     if (recipeId !== undefined) {
@@ -283,9 +299,16 @@ class homePage extends React.Component {
         data: ({id: recipeId}),
         dataType: 'text',
         success: (data) => {
+// <<<<<<< HEAD
           //****RPK REFACTORED FEATURE*********
           data = JSON.parse(data);
           var recipeObj = JSON.parse(data.instructions)[0].steps;
+// =======
+//           // data = JSON.parse(data);
+//           // var recipeObj = data[0]
+//           recipeObj = JSON.parse(data).analyzedInstructions;
+//           var recipeObj = recipeObj[0]['steps']
+// >>>>>>> (feat) Comparison graph renders - unstable
           var recipeIngredients = []
           var recipeDescription = ''
           var recipeNutrition = {};
@@ -315,13 +338,18 @@ class homePage extends React.Component {
           var recipeNutrition = JSON.parse(data.nutrition).nutrients;
           var nutrientTitle = [];
           var percentDaily = [];
+          let dialogNutrientTitle = [];
+          let dialogPercentDaily = [];
           recipeNutrition.forEach(function(nutrient) {
+
+            // For popover nutrient graphs
             nutrientTitle.push(nutrient.title);
             percentDaily.push(nutrient.percentOfDailyNeeds);
           });
+
           this.setState({
             nutrientTitle: nutrientTitle,
-            percentDaily: percentDaily
+            percentDaily: percentDaily,
           });
         },
         error: (error) => console.log('fetchRecipeById error', error)
@@ -435,8 +463,12 @@ class homePage extends React.Component {
                 recipeInstruction = {this.state.recipeId}
                 nutrientTitle = {this.state.nutrientTitle}
                 percentDaily = {this.state.percentDaily}
+                dialogNutrientTitle = {this.state.dialogNutrientTitle}
+                dialogPercentDaily = {this.state.dialogPercentDaily}
+                foodComparison = {this.state.foodComparison}
                 srcId = {this.state.srcId}
                 />}
+              />}
             </div>
           </div>
         </div>

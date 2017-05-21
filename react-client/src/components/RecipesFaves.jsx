@@ -17,7 +17,8 @@ var ReactHighcharts = require('react-highcharts');
 var HighchartsMore = require('highcharts-more');
 HighchartsMore(ReactHighcharts.Highcharts);
 
-var options = require('./nutritionGraph/nutrtionInfo.js');
+var options = require('./nutritionGraph/nutrtionInfo.js').popoverNutrition;
+var options2 = require('./nutritionGraph/nutrtionInfo.js').dialogNutrition;
 
 const styles = {
   root: {
@@ -51,6 +52,9 @@ class RecipesFaves extends React.Component {
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.dialogNutrientTitles;
+    this.dialogPercentDailyValues;
+    this.dialogRecipeTitles;
   }
 
   handleTouchTap(event, title, id) {
@@ -78,7 +82,10 @@ class RecipesFaves extends React.Component {
 
   //******RPK ADDED FEATURES*********
   componentWillReceiveProps(props) {
+    
     if ( props.nutrientTitle && this.state.open) { // Charts for recipes testing
+      this.dialogNutrientTitles = props.dialogNutrientTitle;
+      this.dialogPercentDailyValues = props.dialogPercentDaily
       options.xAxis.categories = props.nutrientTitle;
       options.series = [{
           data: props.percentDaily
@@ -87,19 +94,7 @@ class RecipesFaves extends React.Component {
         'chart',
         options
       );
-
     }
-
-    // if ( props.nutrientTitle && this.state.dialogIsOpen) { // Charts for comparisons
-    //   options.xAxis.categories = props.nutrientTitle;
-    //   options.series = [{
-    //       data: props.percentDaily
-    //     }]
-    //   this.comparisons = new Highcharts["Chart"](
-    //     'comparisons',
-    //     options
-    //   );
-    // }
 
   }
 
@@ -110,75 +105,42 @@ class RecipesFaves extends React.Component {
   }
 
   // ****** JEE ADDED FEATURE ******
-  handleOpen() {
+  handleOpen(props) {
     this.setState({
       dialogIsOpen: true
     });
+    // console.log('FAVES', this.props.foodComparison);
     if (!this.state.dialogIsOpen) {
-      console.log(this.state.dialogIsOpen);
       var self = this
       setTimeout(function() {
-        console.log(self.state.dialogIsOpen)
-        Highcharts.chart('container', {
+        options2.xAxis.categories = ['Calories', 'Carbohydrates', 'Fat', 'Protein', 'Sugar'];
+        for (var key in self.props.foodComparison) {
+          options2.series.push({
+            name: key,
+            data: self.props.foodComparison[key],
+            pointPlacement: 'on'
+          })
+        }
 
-      chart: {
-          polar: true,
-          type: 'line'
-      },
-
-      title: {
-          text: 'Budget vs spending',
-          x: -80
-      },
-
-      pane: {
-          size: '80%'
-      },
-
-      xAxis: {
-          categories: ['Sales', 'Marketing', 'Development', 'Customer Support',
-                  'Information Technology', 'Administration'],
-          tickmarkPlacement: 'on',
-          lineWidth: 0
-      },
-
-      yAxis: {
-          gridLineInterpolation: 'polygon',
-          lineWidth: 0,
-          min: 0
-      },
-
-      tooltip: {
-          shared: true,
-          pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
-      },
-
-      legend: {
-          align: 'right',
-          verticalAlign: 'top',
-          y: 70,
-          layout: 'vertical'
-      },
-
-      series: [{
-          name: 'Allocated Budget',
-          data: [43000, 19000, 60000, 35000, 17000, 10000],
-          pointPlacement: 'on'
-      }, {
-          name: 'Actual Spending',
-          data: [50000, 39000, 42000, 31000, 26000, 14000],
-          pointPlacement: 'on'
-      }]
-
-    });
+        self.chart2 = new Highcharts["Chart"](
+          'container',
+          options2
+        );
       }, 0)
     }
+
   };
 
   handleClose() {
     this.setState({
       dialogIsOpen: false
     });
+    var self = this;
+
+    setTimeout(function() {
+      self.chart2.destroy();
+      options2.series = [];
+    }, 500)
   };
   // ****** END OF JEE ADDED FEATURE ******
 

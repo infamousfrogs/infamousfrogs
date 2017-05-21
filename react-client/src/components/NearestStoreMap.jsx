@@ -17,9 +17,12 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
   constructor (props) {
     super(props);
     // this.testFunc = this.testFunc.bind(this)
+    this.handleTouchTap = this.handleTouchTap.bind(this);
   }
 
-
+  handleTouchTap() {
+    console.log('ballz');
+  }
   // componentDidMount () {
   //   // Connect the initMap() function within this class to the global window context,
   //   var loadJS = (src) => {

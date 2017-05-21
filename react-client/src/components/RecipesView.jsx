@@ -10,7 +10,7 @@ import renderHTML from 'react-render-html';
 
 //****** RPK ADDED FEATURE********
 var Highcharts = require('highcharts');
-var options = require('./nutritionGraph/nutrtionInfo.js');
+var options = require('./nutritionGraph/nutrtionInfo.js').popoverNutrition;
 
 const styles = {
   root: {
