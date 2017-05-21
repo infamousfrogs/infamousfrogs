@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Nav from './../components/Nav.jsx';
 import IngredientFilter from './../components/IngredientFilter.jsx';
+import NearestStoreMap from './../components/NearestStoreMap.jsx';
 import RecipesView from './../components/RecipesView.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import RecipesFaves from './../components/RecipesFaves.jsx';
@@ -75,14 +76,10 @@ class homePage extends React.Component {
 
       recipeList: {"0":{"id":569201,"title":"Dreamy, creamy milk and white \"pots au chocolat","image":"https://spoonacular.com/recipeImages/Dreamy--creamy-milk-and-white-pots-au-chocolat-569201.jpg","usedIngredientCount":3,"missedIngredientCount":1},"1":{"id":404898,"title":"Tender Biscuits for Two","image":"https://spoonacular.com/recipeImages/Tender-Biscuits-for-Two-404898.jpg","usedIngredientCount":3,"missedIngredientCount":1},"2":{"id":530160,"title":"Blueberry Smoothie Pops","image":"https://spoonacular.com/recipeImages/Blueberry-Smoothie-Pops-530160.jpg","usedIngredientCount":3,"missedIngredientCount":2},"3":{"id":532849,"title":"Cheddar Greek Yogurt Mashed Potatoes","image":"https://spoonacular.com/recipeImages/Cheddar-Greek-Yogurt-Mashed-Potatoes-532849.jpg","usedIngredientCount":3,"missedIngredientCount":2},"4":{"id":607129,"title":"Pesto Parmesan Peppercorn Dressing {Low fat}","image":"https://spoonacular.com/recipeImages/Pesto-Parmesan-Peppercorn-Dressing-{Low-fat}-607129.jpg","usedIngredientCount":3,"missedIngredientCount":2},"5":{"id":626142,"title":"Ham and Cheese Yogurt Biscuits","image":"https://spoonacular.com/recipeImages/Ham-and-Cheese-Yogurt-Biscuits-626142.jpg","usedIngredientCount":3,"missedIngredientCount":2},"6":{"id":715729,"title":"Creamy Blue Cheese Dressing","image":"https://spoonacular.com/recipeImages/creamy-blue-cheese-dressing-715729.jpg","usedIngredientCount":3,"missedIngredientCount":2},"7":{"id":510513,"title":"Coffee Cheesecake Popsicles","image":"https://spoonacular.com/recipeImages/Coffee-Cheesecake-Popsicles-510513.jpg","usedIngredientCount":3,"missedIngredientCount":2},"8":{"id":535980,"title":"Strawberry Cheesecake Popsicles","image":"https://spoonacular.com/recipeImages/Strawberry-Cheesecake-Popsicles-535980.jpg","usedIngredientCount":3,"missedIngredientCount":3},"9":{"id":551181,"title":"Cheese Muffins","image":"https://spoonacular.com/recipeImages/Cheese-Muffins-551181.jpg","usedIngredientCount":3,"missedIngredientCount":3}},
 
-<<<<<<< HEAD
       favoriteList: {},
       homeAddressLat: 37.7836966,
       homeAddressLng: -122.4095136,
       homeAddressWords: '20 main st exeter nh'
-=======
-      favoriteList: {}
->>>>>>> (rebase) merge
     };
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -421,7 +418,6 @@ class homePage extends React.Component {
             </div>
           </div>
           <div className="row">
-<<<<<<< HEAD
             <div className="col-sm-6">
               <NearestStoreMap
               state={this.state}
@@ -429,9 +425,6 @@ class homePage extends React.Component {
               changeProp={this.changeProp.bind(this)}/>
             </div>
             <div className="col-sm-6">
-=======
-            <div className="col">
->>>>>>> (rebase) merge
               {this.state.user && <RecipesFaves
                 user = {this.state.user.username}
                 recipeList = {this.state.recipeList}
