@@ -12,7 +12,6 @@ import renderHTML from 'react-render-html';
 var Highcharts = require('highcharts');
 var options = require('./nutritionGraph/nutrtionInfo.js');
 
-
 const styles = {
   root: {
     display: 'flex',
@@ -41,25 +40,25 @@ class RecipesView extends React.Component {
   handleTouchTap(event, title, id) {
     event.preventDefault();
     //*********RPK ADDED FEATURES*********
-    //consider refactoring request into homePage
-    // $.ajax({
-    //   type: 'GET',
-    //   url: `/summary?id=${id}`,
-    //   contentType: 'application/json',
-    //   data: JSON.stringify(id),
-    //   dataType: 'text',
-    //   success: (data) => {
-    //     this.setState({srcId: data});
-    //     this.setState({fetchRecipeById: id});
-    //   }
-    // });
+    // consider refactoring request into homePage
+    $.ajax({
+      type: 'GET',
+      url: `/summary?id=${id}`,
+      contentType: 'application/json',
+      data: JSON.stringify(id),
+      dataType: 'text',
+      success: (data) => {
+        this.setState({srcId: data});
+        this.setState({fetchRecipeById: id});
+      }
+    });
     this.setState ({
       open: true,
       anchorEl: event.currentTarget,
       srcUrl: event.target.src,
-      srcTitle: title
-      // this.setState({srcId: data});
-      //     this.setState({fetchRecipeById: id});
+      srcTitle: title,
+      srcId: this.props.srcId,
+      fetchRecipeById: this.props.fetchRecipeById
     });
 
   }

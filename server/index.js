@@ -26,10 +26,41 @@ app.get('/userinfo', function(req, res, next) {
   }
 });
 
+//**********************TO DO FOR SUMMARY DATA STORAGE****************
+// app.get('/summary', function(req, res) {
+//   // res.status(200).send('ok');
+//   database.checkIfRecipeIsCached(req, res, function (err, results) {
+//     if ( !results ) {
+//       console.log('RECIPE IS NOT IN DATABAE');
+//       var id = req.query.id;
+//       var recipeSummaryOptions = {
+//         url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${id}/summary`,
+//         method: 'GET',
+//         headers: {
+//           'X-Mashape-Key': 'q4398u4TA1mshLwj7IkUIAfEV3KHp11cFqPjsnzkkxjtTBxlHc',
+//           'Accept': 'application/json'
+//         }
+//       };
+//       request(recipeSummaryOptions, function(error, response, body) {
+//         // database.cacheRecipe(body, response);
+//         if (error) {
+//           throw err;
+//         } else {
+//           database.cacheRecipe(body, res)
+//           // body = JSON.parse(body);
+//           // res.send(body.summary);
+//         }
+//       }
+//     });
+//   })
+// });
+//**************************************************************
+
 app.get('/summary', function(req, res) {
   // res.status(200).send('ok');
-  database.checkIfRecipeIsCached(req, res) {
-    if ( !res.body.recipe ) {
+  // var recipe = database.checkIfRecipeIsCached(req, res)
+  // if ( !recipe ) {
+    // if ( !res.body.recipe ) {
       var id = req.query.id;
       var recipeSummaryOptions = {
         url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${id}/summary`,
@@ -41,6 +72,7 @@ app.get('/summary', function(req, res) {
       };
 
       request(recipeSummaryOptions, function(error, response, body) {
+        // database.cacheRecipe(body, response);
         if (error) {
           console.log(error);
           throw err;
@@ -49,8 +81,10 @@ app.get('/summary', function(req, res) {
           res.send(body.summary);
         }
       });
-    }
-  };
+    // }
+  // } else {
+  //   res.send(recipe)
+  // }
 });
 
 app.post('/register', function(req, res) {
@@ -168,11 +202,10 @@ app.post('/favoriteGet', function(req, res) {
 
 app.get('/fetchRecipeById', function(req, res) {
   //********RPK ADDED FEATURE**********
-  database.checkIfRecipeIsCached(req, res) {
-    if ( !res.body.recipe ) {
-      // query database for recipeId - if true, send recipe information
-      //else perform API request
-      // res.status(200).send('ok');
+  database.checkIfRecipeIsCached(req, res, function (err, results) {
+    console.log('RESPONSE', results)
+    if ( !results ) {
+      console.log('RECIPE IS NOT IN DATABAE');
       let recipeId = req.query.id || 569201;
       let url = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information?includeNutrition=true`;
       var fetchRecipeById = {
@@ -190,16 +223,15 @@ app.get('/fetchRecipeById', function(req, res) {
         }
         else {
           //****RPK ADDED FEATURE******
-          database.cacheRecipe(body, res) {
-
-            res.send(JSON.parse(body));
-          }
+          database.cacheRecipe(body, res)
+          database.checkIfRecipeIsCached(req, res, function(){})
         }
-      }
+      })
     } else {
-      res.send(JSON.parse(res.body.recipe));
+      console.log('RECIPE ALREADY EXISTS IN DATABASE')
+      res.send(results);
     }
-  };
+  })
 });
 
 app.get('/addressConvert', function(req, res) {

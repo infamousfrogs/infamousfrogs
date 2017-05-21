@@ -279,7 +279,6 @@ class homePage extends React.Component {
     let sampleData = [{"name":"","steps":[{"number":1,"step":"In a food processor pulse the yogurt, milk, cream cheese, condensed milk, and coffee together.Taste to make sure it is sweet enough for you and add more condensed milk/sugar if needed. You can also use Stevia to reduce the calories.","ingredients":[{"id":14209,"name":"coffee","image":"https://spoonacular.com/cdn/ingredients_100x100/coffee.jpg"}],"equipment":[{"id":404771,"name":"food processor","image":"https://spoonacular.com/cdn/equipment_100x100/food-processor.png"}]},{"number":2,"step":"Pour into popsicle molds and let freeze for 4 hours or until frozen.","ingredients":[],"equipment":[{"id":405929,"name":"popsicle molds","image":"https://spoonacular.com/cdn/equipment_100x100/popsicle-molds.jpg"}]}]}];
     if (recipeId !== undefined) {
       //*****RPK ADDED FEATURE*********
-
       $.ajax({
         type: 'GET',
         url: '/fetchRecipeById',
@@ -287,11 +286,9 @@ class homePage extends React.Component {
         data: ({id: recipeId}),
         dataType: 'text',
         success: (data) => {
-          // data = JSON.parse(data);
-          // var recipeObj = data[0]
-          recipeObj = JSON.parse(data).analyzedInstructions;
-          console.log(recipeObj)
-          var recipeObj = recipeObj[0]['steps']
+          //****RPK REFACTORED FEATURE*********
+          data = JSON.parse(data);
+          var recipeObj = JSON.parse(data.instructions)[0].steps;
           var recipeIngredients = []
           var recipeDescription = ''
           var recipeNutrition = {};
@@ -318,7 +315,7 @@ class homePage extends React.Component {
           this.setState({recipeId: recipeDescription});
 
           //****** RPK ADDED FEATURE *******
-          var recipeNutrition = JSON.parse(data).nutrition.nutrients;
+          var recipeNutrition = JSON.parse(data.nutrition).nutrients;
           var nutrientTitle = [];
           var percentDaily = [];
           recipeNutrition.forEach(function(nutrient) {
@@ -334,21 +331,18 @@ class homePage extends React.Component {
       });
       //*********RPK ADDED FEATURES*********
       //consider refactoring request into homePage
-      $.ajax({
-        type: 'GET',
-        // url: `/summary?id=${recipeId}`,
-        url: `/summary?id=${recipeId}`,
-        contentType: 'application/json',
-        data: ({id: recipeId}),
-        dataType: 'text',
-        success: (data) => {
-          this.setState({srcId: data});
-          this.setState({fetchRecipeById: recipeId});
-        }
-      });
-
-
-
+      // $.ajax({
+      //   type: 'GET',
+      //   // url: `/summary?id=${recipeId}`,
+      //   url: `/summary?id=${recipeId}`,
+      //   contentType: 'application/json',
+      //   data: ({id: recipeId}),
+      //   dataType: 'text',
+      //   success: (data) => {
+      //     this.setState({srcId: data});
+      //     this.setState({fetchRecipeById: recipeId});
+      //   }
+      // });
     }
   }
 
@@ -423,7 +417,6 @@ class homePage extends React.Component {
                 nutrientTitle = {this.state.nutrientTitle}
                 percentDaily = {this.state.percentDaily}
                 srcId = {this.state.srcId}
-                fetchRecipeById = {this.state.fetchRecipeById}
                 />
             </div>
           </div>
@@ -449,8 +442,7 @@ class homePage extends React.Component {
                 recipeInstruction = {this.state.recipeId}
                 nutrientTitle = {this.state.nutrientTitle}
                 percentDaily = {this.state.percentDaily}
-                // srcId = {this.state.srcId}
-                fetchRecipeById = {this.state.fetchRecipeById}
+                srcId = {this.state.srcId}
                 />}
             </div>
           </div>

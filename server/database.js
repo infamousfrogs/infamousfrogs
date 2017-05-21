@@ -50,7 +50,7 @@ var Recipe = sequelize.define('recipes', {
 });
 
 //*********RPK ADDED FEATURES********
-var Cache = sequelize.define('cache', {
+var Cache = sequelize.define('caches', {
   recipeId: {
     type: Sequelize.INTEGER
   },
@@ -60,14 +60,14 @@ var Cache = sequelize.define('cache', {
   image: {
     type: Sequelize.STRING
   },
-  summary: {
-    type: Sequelize.STRING
-  },
   instructions: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   },
   nutrition: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
+  },
+  summary: {
+    type: Sequelize.TEXT
   }
 });
 
@@ -142,30 +142,40 @@ var checkIfUserExists = (req, res) => {
 
 //********RPK ADDED FEATURE******
 
-var checkIfRecipeIsCached = (req, res) => {
-  Recipe.findOne({where: {recipeId: req.query.id}}).then(function(recipe) {
-    if (!recipe) {
-      res.send(false)
+var checkIfRecipeIsCached = function (req, res, callback) {
+  Cache.findOne({where: {recipeId: req.query.id}}).then(function(recipe) {
+    if ( recipe === null ) {
+      callback(false);
     } else {
-      res.send(recipe)
+      callback(null, recipe.dataValues);
     }
   });
 }
 
-var cacheRecipe = (req, res) => {
-    Recipe.create({
-      recipeId: req.body.id,
-      title: req.body.title,
-      image: req.body.image,
-      summary: req.body.
-      instructions: req.body.
-      nutrition: req.body.
+// var checkIfRecipeIsCached = (req, res) => {
+//   Cache.findOne({where: {recipeId: req.query.id}}).then(function(recipe) {
+//     console.log('RECIPE!', recipe.dataValues)
+//     if (!recipe) {
+//       return false;
+//     } else {
+//       return recipe.dataValues;
+//     }
+//   });
+// };
 
-    })
-      red.send({'recipeNotCached': 'recipeNotCached'});
-    }
+var cacheRecipe = (req, res) => {
+  if ( JSON.parse(req).summary ) {
+    Cache.update({})
+  }
+  Cache.create({
+    recipeId: JSON.stringify(JSON.parse(req).id),
+    title: JSON.stringify(JSON.parse(req).title),
+    image: JSON.stringify(JSON.parse(req).image),
+    instructions: JSON.stringify(JSON.parse(req).analyzedInstructions),
+    nutrition: JSON.stringify(JSON.parse(req).nutrition)
+    // summary: JSON.stringify(JSON.parse(req).summary),
   })
-}
+};
 
 
 module.exports.checkIfUserExists = checkIfUserExists;
@@ -173,3 +183,5 @@ module.exports.createUser = createUser;
 module.exports.createRecipe = createRecipe;
 module.exports.removeRecipe = removeRecipe;
 module.exports.retrieveFavorites = retrieveFavorites;
+module.exports.checkIfRecipeIsCached = checkIfRecipeIsCached;
+module.exports.cacheRecipe = cacheRecipe;
