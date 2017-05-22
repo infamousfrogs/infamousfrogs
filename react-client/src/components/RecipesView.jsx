@@ -6,7 +6,7 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Popover from 'material-ui/Popover';
 import $ from 'jquery';
 import renderHTML from 'react-render-html';
-
+import Dialog from 'material-ui/Dialog'; // ****** JEE ADDED FEATURE ******
 
 //****** RPK ADDED FEATURE********
 var Highcharts = require('highcharts');
@@ -23,6 +23,10 @@ const styles = {
     flexWrap: 'nowrap',
     overflowY: 'auto',
     background: 'whitesmoke'
+  },
+  recipes: {
+    minWidth: '75%',
+    backgroundColor: 'black'
   }
 };
 
@@ -127,29 +131,71 @@ class RecipesView extends React.Component {
               </GridTile>
             )}
           </GridList>
-          <Popover
+          
+
+          {/*<Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
             anchorOrigin={{horizontal: 'left', vertical: 'center'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
             className="col-md-5 recipeViewBK"
+          >*/}
+
+          <Dialog
+            open={this.state.open}
+            onRequestClose={this.handleRequestClose}
+            modal={false}
+            autoScrollBodyContent={true}
+            contentStyle={styles.recipes}
           >
             <div>
-              <img
-                src={this.state.srcUrl}
-                height={400}
-                className="imagePlacer"
-              />
-              <h4>{this.state.srcTitle}</h4>
-              {description}
-              <h3> Instructions </h3>
-              {instructions}
-              <h3>Nutrition Information</h3>
-              <div id="chart">
+              <div className="container-fluid">
+                <div className="">    
+                    <img src={this.state.srcUrl} height={400} className="rounded float-left"/>
+                    <h4 className="display-4 test">{this.state.srcTitle}</h4>
+                      <table className="table table-responsive">
+                        <thead>
+                          <tr>
+                            <th><h4 className="lead">What is it?</h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{description}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table className="table table-responsive">
+                        <thead>
+                          <tr>
+                            <th><h4 className="lead">How do I make it?</h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{instructions}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th><h4 className="lead">Give me the facts!</h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><div id="chart"></div></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
               </div>
             </div>
-          </Popover>
+          </Dialog>
         </div>
       </MuiThemeProvider>
     );

@@ -34,6 +34,9 @@ const styles = {
   },
   dialog: {
     minWidth: '95%'
+  },
+  recipes: {
+    minWidth: '75%'
   }
 };
 
@@ -185,29 +188,69 @@ class RecipesFaves extends React.Component {
               </GridTile>
             )}
           </GridList>
-          <Popover
+          {/*<Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
             anchorOrigin={{horizontal: 'left', vertical: 'center'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
             className="col-md-4 recipeViewBK"
+          >*/}
+          <Dialog
+            open={this.state.open}
+            onRequestClose={this.handleRequestClose}
+            modal={false}
+            autoScrollBodyContent={true}
+            contentStyle={styles.recipes}
+
           >
             <div>
-              <img
-                src={this.state.srcUrl}
-                height={400}
-                className="imagePlacer"
-              />
-              <h4>{this.state.srcTitle}</h4>
-              {description}
-              <h3> Instructions </h3>
-              {instructions}
-              <h3>Nutrition Information</h3>
-              <div id="chart">
+              <div className="container-fluid">
+                <div className="">    
+                    <img src={this.state.srcUrl} className="rounded float-left"/>
+                    <h4 className="display-4 test">{this.state.srcTitle}</h4>
+                      <table className="table table-responsive">
+                        <thead>
+                          <tr>
+                            <th><h4 className="lead">What is it?</h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{description}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table className="table table-responsive">
+                        <thead>
+                          <tr>
+                            <th><h4 className="lead">How do I make it?</h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{instructions}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th><h4 className="lead">Give me the facts!</h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><div id="chart"></div></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
               </div>
             </div>
-          </Popover>
+          </Dialog>
 
           { /******* JEE ADDED FEATURE ******/ }
           <Dialog
