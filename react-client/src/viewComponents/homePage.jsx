@@ -92,7 +92,6 @@ class homePage extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleFavesToggle = this.handleFavesToggle.bind(this);
     this.handleUnfavToggle = this.handleUnfavToggle.bind(this);
-
     this.fetchRecipeById = this.fetchRecipeById.bind(this);
   }
 
@@ -150,8 +149,9 @@ class homePage extends React.Component {
             dataType: 'text',
             success: (data) => {
               var parsedData = JSON.parse(data)
-              comparison[parsedData.title] = [];
-              comparison[parsedData.title].push(parsedData.nutrition.nutrients[0].percentOfDailyNeeds, parsedData.nutrition.nutrients[1].percentOfDailyNeeds, parsedData.nutrition.nutrients[3].percentOfDailyNeeds, parsedData.nutrition.nutrients[4].percentOfDailyNeeds,parsedData.nutrition.nutrients[7].percentOfDailyNeeds)
+              console.log(parsedData.nutrition)
+              // comparison[parsedData.title] = [];
+              // comparison[parsedData.title].push(parsedData.nutrition.nutrients[0].percentOfDailyNeeds)
             },
             error: (error) => console.log('something went wrong', error)
           }) // ****** END OF JEE ADDED FEATURE ******

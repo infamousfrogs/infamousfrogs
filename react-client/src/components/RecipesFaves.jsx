@@ -137,8 +137,8 @@ class RecipesFaves extends React.Component {
       dialogIsOpen: false
     });
     var self = this;
-
     setTimeout(function() {
+    console.log('closed')
       self.chart2.destroy();
       options2.series = [];
     }, 500)
@@ -161,7 +161,7 @@ class RecipesFaves extends React.Component {
         >
           {this.props.user ?
             <div className="col-md-12">
-              <span id="compare"><RaisedButton className="button" onTouchTap={this.handleOpen} label="Compare"></RaisedButton></span>
+              {/*<span id="compare"><RaisedButton className="button" onTouchTap={this.handleOpen} label="Compare"></RaisedButton></span>*/}
             </div> : ''
           }
           <GridList
@@ -188,21 +188,13 @@ class RecipesFaves extends React.Component {
               </GridTile>
             )}
           </GridList>
-          {/*<Popover
-            open={this.state.open}
-            anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'left', vertical: 'center'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-            className="col-md-4 recipeViewBK"
-          >*/}
+          
           <Dialog
             open={this.state.open}
             onRequestClose={this.handleRequestClose}
             modal={false}
             autoScrollBodyContent={true}
             contentStyle={styles.recipes}
-
           >
             <div>
               <div className="container-fluid">
