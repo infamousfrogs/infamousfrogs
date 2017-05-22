@@ -64,7 +64,7 @@ module.exports = {
 
     title: {
         // text: 'Budget vs spending',
-        text: '',
+        text: 'Nutrient Comparison',
         x: -80
     },
 

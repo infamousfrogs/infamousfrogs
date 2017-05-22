@@ -6,6 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 import Dialog from 'material-ui/Dialog'; // ****** JEE ADDED FEATURE ******
+import TextField from 'material-ui/TextField';
+
 
 const customStyles = {
   login: {
@@ -296,13 +298,23 @@ class Nav extends React.Component {
                       <div className="control-group">
                         <label className="control-label" htmlFor="username">Username</label>
                         <div className="controls">
-                          <input onChange = {this.userChange} type="text" id="username" name="username" placeholder="" className="input-xlarge" />
+                          {/*<input onChange = {this.userChange} type="text" id="username" name="username" placeholder="" className="input-xlarge" />*/}
+                            <TextField
+                              hintText="i.e. hackreactor75"
+                              floatingLabelText="Username"
+                              onChange = {this.userChange}
+                            />
                         </div>
                       </div>
                       <div className="control-group">
-                        <label className="control-label" htmlFor="password">Password</label>
                         <div className="controls">
-                          <input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />
+                          {/*<input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />*/}
+                              <TextField
+                                onChange={this.passwordChange}
+                                hintText="i.e. SuperSecret101"
+                                floatingLabelText="Password"
+                                type="password"
+                              />
                         </div>
                       </div>
                       <div className="control-group">
@@ -337,15 +349,24 @@ class Nav extends React.Component {
                           <p>Sign up now for access to thousands of recipes!</p>
                         </div>
                         <div className="control-group">
-                          <label className="control-label" htmlFor="username">Username</label>
                           <div className="controls">
-                            <input onChange = {this.userChange} type="text" id="username" name="username" placeholder="" className="input-xlarge" />
+                            {/*<input onChange = {this.userChange} type="text" id="username" name="username" placeholder="" className="input-xlarge" />*/}
+                            <TextField
+                              hintText="i.e. hackreactor75"
+                              floatingLabelText="Username"
+                              onChange = {this.userChange}
+                            />
                           </div>
                         </div>
                         <div className="control-group">
-                          <label className="control-label" htmlFor="password">Password</label>
                           <div className="controls">
-                            <input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />
+                            {/*<input onChange = {this.passwordChange} type="password" id="password" name="password" placeholder="" className="input-xlarge" />*/}
+                              <TextField
+                                onChange={this.passwordChange}
+                                hintText="i.e. SuperSecret101"
+                                floatingLabelText="Password"
+                                type="password"
+                              />
                           </div>
                         </div>
 

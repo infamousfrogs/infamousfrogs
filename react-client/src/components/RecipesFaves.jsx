@@ -37,6 +37,11 @@ const styles = {
   },
   recipes: {
     minWidth: '75%'
+  },
+  highcharts: {
+    minWidth: '400px', 
+    height: '500px', 
+    margin: '0 auto'
   }
 };
 
@@ -258,7 +263,7 @@ class RecipesFaves extends React.Component {
                 <div className="col">
                   <br/>
                   <br/>
-                  <div id="container">
+                  <div id="container" style={styles.highcharts}>
                   </div>
                 </div>
               </div>

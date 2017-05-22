@@ -96,6 +96,13 @@ class homePage extends React.Component {
   }
 
   componentDidMount() {
+    $('body').append(
+      '<a href="http://hackreactor.com"> \
+      <img style="position: fixed; top: 0; right: 0; border: 0;" \
+      src="http://i.imgur.com/x86kKmF.png" \
+      alt="Built at Hack Reactor"> \
+      </a>'
+    );
     $.ajax({
       type: 'GET',
       url: '/userinfo',
@@ -407,7 +414,7 @@ class homePage extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="col">
-                  <h2 className="display-4">Choose your Ingredients</h2>
+                  <h2 className="display-4">Choose Your Ingredients</h2>
                   </div>
                 </div>
                 <div className="row">
@@ -477,6 +484,12 @@ class homePage extends React.Component {
                   {!this.state.user && <RecipesPlaceholder/>}
               </div>
             </div>
+          </div>
+          <div className="container">
+            <footer className="footer">
+              <p className="float-right"><a href="#">Back to top</a></p>
+              <p>For Educational Purposes Only &middot; <a target="_blank" href="https://github.com/ckeating-nh">Chris</a> &middot; <a target="_blank" href="https://github.com/Kale007">Raj</a> &middot; <a target="_blank" href="https://github.com/JonEricEscobedo">Jon Eric</a> &middot; Project originally created by the <a target="_blank" href="https://github.com/infamousfrogs/infamousfrogs/graphs/contributors">Infamous Frogs</a> &middot; 2017</p>
+            </footer>
           </div>
         </div>
       </MuiThemeProvider>

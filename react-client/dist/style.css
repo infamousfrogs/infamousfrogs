@@ -1,3 +1,4 @@
+
 .icons {
   height: 250px;
   color: white;
@@ -48,7 +49,7 @@
 body {
   position:relative;
   background: #ECEEEF;
-	/*font-family: 'Roboto', sans-serif !important;*/
+  padding-bottom: 3rem;
 }
 
 input[type='checkbox'] {
@@ -132,4 +133,8 @@ input[type='checkbox']:checked {
 
 .shade {
   background: rgba(0,0,0,0.5);
+}
+
+.footer {
+  padding-top: 2em;
 }
