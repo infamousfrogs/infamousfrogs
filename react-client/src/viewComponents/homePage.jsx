@@ -10,6 +10,9 @@ import RecipesFaves from './../components/RecipesFaves.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import renderHTML from 'react-render-html';
+import RecipesPlaceholder from './../components/RecipesPlaceholder.jsx'
+import Paper from 'material-ui/Paper';
+
 
 
 class homePage extends React.Component {
@@ -299,16 +302,9 @@ class homePage extends React.Component {
         data: ({id: recipeId}),
         dataType: 'text',
         success: (data) => {
-// <<<<<<< HEAD
           //****RPK REFACTORED FEATURE*********
           data = JSON.parse(data);
           var recipeObj = JSON.parse(data.instructions)[0].steps;
-// =======
-//           // data = JSON.parse(data);
-//           // var recipeObj = data[0]
-//           recipeObj = JSON.parse(data).analyzedInstructions;
-//           var recipeObj = recipeObj[0]['steps']
-// >>>>>>> (feat) Comparison graph renders - unstable
           var recipeIngredients = []
           var recipeDescription = ''
           var recipeNutrition = {};
@@ -401,74 +397,84 @@ class homePage extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col">
-              <Nav handleLogin={this.handleLogin} handleLogout={this.handleLogout} user={this.state.user}/>
+        <div>
+
+          <Nav handleLogin={this.handleLogin} handleLogout={this.handleLogout} user={this.state.user}/>
+
+          <div className="container">
+            <div className="jumbotron jumbotron-fluid">
+              <div className="container">
+                <div className="row">
+                  <div className="col">
+                  <h2 className="display-4">Choose your Ingredients</h2>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
+                  </div>
+                  <div className="col">
+                    <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
+                  </div>
+                  <div className="col">
+                    <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
+                  </div>
+                  <div className="col">
+                    <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
+                  </div>
+                  <div className="col">
+                    <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
+                  </div>
+                  <div className="col text-center">
+                    <RaisedButton className="logButton" label="Search" onClick={this.handleSubmit}></RaisedButton>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col">
-              <h4>Filter by Ingredient(s):</h4>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[0]}/>
-            </div>
-            <div className="col">
-              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[1]}/>
-            </div>
-            <div className="col">
-              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[2]}/>
-            </div>
-            <div className="col">
-              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[3]}/>
-            </div>
-            <div className="col">
-              <IngredientFilter handleChange = {this.handleChange} ingredients={this.state.list[4]}/>
-            </div>
-            <div className="col">
-              <RaisedButton className="logButton" label="Search" onClick={this.handleSubmit}></RaisedButton>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <RecipesView
-                recipeList = {this.state.recipeList}
-                handleFavesToggle = {this.handleFavesToggle}
-                fetchRecipeById = {this.fetchRecipeById}
-                recipeInstruction = {this.state.recipeId}
-                nutrientTitle = {this.state.nutrientTitle}
-                percentDaily = {this.state.percentDaily}
-                srcId = {this.state.srcId}
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <h2 className="display-4">Search Results</h2>
+                <RecipesView
+                  recipeList = {this.state.recipeList}
+                  handleFavesToggle = {this.handleFavesToggle}
+                  fetchRecipeById = {this.fetchRecipeById}
+                  recipeInstruction = {this.state.recipeId}
+                  nutrientTitle = {this.state.nutrientTitle}
+                  percentDaily = {this.state.percentDaily}
                 />
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-6">
-              <NearestStoreMap
-              state={this.state}
-              handleChangeAddress={this.handleChangeAddress.bind(this)}
-              changeProp={this.changeProp.bind(this)}/>
-            </div>
-            <div className="col-sm-6">
-              {this.state.user && <RecipesFaves
-                user = {this.state.user.username}
-                recipeList = {this.state.recipeList}
-                favoriteList={this.state.favoriteList}
-                handleFavesToggle={this.handleFavesToggle}
-                handleUnfavToggle={this.handleUnfavToggle}
-                fetchRecipeById = {this.fetchRecipeById}
-                recipeInstruction = {this.state.recipeId}
-                nutrientTitle = {this.state.nutrientTitle}
-                percentDaily = {this.state.percentDaily}
-                dialogNutrientTitle = {this.state.dialogNutrientTitle}
-                dialogPercentDaily = {this.state.dialogPercentDaily}
-                foodComparison = {this.state.foodComparison}
-                srcId = {this.state.srcId}
-                />}
-              />}
+          
+
+            <div className="row">
+              <div className="col-sm-6">
+                <h2 className="display-4">Find A Store</h2>
+                <NearestStoreMap
+                state={this.state}
+                handleChangeAddress={this.handleChangeAddress.bind(this)}
+                changeProp={this.changeProp.bind(this)}/>
+              </div>
+              <div className="col-sm-6">
+                <h2 className="display-4">Your Favorites</h2>
+                {this.state.user && <RecipesFaves
+                  user = {this.state.user.username}
+                  recipeList = {this.state.recipeList}
+                  favoriteList={this.state.favoriteList}
+                  handleFavesToggle={this.handleFavesToggle}
+                  handleUnfavToggle={this.handleUnfavToggle}
+                  fetchRecipeById = {this.fetchRecipeById}
+                  recipeInstruction = {this.state.recipeId}
+                  nutrientTitle = {this.state.nutrientTitle}
+                  percentDaily = {this.state.percentDaily}
+                  dialogNutrientTitle = {this.state.dialogNutrientTitle}
+                  dialogPercentDaily = {this.state.dialogPercentDaily}
+                  foodComparison = {this.state.foodComparison}
+                  srcId = {this.state.srcId}
+                  />}
+                  {!this.state.user && <RecipesPlaceholder/>}
+              </div>
             </div>
           </div>
         </div>

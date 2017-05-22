@@ -8,7 +8,7 @@ const ingredientSrc = {
   grains: 'https://static1.squarespace.com/static/56f31a8a1bbee0a7bd9a6aeb/572691c186db4345e72ecfe5/5918f1279de4bb3c0192ef0c/1494806823388/grainIMG.png',
   fruits: 'https://static1.squarespace.com/static/56f31a8a1bbee0a7bd9a6aeb/572691c186db4345e72ecfe5/5918f1276a496322aab8d712/1494806823182/fruitIMG.png',
   proteins: 'https://static1.squarespace.com/static/56f31a8a1bbee0a7bd9a6aeb/572691c186db4345e72ecfe5/5918f127440243708845ea19/1494806823399/proteinIMG.png'
-  }
+}
 
 const styles = {
   block: {
@@ -17,6 +17,9 @@ const styles = {
   checkbox: {
     marginBottom: -20,
   },
+  label: {
+    fontWeight: 200,
+  }
 };
 
 class IngredientFilter extends React.Component {
@@ -64,16 +67,14 @@ class IngredientFilter extends React.Component {
       <div className="col-md-2 filterHeader">
         <h5 className="ingredientTitle">
           {this.state.label}
-
-          <img className="iconShape" src={ingredientSrc[this.state.label]} />
         </h5>
 
          <form style={styles.block}>
-          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[0]} onCheck = {this.changeOnFirst} type="checkbox" value="ingredient1"/> <br/>
-          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[1]} onCheck = {this.changeOnSecond} type="checkbox" value="ingredient2"/> <br/>
-          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[2]} onCheck = {this.changeOnThird} type="checkbox" value="ingredient3"/> <br/>
-          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[3]} onCheck = {this.changeOnFourth} type="checkbox" value="ingredient4"/> <br/>
-          <Checkbox style={styles.checkbox} label={this.state.arrayOfIngredients[4]} onCheck = {this.changeOnFifth} type="checkbox" value="ingredient5"/> <br/>
+          <Checkbox style={styles.checkbox} labelStyle={styles.label} label={this.state.arrayOfIngredients[0]} onCheck = {this.changeOnFirst} type="checkbox" value="ingredient1"/> <br/>
+          <Checkbox style={styles.checkbox} labelStyle={styles.label} label={this.state.arrayOfIngredients[1]} onCheck = {this.changeOnSecond} type="checkbox" value="ingredient2"/> <br/>
+          <Checkbox style={styles.checkbox} labelStyle={styles.label} label={this.state.arrayOfIngredients[2]} onCheck = {this.changeOnThird} type="checkbox" value="ingredient3"/> <br/>
+          <Checkbox style={styles.checkbox} labelStyle={styles.label} label={this.state.arrayOfIngredients[3]} onCheck = {this.changeOnFourth} type="checkbox" value="ingredient4"/> <br/>
+          <Checkbox style={styles.checkbox} labelStyle={styles.label} label={this.state.arrayOfIngredients[4]} onCheck = {this.changeOnFifth} type="checkbox" value="ingredient5"/> <br/>
         </form>
       </div>
     );

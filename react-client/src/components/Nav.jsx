@@ -5,16 +5,14 @@ import $ from 'jquery';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
-
+import Dialog from 'material-ui/Dialog'; // ****** JEE ADDED FEATURE ******
 
 const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
+  login: {
+    minWidth: '30%'
+  },
+  signUp: {
+    minWidth: '80%'
   }
 };
 
@@ -255,42 +253,46 @@ class Nav extends React.Component {
       );
     } else {
       userMessage = (
-        'Log in to customize your favorites!'
+        'Please Log In'
       );
     }
 
     return (
      <MuiThemeProvider>
-      <nav className="navbar navbar-default">
+      <nav className="jumbotron jumbotron-fluid jumbotron-hero text-center">
         <div className="container-fluid">
           <div className="navbar-header">
-            <h3 className="app-name">What's In The Pantry™</h3>
+            <img className="icons" src="http://res.cloudinary.com/jescobedo/image/upload/v1495410103/noun_569323_cc_hk620z_hflm5e.svg"/>
+            {/*<h3 className="app-name">What's In The Pantry™</h3>*/}
+            <h1 className="display-3 app-name">What's In The Pantry™</h1>
           </div>
-          <p className="navbar-text navbar-center centerTitle"> {userMessage} </p>
           <div className="btn-group pull-right logButton">
             {this.props.user ?
               <RaisedButton label="Log Out" onClick={this.props.handleLogout} role="button"> </RaisedButton> :
               <div>
-                <RaisedButton label="Sign Up" onClick = {this.openModal2} role="button"> </RaisedButton>
-                <RaisedButton label="Log In" onClick = {this.openModal} role="button"> </RaisedButton>
+                <RaisedButton className="buttons" label="Sign Up" primary={true} onClick = {this.openModal2} role="button"> </RaisedButton>
+                <RaisedButton className="buttons" label="Log In" onClick = {this.openModal} role="button"> </RaisedButton>
               </div>
             }
           </div>
-          <Modal
-              isOpen={this.state.modalIsOpen}
-              onAfterOpen={this.afterOpenModal}
+            <h4 className="username"> {userMessage} </h4>
+          
+
+
+
+           <Dialog
+              title="Welcome Back!"
+              contentStyle={customStyles.login}
+              modal={false}
+              open={this.state.modalIsOpen}
               onRequestClose={this.closeModal}
-              style={customStyles}
-              contentLabel="Modal"
+              autoScrollBodyContent={true}
             >
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row">
                 <div className="span12">
                   <div className="form-horizontal">
                     <fieldset>
-                      <div id="legend">
-                        <legend className="">Login</legend>
-                      </div>
                       <div className="control-group">
                         <label className="control-label" htmlFor="username">Username</label>
                         <div className="controls">
@@ -305,7 +307,8 @@ class Nav extends React.Component {
                       </div>
                       <div className="control-group">
                         <div className="controls">
-                          <RaisedButton className="submitButton" label="Login" onClick = {this.formSubmit}></RaisedButton>
+                          <br/>
+                          <RaisedButton className="submitButton" primary={true} label="Login" onClick = {this.formSubmit}></RaisedButton>
                         </div>
                       </div>
                     </fieldset>
@@ -313,21 +316,24 @@ class Nav extends React.Component {
                 </div>
               </div>
             </div>
-            </Modal>
-            <Modal
-                isOpen={this.state.modalIsOpen2}
-                onAfterOpen={this.afterOpenModal}
-                onRequestClose={this.closeModal}
-                style={customStyles}
-                contentLabel="Modal"
-              >
-              <div className="container">
+            </Dialog>
+
+            
+           <Dialog
+              title="Sign Up"
+              contentStyle={customStyles.signUp}
+              open={this.state.modalIsOpen2}
+              modal={false}
+              onRequestClose={this.closeModal}
+              autoScrollBodyContent={true}
+            >
+
+              <div className="container-fluid">
                   <div className="row">
                   <div className="span12">
                     <div className="form-horizontal">
                       <fieldset>
-                        <div id="legend">
-                          <legend className="">Sign Up</legend>
+                        <div id="legend">  
                           <p>Sign up now for access to thousands of recipes!</p>
                         </div>
                         <div className="control-group">
@@ -369,7 +375,7 @@ class Nav extends React.Component {
 
                         <div className="control-group">
                           <div className="controls">
-                            <RaisedButton label="Sign Up" onClick = {this.formSubmit2}></RaisedButton>
+                            <RaisedButton label="Sign Up" primary={true} onClick = {this.formSubmit2}></RaisedButton>
                           </div>
                         </div>
                       </fieldset>
@@ -377,7 +383,10 @@ class Nav extends React.Component {
                   </div>
                 </div>
               </div>
-              </Modal>
+              </Dialog>
+
+
+
         </div>
       </nav>
      </MuiThemeProvider>

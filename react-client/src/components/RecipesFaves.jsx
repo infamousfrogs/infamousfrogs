@@ -27,12 +27,10 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    // display: 'flex',
-    // flexWrap: 'nowrap',
-    // overflowY: 'auto',
     width: 500,
     height: 450,
     overflowY: 'auto',
+    background: 'whitesmoke'
   },
   dialog: {
     minWidth: '95%'
@@ -160,7 +158,7 @@ class RecipesFaves extends React.Component {
         >
           {this.props.user ?
             <div className="col-md-12">
-              <h4> {this.props.user}'s Favorites List! <span id="compare"><RaisedButton className="button" onTouchTap={this.handleOpen} label="Compare"></RaisedButton></span></h4>
+              <span id="compare"><RaisedButton className="button" onTouchTap={this.handleOpen} label="Compare"></RaisedButton></span>
             </div> : ''
           }
           <GridList
@@ -223,8 +221,6 @@ class RecipesFaves extends React.Component {
             <div style={{height: '70vh'}} className="container-fluid">
               <div className="row">
                 <div className="col">
-                  <h4>Graphs go in here</h4>
-                  <p>Text goes in here</p>
                   <div id="container">
                   </div>
                 </div>
