@@ -102,6 +102,19 @@ class RecipesFaves extends React.Component {
       );
     }
 
+    if(props.foodComparison) {
+      console.log('prop change')
+      options2.xAxis.categories = ['Calories', 'Carbohydrates', 'Fat', 'Protein', 'Sugar'];
+      console.log(props.foodComparison)
+      // for (var key in props.foodComparison) {
+      //   options2.series.push({
+      //     name: key,
+      //     data: sprops.foodComparison[key],
+      //     pointPlacement: 'on'
+      //   })
+      // }
+    }
+
   }
 
   handleRequestClose() {

@@ -166,6 +166,7 @@ class homePage extends React.Component {
         };
         self.setState({favoriteList: recipes});
         self.setState({foodComparison: comparison});
+        console.log('login', self.state.foodComparison)
       }
     })
   }
@@ -227,6 +228,7 @@ class homePage extends React.Component {
       });
 
       var favRecipe = (recipe) => {
+        var self = this;
         if (!this.state.user) {
           alert('Please login in order to favorite!');
         } else {
@@ -247,6 +249,26 @@ class homePage extends React.Component {
             dataType: 'text',
             success: (data) => {
               console.log('POSTED');
+              // var comparison = {};
+              var comparison = self.state.foodComparison;
+              // console.log('COMPARISON', comparison)
+              // ****** JEE ADDED FEATURE ******
+              $.ajax({
+                type: 'GET',
+                url: '/fetchRecipeById',
+                contentType: 'application/json',
+                data: ({id: newRecipe.recipeId}),
+                dataType: 'text',
+                success: (data) => {
+                  data = JSON.parse(data)
+                  var nutritionData = JSON.parse(data.nutrition)
+                  var recTitle = JSON.parse(data.title)
+                  comparison[recTitle] = [];
+                  comparison[recTitle].push(nutritionData.nutrients[0].percentOfDailyNeeds, nutritionData.nutrients[1].percentOfDailyNeeds, nutritionData.nutrients[3].percentOfDailyNeeds, nutritionData.nutrients[4].percentOfDailyNeeds, nutritionData.nutrients[7].percentOfDailyNeeds)
+                },
+                error: (error) => console.log('something went wrong', error)
+              }) // ****** END OF JEE ADDED FEATURE ******
+              self.setState({foodComparison: comparison});
             }
           });
         }
@@ -259,6 +281,7 @@ class homePage extends React.Component {
   }
 
   handleUnfavToggle(recipe) {
+    var self = this;
     var recipeId = recipe.id;
     if (JSON.stringify(recipeId).length < 6) {
       recipeId = recipe.recipeId;
@@ -290,6 +313,25 @@ class homePage extends React.Component {
           dataType: 'text',
           success: (data) => {
             console.log('DESTROYED');
+            console.log('DATA', newRecipe.recipeId)
+            var comparison = self.state.foodComparison;
+
+              $.ajax({
+                type: 'GET',
+                url: '/fetchRecipeById',
+                contentType: 'application/json',
+                data: ({id: newRecipe.recipeId}),
+                dataType: 'text',
+                success: (data) => {
+                  data = JSON.parse(data)
+                  var recTitle = JSON.parse(data.title)
+                  // var nutritionData = JSON.parse(data.nutrition)
+                  delete comparison[recTitle];   // or delete person["age"];
+                  console.log('ICE CUBE', comparison)
+
+                },
+                error: (error) => console.log('something went wrong', error)
+              }) // ****** END OF JEE ADDED FEATURE ******
           }
         });
       }
@@ -488,7 +530,7 @@ class homePage extends React.Component {
           <div className="container">
             <footer className="footer">
               <p className="float-right"><a href="#">Back to top</a></p>
-              <p>For Educational Purposes Only &middot; <a target="_blank" href="https://github.com/ckeating-nh">Chris</a> &middot; <a target="_blank" href="https://github.com/Kale007">Raj</a> &middot; <a target="_blank" href="https://github.com/JonEricEscobedo">Jon Eric</a> &middot; Project originally created by the <a target="_blank" href="https://github.com/infamousfrogs/infamousfrogs/graphs/contributors">Infamous Frogs</a> &middot; 2017</p>
+              <p><a target="_blank" href="https://github.com/ckeating-nh">Chris</a> &middot; <a target="_blank" href="https://github.com/Kale007">Raj</a> &middot; <a target="_blank" href="https://github.com/JonEricEscobedo">Jon Eric</a> &middot; Project originally created by the <a target="_blank" href="https://github.com/infamousfrogs/infamousfrogs/graphs/contributors">Infamous Frogs</a> &middot; Icon by <a target="_blank" href="https://thenounproject.com/search/?q=vegetable_013-garlic-food-herb-veggie-eat&i=569323">Pham Thi Dieu Linh</a> &middot; 2017</p>
             </footer>
           </div>
         </div>
