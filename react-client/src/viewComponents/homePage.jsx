@@ -148,10 +148,11 @@ class homePage extends React.Component {
             data: ({id: data[i].recipeId}),
             dataType: 'text',
             success: (data) => {
-              var parsedData = JSON.parse(data)
-              console.log(parsedData.nutrition)
-              // comparison[parsedData.title] = [];
-              // comparison[parsedData.title].push(parsedData.nutrition.nutrients[0].percentOfDailyNeeds)
+              data = JSON.parse(data)
+              var nutritionData = JSON.parse(data.nutrition)
+              var recTitle = JSON.parse(data.title)
+              comparison[recTitle] = [];
+              comparison[recTitle].push(nutritionData.nutrients[0].percentOfDailyNeeds, nutritionData.nutrients[1].percentOfDailyNeeds, nutritionData.nutrients[3].percentOfDailyNeeds, nutritionData.nutrients[4].percentOfDailyNeeds, nutritionData.nutrients[7].percentOfDailyNeeds)
             },
             error: (error) => console.log('something went wrong', error)
           }) // ****** END OF JEE ADDED FEATURE ******

@@ -64,12 +64,12 @@ module.exports = {
 
     title: {
         // text: 'Budget vs spending',
-        text: 'Nutritional Comparison',
+        text: '',
         x: -80
     },
 
     pane: {
-        size: '80%'
+        size: '90%'
     },
 
     xAxis: {

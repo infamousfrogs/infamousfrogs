@@ -10,7 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton'; // ****** JEE ADDED FEATURE
 import Dialog from 'material-ui/Dialog'; // ****** JEE ADDED FEATURE ******
 import injectTapEventPlugin from 'react-tap-event-plugin'; // ****** JEE ADDED FEATURE ******
 
-injectTapEventPlugin(); // ****** JEE ADDED FEATURE ****** testing testing
+injectTapEventPlugin(); // ****** JEE ADDED FEATURE ****** testing testing testing testing
 //****** RPK ADDED FEATURE********
 var Highcharts = require('highcharts');
 var ReactHighcharts = require('react-highcharts');
@@ -161,7 +161,7 @@ class RecipesFaves extends React.Component {
         >
           {this.props.user ?
             <div className="col-md-12">
-              {/*<span id="compare"><RaisedButton className="button" onTouchTap={this.handleOpen} label="Compare"></RaisedButton></span>*/}
+              <span id="compare"><RaisedButton className="button" onTouchTap={this.handleOpen} label="Compare"></RaisedButton></span>
             </div> : ''
           }
           <GridList
@@ -256,6 +256,8 @@ class RecipesFaves extends React.Component {
             <div style={{height: '70vh'}} className="container-fluid">
               <div className="row">
                 <div className="col">
+                  <br/>
+                  <br/>
                   <div id="container">
                   </div>
                 </div>
