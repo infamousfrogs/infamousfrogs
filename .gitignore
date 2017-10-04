@@ -1,5 +1,7 @@
 ### node etc ###
 
+react-client/dist/bundle.js
+.DS_Store
 # Logs
 logs
 *.log

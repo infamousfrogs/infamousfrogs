@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import toJson from 'enzyme-to-json'
-import ReactTestUtils from 'react-dom/test-utils'; 
+import ReactTestUtils from 'react-dom/test-utils';
 import RecipesView from '../react-client/src/components/RecipesView.jsx';
 
 jest.dontMock('../react-client/src/components/RecipesView.jsx');
@@ -27,5 +27,3 @@ test('should have header text', function() {
   const component = shallow(<RecipesView />)
   expect(component.contains(<h4>Search Results</h4>)).toBeTruthy();
 });
-
-

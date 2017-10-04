@@ -22,6 +22,9 @@ var User = sequelize.define('users', {
   },
   password: {
     type: Sequelize.STRING
+  },
+  allergens: {
+    type: Sequelize.STRING
   }
 });
 
@@ -46,7 +49,30 @@ var Recipe = sequelize.define('recipes', {
   }
 });
 
+//*********RPK ADDED FEATURES********
+var Cache = sequelize.define('caches', {
+  recipeId: {
+    type: Sequelize.INTEGER
+  },
+  title: {
+    type: Sequelize.STRING
+  },
+  image: {
+    type: Sequelize.STRING
+  },
+  instructions: {
+    type: Sequelize.TEXT
+  },
+  nutrition: {
+    type: Sequelize.TEXT
+  // },
+  // summary: {
+  //   type: Sequelize.TEXT
+  }
+});
+
 sequelize.sync();
+
 
 var createRecipe = (req, res) => {
   Recipe.create({
@@ -80,20 +106,21 @@ var retrieveFavorites = (req, res) => {
 };
 
 var createUser = (req, res) => {
+  console.log('INSIDE CREATEUSER', req.body);
   User.findOne({where: {username: req.body.username}}).then(function(user) {
     if (!user) {
       User.create({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        allergens: req.body.allergens // ****** JEE ADDED *******
       }).then(function() {
-        req.session.user = {username: req.body.username, password: req.body.password};
+        req.session.user = {username: req.body.username, password: req.body.password, allergens: req.body.allergens};
         User.findOne({where: {username: req.body.username}}).then(function(user) {
           res.send(user);
         });
       });
     } else {
       res.send({'useralreadyexists': 'useralreadyexists'});
-      // res.render('./views/login.html', {error: 'Username doesnt exist'})
     }
   });
 };
@@ -113,9 +140,48 @@ var checkIfUserExists = (req, res) => {
   });
 };
 
+//********RPK ADDED FEATURE******
+
+var checkIfRecipeIsCached = function (req, res, callback) {
+  Cache.findOne({where: {recipeId: req.query.id}}).then(function(recipe) {
+    if ( recipe === null ) {
+      callback(false);
+    } else {
+      callback(null, recipe.dataValues);
+    }
+  });
+}
+
+// var checkIfRecipeIsCached = (req, res) => {
+//   Cache.findOne({where: {recipeId: req.query.id}}).then(function(recipe) {
+//     console.log('RECIPE!', recipe.dataValues)
+//     if (!recipe) {
+//       return false;
+//     } else {
+//       return recipe.dataValues;
+//     }
+//   });
+// };
+
+var cacheRecipe = (req, res) => {
+  if ( JSON.parse(req).summary ) {
+    Cache.update({})
+  }
+  Cache.create({
+    recipeId: JSON.stringify(JSON.parse(req).id),
+    title: JSON.stringify(JSON.parse(req).title),
+    image: JSON.stringify(JSON.parse(req).image),
+    instructions: JSON.stringify(JSON.parse(req).analyzedInstructions),
+    nutrition: JSON.stringify(JSON.parse(req).nutrition)
+    // summary: JSON.stringify(JSON.parse(req).summary),
+  })
+};
+
 
 module.exports.checkIfUserExists = checkIfUserExists;
 module.exports.createUser = createUser;
 module.exports.createRecipe = createRecipe;
 module.exports.removeRecipe = removeRecipe;
 module.exports.retrieveFavorites = retrieveFavorites;
+module.exports.checkIfRecipeIsCached = checkIfRecipeIsCached;
+module.exports.cacheRecipe = cacheRecipe;
