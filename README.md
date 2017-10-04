@@ -1,3 +1,13 @@
+# Update: Meal.it
+The Legacy code of Simply Recipes was further developed on to incorporate additional features
+[Website](https://whats-in-the-pantry.herokuapp.com/)
+
+# Meal.it Team
+- Rajas Kale
+- Jon-Eric Escobedo
+- Chris Keating
+
+
 # Simply Recipes
 
 Personalized, interactive recipe search site.
