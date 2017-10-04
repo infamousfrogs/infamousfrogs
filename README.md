@@ -1,5 +1,6 @@
 # Update: Meal.it
-The Legacy code of Simply Recipes was further developed on to incorporate additional features
+The Legacy code of Simply Recipes was further developed on to incorporate additional features.
+
 [Website](https://whats-in-the-pantry.herokuapp.com/)
 
 # Meal.it Team
